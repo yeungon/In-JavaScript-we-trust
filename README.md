@@ -8,17 +8,24 @@ In JS we trust
 ###### 1. What's the output?
 
 ```javascript
-function sayHi() {
-  console.log(name);
-  console.log(age);
-  var name = "Lydia";
-  let age = 21;
+function a(x){
+  x++;
+  return function(){
+  console.log(++x)
+  }
 }
 
-sayHi();
+a(1)();
+a(1)();
+a(1)();
+
+let x = a(1);
+x();
+x();
+x();
 ```
 
-- A: `Lydia` and `undefined`
+- A: `123` and `123`
 - B: `Lydia` and `ReferenceError`
 - C: `ReferenceError` and `21`
 - D: `undefined` and `ReferenceError`
