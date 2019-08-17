@@ -44,3 +44,33 @@ This kind of gottcha gives me the feeling of `static` variable in PHP world.
 </details>
 
 ---
+###### 2. What's the output?
+
+```javascript
+function Name(a, b){
+  this.a = a;
+  this.b = b;
+}
+
+const me = Name("Vuong", "Nguyen);
+
+console.log(!(a.length - window.a.length));
+```
+
+- A: `undefined`
+- B: `NaN`
+- C: `true`
+- D: `false`
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+We get true when in the console. The tricky part is when we create an object from the constructor function Name but we DO NOT USE `new` keywork. That makes the variable `a` global one and get the value "Vuong". Remember that it is actually a property of the global object `window` (in the browser) or `global` in the nodejs. 
+
+We then get `a.length` ~ 5 and `window.a.length` ~ 5 which return 0. !0 returns true.
+
+Image what would happen when we create the instance `me` with the `new` keywork. What would happen?
+</p>
+</details>
