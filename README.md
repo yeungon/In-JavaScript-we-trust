@@ -74,3 +74,38 @@ We then get `a.length` ~ 5 and `window.a.length` ~ 5 which return 0. !0 returns 
 Image what would happen when we create the instance `me` with the `new` keywork. What would happen?
 </p>
 </details>
+---
+###### 3. What's the output?
+
+```javascript
+const x = function (...x){
+  let k = (typeof x).length;
+  let y = ()=> "freetut".length;
+  let z = {y:y};
+  return k - z.y();
+  
+};
+
+console.log(Boolean(x()))
+```
+
+- A: `true`
+- B:  1
+- C: -1
+- D: `false`
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+The spread operator `...x` might help us obtain the parameter in the function in the form of array. Yet, in Javascript the typeof array return "object" rather than "array". It is totally odd if you are coming from PHP.
+
+That is said, we now have the length of the string `object` which returns 6. z.y() simply returns the length of the string 'freetut' (7). 
+
+Be aware that the function x() (in the form of `function express` or `anonymous function` (if you are coming from PHP) return -1 when being called and when converted to bool with `Boolean(-1)` return true instead of false. Noted that `Boolean(0)` return false.
+</p>
+</details>
+
+
+
