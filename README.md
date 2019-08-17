@@ -71,7 +71,7 @@ We get true when in the console. The tricky part is when we create an object fro
 
 We then get `a.length` ~ 5 and `window.a.length` ~ 5 which return 0. !0 returns true.
 
-Image what would happen when we create the instance `me` with the `new` keywork. What would happen?
+Imagine what would happen when we create the instance `me` with the `new` keywork. That is an interesting inquire!
 </p>
 </details>
 
