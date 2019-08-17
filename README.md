@@ -109,4 +109,45 @@ Be aware that the function x() (in the form of `function express` or `anonymous 
 </details>
 
 
+---
+###### 4. What's the output?
+
+```javascript
+(function js(x){
+   
+   const y = (j) => j*x;
+   
+   console.log(y(s()))
+   
+   function s(){
+     return j();
+   }
+  
+   function j(){
+     return x**x;
+   }
+  
+})(3);
+```
+
+- A: `undefined`
+- B:  18
+- C:  81
+- D:  12
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+The function `js()` can be automatically executed without calling it and known as IIFE (Immediately Invoked Function Expression). Noted the parameter `x` of the function `js` is actuallly passed with the value 3.
+
+The value return of the function is y(s())), meaning calling three other functions `y()`, `s()` and `j()` because the function `s()` returns `j()`. 
+
+j() return 3^3 = 27 so that s() return 27.
+
+y(s()) means y(27) which returns 27*3 = 81.
+
+Note that we can call `declare function` BEFORE the function is actually declared but not with `expression function`.
+</p>
+</details>
 
