@@ -196,3 +196,43 @@ JS is fun, right?
 </p>
 </details>
 
+
+---
+###### 6. What's the output?
+
+```javascript
+
+const js = { language: "loosely type", label: "difficult" };
+
+const edu = {...js, level: "PhD"};
+
+const newbie = edu;
+
+delete edu.language;
+
+console.log(Object.keys(newbie).length);
+```
+
+- A:  2;
+- B:  3;
+- C:  4;
+- D:  5;
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: 2
+
+This challenge revises the ES6's feature regarding `spread operator ...` Spread operator is quite useful for retrieving parameter in function, to `unite` or `combine` object and array in JavaScript. PHP also has this feature.
+
+In the variable `edu`, we use `...js` (spread operator here) to combine both objects into one. It works in the same way with array.
+
+Then we declare another variable named `newbie`. IMPORTANT note: By declaring the variable like that, both variables point to the SAME POSITION in the memory. We may have known something like `$a = &$b` in PHP, which let both varibles work in the same way. We might have known about `pass by reference` in the case.
+
+Then we have 2 as `edu.language` is deleted. Both objects now have only two elements.
+
+Now is time to think about coping an object in JS either shallow or deep one.
+</p>
+</details>
+
+
