@@ -1,7 +1,6 @@
 # js.edu.vn
-In JS we trust
 
-
+In JS we trust - The best way to learn is by building/coding and teaching. I create the challenges to help my friends learn JavaScript and in return it helps me embrace the language in much deeper level. Feel free to clone, fork and pull.
 
 ---
 
