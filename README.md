@@ -74,6 +74,7 @@ We then get `a.length` ~ 5 and `window.a.length` ~ 5 which return 0. !0 returns 
 Image what would happen when we create the instance `me` with the `new` keywork. What would happen?
 </p>
 </details>
+
 ---
 ###### 3. What's the output?
 
