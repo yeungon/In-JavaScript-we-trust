@@ -221,7 +221,7 @@ console.log(Object.keys(newbie).length);
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: 2
+#### Answer: A
 
 This challenge revises the ES6's feature regarding `spread operator ...` Spread operator is quite useful for retrieving parameter in function, to `unite` or `combine` object and array in JavaScript. PHP also has this feature.
 
@@ -235,4 +235,48 @@ Now is time to think about coping an object in JS either shallow or deep one.
 </p>
 </details>
 
+---
+###### 7. What's the output?
+
+```javascript
+var candidate = {
+	name : 'Vuong',
+	age  : 30
+}
+
+var job = {
+	frontend : 'Vuejs or Reactjs',
+	backend : 'PHP and Laravel',
+	city : 'Auckland'
+} 
+
+class Combine{
+  static get(){
+    return Object.assign(candidate, job)
+  }
+  
+  static count(){    
+    return Object.keys(this.get()).length;
+  }
+}
+
+console.log(Combine.count());
+```
+
+- A:  5;
+- B:  6;
+- C:  7;
+- D:  8;
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+The buit-in method `Object.assign(candidate, job)` with merge two objects `candidate` and `job` into one object. Then the method `Object.keys` counts the number of `key` in the object.
+
+Note that two methods `get()` and `count()` are defined as `static`, they need to be called statically using `Class.staticmethod()` syntaxt. Then the final object get 5 elements.
+
+</p>
+</details>
 
