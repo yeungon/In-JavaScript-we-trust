@@ -273,9 +273,9 @@ console.log(Combine.count());
 
 #### Answer: A
 
-The buit-in method `Object.assign(candidate, job)` with merge two objects `candidate` and `job` into one object. Then the method `Object.keys` counts the number of `key` in the object.
+The buit-in method `Object.assign(candidate, job)` merges the two objects `candidate` and `job` into one object. Then the method `Object.keys` counts the number of `key` in the object.
 
-Note that two methods `get()` and `count()` are defined as `static`, they need to be called statically using `Class.staticmethod()` syntaxt. Then the final object get 5 elements.
+Note that two methods `get()` and `count()` are defined as `static`, so they need to be called statically using `Class.staticmethod()` syntax. Then the final object get 5 elements.
 
 </p>
 </details>
