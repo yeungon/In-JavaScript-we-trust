@@ -143,11 +143,56 @@ The function `js()` can be automatically executed without calling it and known a
 
 The value return of the function is y(s())), meaning calling three other functions `y()`, `s()` and `j()` because the function `s()` returns `j()`. 
 
-j() return 3^3 = 27 so that s() return 27.
+j() returns 3^3 = 27 so that s() returns 27.
 
 y(s()) means y(27) which returns 27*3 = 81.
 
 Note that we can call `declare function` BEFORE the function is actually declared but not with `expression function`.
+</p>
+</details>
+
+
+---
+###### 5. What's the output?
+
+```javascript
+
+var tip = 100;
+
+(function () {
+    
+  console.log("I have $" + husband());
+  
+  function wife(){
+    return tip*2;
+  }
+  
+  function husband(){
+    return wife()/2;
+  }
+  
+  var tip = 10;
+  
+})();
+```
+
+- A:  "I have $10";
+- B:  "I have $100";
+- C:  "I have $50";
+- D:  "I have $NaN";
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+We have here an IIFE (Immediately Invoked Function Expression). It means we do not have to call it but it will be excuted automatically when declared. The flow is as: husband() returns wife()/2 and wife() returns tip*2. 
+
+We might think that tip = 100 because it is a global variable when declaring with `var` keyword. However, it is actually `undefined` because we also have `var tip = 10` INSIDE the function. As the variable `tip` is hoisted with default value `undefined`, the final result would be D.
+
+If we do not re-declare `var tip = 10;` at the end of the function, we will definately get D.
+
+JS is fun, right?
+
 </p>
 </details>
 
