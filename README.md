@@ -1,5 +1,3 @@
-# js.edu.vn
-
 In JS we trust - The best way to learn is by building/coding and teaching. I create the challenges to help my friends learn JavaScript and in return it helps me embrace the language in much deeper level. Feel free to clone, fork and pull.
 
 ---
@@ -351,6 +349,37 @@ This question illustrates the diffences between PHP and JavaScript when handling
 On the contrary, JavaScript treats the variable a bit different when it is passed to anonymous function. We do not have to use the keyword `use` here to pass variable to the closure. The variable `x` in the second snippet is updated before the closure is called, then we get 26.
 
 Note that in PHP 7.4, we have arrow function and we then do not have to use the keyword `use` to pass the variable to function. Another way to call a `global` ariable inside a function in PHP is to use the keyword `global` or employ the built-in GLOBAL variable $GLOBALS.
+
+</p>
+</details>
+
+---
+###### 10. What's the output?
+
+```javascript
+let x = {};
+let y = {};
+let z = x;
+
+console.log(x == y);
+console.log(x === y);
+console.log(x == z);
+console.log(x === z);
+```
+
+- A:  true    true    true    true;
+- B:  false   false   false   false;
+- C:  true    true    false   false;
+- D:  false   false   true    true;
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+Technically, `x` and `y` have the same value. Both are empty objects. However, we do not use the value to compare objects.
+
+`z` is `x` are two objects referring to the same memory position. In JavaScript, array and object are passed by `reference`. `x` and `z` therefore return true when being compared.
 
 </p>
 </details>
