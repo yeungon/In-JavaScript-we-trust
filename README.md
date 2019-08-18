@@ -38,7 +38,7 @@ This question reminds us about Closure in JS. Closure means we can create a `sta
 
 We have here 333 and 345 because first we simply call the function a. It works like a normal function and we do not see something `stateful` here. In later case, we declare a variable `x` and it stores the value of function `a(1)`, that is why we get 3. 4. 5 rather than 3, 3, 3.
 
-This kind of gottcha gives me the feeling of `static` variable in PHP world.
+This kind of gotcha gives me the feeling of `static` variable in PHP world.
 </p>
 </details>
 
@@ -308,6 +308,49 @@ Initially `x` is declared with the value 1. In the first IIFE function, there ar
 In the second IIFE function, `x = x + y` then the current value is 5. In the second operation, it returns only 1 as it undergoes `5%2`.
 
 In the third and fouth IIFE functions, we get 2 `x = x + x` and then 4 `x = x * x`. It is more than simple.
+
+</p>
+</details>
+
+
+---
+###### 9. What's the output?
+
+```php
+$var = 10;
+$f = function($let)use($var){
+    return ++$let + $var;
+};
+
+$var = 15;
+echo $f(10);
+```
+
+```javascript
+var x = 10;
+
+const f = (l) => ++l + x;
+;
+
+x = 15;
+console.log(f(10));
+```
+
+- A:  26 and 26;
+- B:  21 and 21;
+- C:  21 and 26;
+- D:  26 and 21;
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+This question illustrates the diffences between PHP and JavaScript when handling closure. In the first snippet, we declare a closure with the keyword `use`. Closure in PHP is simply an anonymous function and the data is passed to the function using the keyword `use`. Otherwise, it is called as `lambda` when we do not use the keyword `use`. You can check the result of the snippet here https://3v4l.org/PSeMY. PHP `closure` only accepts the value of the variable BEFORE the closure is defined, no matter where it is called. As such, `$var` is 10 rather than 15.
+
+On the contrary, JavaScript treats the variable a bit different when it is passed to anonymous function. We do not have to use the keyword `use` here to pass variable to the closure. The variable `x` in the second snippet is updated before the closure is called, then we get 26.
+
+Note that in PHP 7.4, we have arrow function and we then do not have to use the keyword `use` to pass the variable to function. Another way to call a `global` ariable inside a function in PHP is to use the keyword `global` or employ the built-in GLOBAL variable $GLOBALS.
 
 </p>
 </details>
