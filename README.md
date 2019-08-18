@@ -279,3 +279,36 @@ Note that two methods `get()` and `count()` are defined as `static`, so they nee
 </p>
 </details>
 
+---
+###### 8. What's the output?
+
+```javascript
+var x = 1;
+
+(()=> {x += 1; ++x})();
+((y)=> {x +=y; x = x%y;})(2);
+(()=> x += x)();
+(()=> x *= x)();
+
+console.log(x);
+```
+
+- A:  4;
+- B:  50;
+- C:  2;
+- D:  10;
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+Initially `x` is declared with the value 1. In the first IIFE function, there are two operations. First `x` becomes 2 and then 3.
+
+In the second IIFE function, `x = x + y` then the current value is 5. In the second operation, it returns only 1 as it undergoes `5%2`.
+
+In the third and fouth IIFE functions, we get 2 `x = x + x` and then 4 `x = x * x`. It is more than simple.
+
+</p>
+</details>
+
