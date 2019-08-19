@@ -412,6 +412,7 @@ Given that three setTimeout() functions will be kept in the `task queue` before 
 
 We might have the feeling that three setTimeout() functions should be executed in the order "world" -> "hey" -> "kiora" providing that the time we have set are 0 mil second -> 1 mil second -> 2 mil second respectively. Yet, there is no different between 0 and 1 mil second. That is why we will see "hey" in the next. "world" is being executed then and following by the last on "kiora".
 
+For reference, read this https://stackoverflow.com/questions/8341803/difference-between-settimeoutfn-0-and-settimeoutfn-1
 </p>
 </details>
 
