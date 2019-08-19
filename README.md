@@ -455,3 +455,37 @@ Note that if we declare object without `let, const` or `var`, we then have a glo
 </p>
 </details>
 
+---
+
+###### 13. What's the output?
+
+```javascript
+
+let x = {};
+
+x.__proto__.hi = 10;
+
+Object.prototype.hi = ++x.hi;
+
+console.log(x.hi + Object.keys(x).length);
+
+```
+- A:  10
+- B:  11
+- C:  12
+- D:  NaN
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+First we have an empty object `x`, then we add another property `hi` for x with `x.__proto__.hi`. Note this is equivalent to `Object.prototype.hi = 10` and we are adding to the `father` object `Object` the property `hi`. It means every single object will inherit this propety. The property `hi` becomes a shared one. Say now we declare a new object such as `let y = {}`, `y` now has a propery `hi` inherited from the `father` `Object`. Put it simply `x.__proto__ === Object.prototype` returns `true`.
+
+Then we overwrite the property `hi` with a new value 11. Last we have 11 + 1 = 12. `x` has one property and `x.hi` returns 11.
+
+</p>
+</details>
+
+
+
