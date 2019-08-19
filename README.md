@@ -447,7 +447,7 @@ x.name.lengthy();
 
 `String.prototype.something = function(){}` is the common way to define a new built-in method for `String`. We can do the same thing with `Array`, `Object` or `FunctionName` where FunctionName is the function designed by ourself.
 
-That is not challenging to realise that `"string".length()` will always return `hello`. Yet, the tricky part lies in the `delete object` where we might that this expression will entirely delete the object. That is not the case as `delete` is used to delete the property of the object only. It does not delete the object. Then we get `hello` rather than `ReferenceError`.
+That is not challenging to realise that `"string".length()` always returns `hello`. Yet, the tricky part lies in the `delete object` where we might think that this expression will entirely delete the object. That is not the case as `delete` is used to delete the property of the object only. It does not delete the object. Then we get `hello` rather than `ReferenceError`.
 
 
 </p>
