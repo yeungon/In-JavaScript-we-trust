@@ -384,3 +384,33 @@ Technically, `x` and `y` have the same value. Both are empty objects. However, w
 </p>
 </details>
 
+
+---
+###### 11. What's the output?
+
+```javascript
+console.log("hello");
+
+setTimeout(()=>console.log("hey"), 1);
+setTimeout(()=>console.log("kiora"), 2);
+setTimeout(()=>console.log("world"), 0);
+
+console.log("hi");
+```
+
+- A:  "hello" "hey" "kiora" "world" "hi"
+- B:  "hello" "hi"  "hey"   "kiora" "world"
+- C:  "hello" "hi"  "world" "hey"   "kiora"
+- D:  "hello" "hi"  "hey"   "world" "kiora"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+Given that three setTimeout() functions will be kept in the `task queue` before jumping back to `stack`, "hello" and "hi" will be printed first, then A is totally incorrect.
+
+We might have the feeling that three setTimeout() functions should be executed in the order "world" -> "hey" -> "kiora" providing that the time we have set are 0 mil second -> 1 mil second -> 2 mil second respectively. Yet, there is no different between 0 and 1 mil second. That is why we will see "hey" in the next. "world" is being executed then and following by the last on "kiora".
+
+</p>
+</details>
