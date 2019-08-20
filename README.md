@@ -64,7 +64,7 @@ console.log(!(a.length - window.a.length));
 
 #### Answer: C
 
-We get true when in the console. The tricky part is when we create an object from the constructor function Name but we DO NOT USE `new` keywork. That makes the variable `a` global one and get the value "Vuong". Remember that it is actually a property of the global object `window` (in the browser) or `global` in the nodejs. 
+We get true in the console. The tricky part is when we create an object from the constructor function Name but we DO NOT USE `new` keywork. That makes the variable `a` global one and get the value "Vuong". Remember that it is actually a property of the global object `window` (in the browser) or `global` in the nodejs. 
 
 We then get `a.length` ~ 5 and `window.a.length` ~ 5 which return 0. !0 returns true.
 
