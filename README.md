@@ -487,5 +487,59 @@ Then we overwrite the property `hi` with a new value 11. Last we have 11 + 1 = 1
 </p>
 </details>
 
+---
+
+###### 14. What's the output?
+
+```javascript
+const array = (a)=>{
+  let length = a.length;
+  delete a[length-1];
+  return a.length;
+};
+
+console.log(array([1, 2, 3, 4]));
+
+
+const object = (obj)=>{
+  let key = Object.keys(obj);  
+  let length = key.length;  
+  delete obj[key[length - 1]];
+  return Object.keys(obj).length;
+};
+
+console.log(object({1: 2, 2: 3, 3: 4, 4:5}));
+
+
+const setPropNull = (obj)=>{
+  let key = Object.keys(obj);  
+  let length = key.length;  
+  obj[key[length - 1]] = null;  
+  return Object.keys(obj).length;
+  
+};
+
+console.log(setPropNull({1: 2, 2: 3, 3: 4, 4:5}));
+
+```
+- A:  333
+- B:  444
+- C:  434
+- D:  343
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+This question examines how the `delete` operator works in JavaScript. In short, it does nothing when we write `delete someObject` or `delete someArray`. It nonetheless completely deletes and removes a property of an object when writing something like `delete someObject.someProperty`. In the case of array, when we write `delete someArray[keyNumber]`, it only removes the `value` of the `index`, keep the `index` intact and the new `value` is now set to `undefined`. For that reason, in the code first snippet, we get (the length) 4 elements as in the original array but only 3 properties left in the object passed when the function object() is called, as in the second snippet.
+
+The third snippet gives us 4 as declaring an object's propery to either `null` or `undefined` does not completely remove the property. The key is intact. So the length of the object is immutable.
+
+For those who are familiar with PHP, we have `unset($someArray[index])` that remove the array element, both key and value. When `print_r` the array, we might not see the key and value that have been unset. However, when we push (using `array_push($someArray, $someValue)`) a new element in that array, we might see that the previous key is still kept, but no value and not being displayed. That is something you should be aware of. Have a look at https://3v4l.org/7C3Nf
+
+</p>
+</details>
+
 
 
