@@ -22,19 +22,19 @@ x();
 x();
 ```
 
-- A: `123` and `123`
-- B: `333` and `345`
-- C: `333` and `123`
-- D: `123` and `333`
+- A: `1, 2, 3` and `1, 2, 3`
+- B: `3, 3, 3` and `3, 4, 5`
+- C: `3, 3, 3` and `1, 2, 3`
+- D: `1, 2, 3` and `3, 3, 3`
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: B
 
-This question reminds us about Closure in JS. Closure means we can create a `stateful function` and such function can access to variable outside of its scope. In a nutshell, a closure can have access to `global` variable (scope), `father function` scope and `its` scope.
+This question reminds us about Closure in JS. Closure allows us to create a `stateful function` and such function can access to variable outside of its scope. In a nutshell, a closure can have access to `global` variable (scope), `father function` scope and `its` own scope.
 
-We have here 333 and 345 because first we simply call the function a. It works like a normal function and we do not see something `stateful` here. In later case, we declare a variable `x` and it stores the value of function `a(1)`, that is why we get 3. 4. 5 rather than 3, 3, 3.
+We have here 3, 3, 3 and 3, 4, 5 because first we simply call the function `a()`. It works like a normal function and we do not see something `stateful` here. In later case, we declare a variable `x` and it stores the value of function `a(1)`, that is why we get 3. 4. 5 rather than 3, 3, 3.
 
 This kind of gotcha gives me the feeling of `static` variable in PHP world.
 </p>
@@ -541,5 +541,45 @@ For those who are familiar with PHP, we have `unset($someArray[index])` that rem
 </p>
 </details>
 
+
+
+---
+
+###### 15. What's the output?
+
+```javascript
+
+var a = [1, 2, 3];
+var b = [1, 2, 3];
+
+var c = [1, 2, 3];
+var d = c;
+
+var e = [1, 2, 3];
+var f = e.slice();
+
+console.log(a === b); 
+console.log(c === d); 
+console.log(e === f); 
+
+```
+- A:  true  true  true
+- B:  false false true
+- C:  true  true  false
+- D:  false true  false
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+`a` and `b` returns false because they point to different memory location eventhough the values are the same. If you are coming from PHP world, then it will return true obviously when we compare the value and value + type. Check it out: https://3v4l.org/IjaOs.
+
+In JavaScript, value is passed by reference in case of `array` and `object`. Hence In the second case, `d` is the copy of `d` but they both point to the same memory position. Everything changes in `c` will result in the same change in `d`. In PHP, we might have `$a = &$b;`, working in the similar way.
+
+The third one gives us a hint to copy an array in JavaScript using `slice()` method. Now we have `f`, which is copy of `e` but they point to different memory locations, then they have differnt "life". We get `false` here when they are being compared.
+
+</p>
+</details>
 
 
