@@ -573,9 +573,9 @@ console.log(e === f);
 
 #### Answer: D
 
-`a` and `b` returns false because they point to different memory location eventhough the values are the same. If you are coming from PHP world, then it will return true obviously when we compare the value and value + type. Check it out: https://3v4l.org/IjaOs.
+`a` and `b` returns false because they point to different memory location even though the values are the same. If you are coming from PHP world, then it will return true obviously when we compare either value or value + type. Check it out: https://3v4l.org/IjaOs.
 
-In JavaScript, value is passed by reference in case of `array` and `object`. Hence In the second case, `d` is the copy of `d` but they both point to the same memory position. Everything changes in `c` will result in the same change in `d`. In PHP, we might have `$a = &$b;`, working in the similar way.
+In JavaScript, value is passed by reference in case of `array` and `object`. Hence in the second case, `d` is the copy of `c` but they both point to the same memory position. Everything changes in `c` will result in the same change in `d`. In PHP, we might have `$a = &$b;`, working in the similar way.
 
 The third one gives us a hint to copy an array in JavaScript using `slice()` method. Now we have `f`, which is copy of `e` but they point to different memory locations, then they have differnt "life". We get `false` here when they are being compared.
 
