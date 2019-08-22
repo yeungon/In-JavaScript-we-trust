@@ -583,3 +583,53 @@ The third one gives us a hint to copy an array in JavaScript using `slice()` met
 </details>
 
 
+
+
+---
+###### 16. What's the output?
+
+```javascript
+
+var languages = {
+  name:['elixir', 'golang', 'js', 'php', {name:"feature"}],
+  feature: 'awesome',
+}
+
+
+let flag = languages.hasOwnProperty(Object.values(languages)[0][4].name);
+
+
+(() => {
+  if (flag !==false){
+    console.log(Object.getOwnPropertyNames(languages)[0].length << Object.keys(languages)[0].length);
+  }else{
+    console.log(Object.getOwnPropertyNames(languages)[1].length << Object.keys(languages)[1].length);
+  }
+})()
+
+
+```
+
+- A:  8
+- B:  NaN
+- C:  64
+- D:  12
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: 64
+
+The code snippet is quite tricky as it has a couple of different built-in methods handling object in `JavaScript`. For example, both `Object.keys` and `Object.getOwnPropertyNames` are used even thought they are quite similar except that the latter can return non-enumerable properties. You might want to have a look at this thoroughly written reference https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames
+
+
+`Object.values` and `Object.keys` return the property value and property name of the object, respectively. That is nothing new. `object.hasOwnProperty('propertyName')` returns a `boolean` confirming whether a property exists or not. 
+
+We have `flag` true because `Object.values(languages)[0][4].name` returns `feature`, which is also the name of the property. 
+
+Then we have 4 << 4 in the `if-else` flow that returns the bitwise value, equivalent to `4*2^4` ~ `4*16` ~ 64.
+</p>
+</details>
+
+
+
