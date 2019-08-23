@@ -631,5 +631,47 @@ Then we have 4 << 4 in the `if-else` flow that returns the bitwise value, equiva
 </p>
 </details>
 
+---
+###### 17. What's the output?
 
+```javascript
+var player = {name: 'Ronaldo', age: 34, getAge: function(){return ++this.age - this.name.length}};
+
+function score(greeting, year) {
+
+  console.log(greeting + ' ' + this.name + `! You were born in  ${year - this.getAge()}`);
+}
+
+
+window.window.window.window.window.window.window.window.window.window.window.window.window.window.window.window.score.call(window.window.window.window.window.window.window.player, 'Kiora', 2019); 
+
+score.apply(player, ['Kiora', 2009 ]); 
+
+const helloRonaldo = window.score.bind(window.player, 'Kiora', 2029);
+
+helloRonaldo(); 
+
+```
+
+- A:  "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985"
+- B:  "Kiora Ronaldo! You were born in  1991", "Kiora Ronaldo! You were born in  1991", "Kiora Ronaldo! You were born in  1999"
+- C:  "Kiora Ronaldo! You were born in  1991",  NaN,                                     "Kiora Ronaldo! You were born in  1980"
+- D:  "Kiora Ronaldo! You were born in  1991", "Kiora Ronaldo! You were born in  1980", "Kiora Ronaldo! You were born in  1999"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+We can use `call()`, `apply()` and `bind()` to appy a function to any object. At first sight, it seems that three functions do the same thing. Yet there are some situations where they are differently employed to handle respective contexts or solve particular problems. 
+
+Of the three, only `bind()` can be executed after binding. We can create a variable to store the result as `helloRonaldo()` in the code snippet above. `apply()` and `call()` will bind and execute the function at the same time. `apply()` hints us `a` ~ array where we need to pass an array as parameter. `call()` hints us `c` or comma where we pass parameters with a comma. You might want to have a look at this post https://stackoverflow.com/questions/15455009/javascript-call-apply-vs-bind
+
+Note that `window.window.window.score` or `window.score` or simply `score` do the same thing. It points to the `score()` function in the global scope.
+
+The correct anwser is D. The `score()` and `getAge()` functions are nothing special.
+
+
+</p>
+</details>
 
