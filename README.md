@@ -675,3 +675,56 @@ The correct anwser is D. The `score()` and `getAge()` functions are nothing spec
 </p>
 </details>
 
+
+---
+###### 18. What's the output?
+
+```javascript
+
+var ronaldo = {age: 34};
+
+var messi = {age: 32};
+
+function score(year, tr, t) {
+   
+   if(typeof tr === 'function' && typeof t === 'function') {
+
+      console.log(`You score ${tr(year, t(this.age))} times`);
+      
+  }
+}
+
+const transform = (x, y) => x - y;
+
+const title = (x) => ++x+x++;
+
+const helloRonaldo = score.bind(ronaldo, 2029, transform, title);
+
+helloRonaldo(); 
+
+const helloMessi = score.bind(messi, 2029, transform, title);
+
+helloMessi(); 
+
+```
+
+- A:  "You score 1989 times" and "You score 1963 times"
+- B:  "You score 1959 times" and "You score 1989 times"
+- C:  "You score 1989 times" and "You score 1953 times"
+- D:  "You score 1959 times" and "You score 1963 times"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+`bind()` allows us to bind a function declared with any object. Here we bind `score()` and both `ronaldo` and `messi`. 
+
+In `score()` we pass three parameters `year`, `tr` and `t` in which both `tr` and `t` are function. They handle simple things as defined afterwards.
+
+When we bind `score()` with `ronaldo` and `messi`, we pass three parameters as declared in the `score()` function wherein `transform` and `title` are functions.
+
+</p>
+</details>
+
+
