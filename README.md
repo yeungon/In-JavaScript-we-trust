@@ -643,7 +643,7 @@ function score(greeting, year) {
 }
 
 
-window.window.window.window.window.window.window.window.window.window.window.window.window.window.window.window.score.call(window.window.window.window.window.window.window.player, 'Kiora', 2019); 
+window.window.window.score.call(window.window.window.player, 'Kiora', 2019); 
 
 score.apply(player, ['Kiora', 2009 ]); 
 
