@@ -780,3 +780,40 @@ As such the object `person` will get 3 using`Object.keys(obj)`but 4 with `Object
 </p>
 </details>
 
+---
+
+###### 20. What's the output?
+
+```javascript
+const id = 10;
+
+const getID = (...id) =>{
+  
+  id(id);
+  
+  function id(id){
+
+    console.log(typeof id)
+
+  }
+}
+
+getID(id)
+
+```
+- A:  ReferenceError
+- B:  10
+- C:  undefined
+- D:  'function'
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+When declaring a function inside another function, we are working with Closure in JavaScript. Note that if a function is declared as normal (rather than function expression), it is hoisted. We might see several `id` in the code snippet above but in fact, some of them does nothing. 
+
+The result of the code depending on the operator `typeof id`, which is `function`. So `id` in this operation is the `id()` function.
+
+</p>
+</details>
