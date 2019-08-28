@@ -859,3 +859,44 @@ bookCollection.getName()
 
 </p>
 </details>
+
+---
+
+###### 22. What's the output?
+
+```javascript
+
+(() => {
+  
+    const a = Object.create({});
+  
+    const b = Object.create(null);
+  
+    let f1 = a.hasOwnProperty('toString');
+  
+    let f2 = ('toString' in b);
+        
+    let result = (f1 === false && f2 === false)?console.log((typeof a.toString()).length):console.log(b.toString());
+  
+})();
+
+```
+- A:  ReferenceError
+- B:  undefined
+- C:  0
+- D:  6
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The two objects `a` and `b` are created using `Object.create()` operator. There is a bit of difference between them as `a` inherits from Object prototype but `b` is totally empty when we pass the `null` paramater. Yet `hasOwnProperty('toString')` always returns `false` neither `a` nor `b` given that `toString()` is not defined inside these objects. The method however is still available as it is inherited from Object prototype. 
+
+Both `f1` and `f2` return `false`. Note that we use `object.hasOwnProperty('key')` and `('key' in object)` to check the availability of a key in an object. There is a bit difference between the two as the latter also returns the key inherited. You might want to have a look here: https://stackoverflow.com/questions/455338/how-do-i-check-if-an-object-has-a-key-in-javascript
+
+Then `typeof a.toString()` returns `string`, which gives us 6 with the `.length` property.
+
+If the syntax is odd to you, you might look for 'self-invoking function' and 'arrow function' in JavaScript.
+</p>
+</details>
