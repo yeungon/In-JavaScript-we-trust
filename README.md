@@ -817,3 +817,45 @@ The result of the code depending on the operator `typeof id`, which is `function
 
 </p>
 </details>
+
+
+---
+
+###### 21. What's the output?
+
+```javascript
+
+var book1 = {
+  name: 'Name of the rose',
+  getName: function () {
+    console.log(this.name);
+  }
+};
+
+var book2 = {
+  name: {value: "Harry Potter"}  
+};
+
+
+var bookCollection = Object.create(book1, book2);
+
+bookCollection.getName()
+
+
+```
+- A:  'Harry Potter'
+- B:  'Name of the rose'
+- C:  undefined
+- D:  'function'
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+`Object.create` allows us to create an object from another object. If we do not pass the second parameter - `book2` in this case - the `name` property of the object `bookCollection` will be `Name of the rose` inherited from the `book1`.
+
+`bookCollection` has its own property `name` and another one inherited from `book1`. In this case its own property `name` will show up as it has higher priority. That is why we get 'Harry Potter'.
+
+</p>
+</details>
