@@ -845,15 +845,15 @@ bookCollection.getName()
 ```
 - A:  'Harry Potter'
 - B:  'Name of the rose'
-- C:  undefined
-- D:  'function'
+- C:  ReferenceError
+- D:  'null'
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: A
 
-`Object.create` allows us to create an object from another object. If we do not pass the second parameter - `book2` in this case - the `name` property of the object `bookCollection` will be `Name of the rose` inherited from the `book1`.
+`Object.create` allows us to create an object which is based on another object. If we do not pass the second parameter - `book2` in this case - the `name` property of the object `bookCollection` will be `Name of the rose` inherited from the `book1`. It means we can provide additional properties when declaring object with `Object.create`.
 
 `bookCollection` has its own property `name` and another one inherited from `book1`. In this case its own property `name` will show up as it has higher priority. That is why we get 'Harry Potter'.
 
