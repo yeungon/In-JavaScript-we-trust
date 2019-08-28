@@ -845,8 +845,8 @@ bookCollection.getName()
 ```
 - A:  'Harry Potter'
 - B:  'Name of the rose'
-- C:  ReferenceError
-- D:  'null'
+- C:   ReferenceError
+- D:   Object object
 
 <details><summary><b>Answer</b></summary>
 <p>
