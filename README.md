@@ -900,3 +900,48 @@ Then `typeof a.toString()` returns `string`, which gives us 6 with the `.length`
 If the syntax is odd to you, you might look for 'self-invoking function' and 'arrow function' in JavaScript.
 </p>
 </details>
+
+
+
+---
+
+###### 23. What's the output?
+
+```javascript
+
+let promise = new Promise((rs, rj)=>{
+        
+    setTimeout(() => rs(4), 0);
+          
+    Promise.resolve(console.log(3));
+
+    console.log(2);
+    
+});
+
+promise
+.then(
+   rs => {
+   console.log(rs ? rs**rs: rs)
+   return rs
+   }
+).then(
+  rs => console.log(rs == 256 ? rs: rs*rs)
+)
+  
+```
+- A:  3,    2,    256,  256
+- B:  3,    2,    256,  16
+- C:  256,  16,   3,    2
+- D:  16,   256,  3,    2
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+We first declare a promise-based code with `let` and then call it. Given that `setTimeout()` is an asynchronous action, it will run last even the time is set to 0 in `setTimeout(() => rs(4), 0);`. Although `Promise.resolve(console.log(3))` also returns a promise but it is a Microtasks, then it has a higher priority than Tasks as set by `setTimeout()`. You might want to have a look at this post https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/.
+
+In `.then()` we chain the result so that we have `4^4` in the first then() and `4*4` in the second `then()`. Note that `return rs` returns the original value.
+
+</p>
+</details>
