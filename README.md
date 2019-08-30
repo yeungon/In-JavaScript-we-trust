@@ -945,3 +945,51 @@ In `.then()` we chain the result so that we have `4^4` in the first then() and `
 
 </p>
 </details>
+
+
+
+---
+
+###### 24. What's the output?
+
+```javascript
+
+async function f() {
+  
+    let promise = new Promise((resolve, reject) => {
+
+      setTimeout(() => resolve("done!"), 0);
+
+    });
+  
+    setTimeout(()=> console.log("world"), 0);
+  
+    console.log(await promise);
+    
+    console.log("hello");
+  
+}
+
+f(setTimeout(()=>console.log("kiora"),0));
+  
+```
+- A:  ReferenceError
+- B:  done, hello, world
+- C:  hello, done, world
+- D:  kiora, done, hello, world
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+Though we do not declare any paramater for the function `f()`, we pass `setTimeout(()=>console.log("kiora"),0)` when call it. We therefore get 'kiora' first.
+
+Given that the variable `promise` returns a solved promise and it is called with the keyword `await`, JavaScript will 'pause' at this line `console.log(await promise);` till the result is resolved. That is why we get "done" at the next result. 
+
+Why we do not get "world" or "hello" at the second ? As JavaScript "pauses" at the line with `await` keyword, we cannot get "hello" as usual (note that whenever we call setTimeout(), this function will run last because it is an asynchronous task operator), whereas `setTimeout(()=> console.log("world"), 0);` should always run last.
+
+Here we might see a bit of difference when employing `await` keyword before asynchronous operator (in this case, we use `setTimeout()` as an example) or when call the function/operator without it.
+
+</p>
+</details>
