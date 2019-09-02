@@ -946,8 +946,6 @@ In `.then()` we chain the result so that we have `4^4` in the first then() and `
 </p>
 </details>
 
-
-
 ---
 
 ###### 24. What's the output?
@@ -993,3 +991,60 @@ Here we might see a bit of difference when employing `await` keyword before asyn
 
 </p>
 </details>
+
+---
+
+###### 25. What's the output?
+
+```javascript
+function name() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('New Zealand');
+    }, 10);
+  });
+}
+
+function fruit() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('Kiwi');
+    }, 20);
+  });
+}
+
+(async function countryandfruit() {
+  
+  const getName = await name();
+  const getFruit = await fruit();
+
+  console.log(`Kiora: ${getName} ${getFruit }`);
+})();
+
+(async function fruitandcountry() {
+  const [getName, getFruit] = await Promise.all([name(), fruit()]);
+
+  console.log(`Hello: ${ getName } ${ getFruit }`);
+})();
+
+ 
+```
+- A:  Null
+- B:  Kiora
+- C:  "Hello: New Zealand Kiwi" -> "Kiora: New Zealand Kiwi" 
+- D:  "Kiora: New Zealand Kiwi" -> "Hello: New Zealand Kiwi"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+Both `countryandfruit` and `fruitandcountry` are self invoking functions. Both are declared with the keyword `async`, it means the code inside will run step by step. It helps us control the flow of data much more concise as compared to Promise-based operator or callback way.
+
+The first function returns `"Kiora: New Zealand Kiwi"` and the second one ouputs `"Hello: New Zealand Kiwi"`. We might think that the order will be the same but actually the order of the result is reversed because the function with `await` keyword will run step by step rather than in in parallel as Promise.all. It means `fruitandcountry` will run faster than `countryandfruit`.
+
+You might want to have a look at the difference between the two at https://alligator.io/js/async-functions/
+
+</p>
+</details>
+
