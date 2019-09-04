@@ -1048,3 +1048,49 @@ You might want to have a look at the difference between the two at https://allig
 </p>
 </details>
 
+
+
+###### 26. What's the output?
+
+```javascript
+
+class MySort{
+  constructor(object){
+    this.object = object;
+  }
+  
+  getSort(){
+    return Object.entries(this.object)[0][1].sort()[Object.values(this.object).length];    
+    
+  }
+}
+
+const object = {
+   month: ["July", "September", "January", "December"]
+   
+};
+
+const sortMe = new MySort(object);
+
+console.log(sortMe.getSort())
+
+```
+- A:  July
+- B:  September
+- C:  January
+- D:  December
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+`Object.entries` returns an array consisting of both key and value from an object while `Object.values` retuns an array of the values of object and `Object.keys` gives us an array of keys of the object. As such, `Object.entries(object)` in the code snippet above gives us a nested array with just one element in which the values are put in another nested array like that `[["month", ["July", "September", "January", "December"]]]`. 
+
+For that reason, `Object.entries(this.object)[0][1].sort()` will actually sort the value array and return a new order as "December" -> "January" -> "July" -> "September". Hence, when we get the element with the index given by `[Object.values(this.object).length]` we get `January` because `[Object.values(this.object).length]` give us 1 (the length of the array given by Object.values);
+
+
+</p>
+</details>
+
+
