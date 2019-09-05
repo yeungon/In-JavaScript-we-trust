@@ -1048,7 +1048,7 @@ You might want to have a look at the difference between the two at https://allig
 </p>
 </details>
 
-
+---
 
 ###### 26. What's the output?
 
@@ -1093,6 +1093,8 @@ For that reason, `Object.entries(this.object)[0][1].sort()` will actually sort t
 </p>
 </details>
 
+---
+
 ###### 27. What's the output?
 
 ```javascript
@@ -1122,6 +1124,8 @@ Thus, the `typeof f()` returns `undefined` rathern `object`. We then get the len
 
 </p>
 </details>
+
+---
 
 ###### 28. What's the output?
 
