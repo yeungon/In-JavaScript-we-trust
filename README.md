@@ -1122,3 +1122,35 @@ Thus, the `typeof f()` returns `undefined` rathern `object`. We then get the len
 
 </p>
 </details>
+
+###### 28. What's the output?
+
+```javascript
+
+(function(a, b, c){
+    arguments[2] = (typeof arguments).length;
+    c > 10 ? console.log(c): console.log(++c);
+})(1, 2, 3);
+
+
+```
+- A:  4
+- B:  5
+- C:  6
+- D:  7
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+We have a self-invoking function with three parameters declared. Note that `arguments` inside a function returns an array consisting of the parameters of the function. Be aware that `typeof` array in JavaScript returns `object`.
+
+The key part here is that when we assign a value to that array (or any element), the function will use that value rather than the value from the parameter we pass to it when calling the function. Hence, `c` will be `(typeof arguments).length;` (6) rather than 3.
+
+As `c` has a new value of 6, it is definitely less than 10, so we get the final result `console.log(++c)`, which returns 7. 
+
+For PHP developer, we have `func_get_args()` in PHP that does the same thing, but it will not override the value passed. Check it by yourself at https://3v4l.org/dMfhW
+
+</p>
+</details>
