@@ -1154,6 +1154,8 @@ The key part here is that when we assign a value to that array (or any element),
 
 As `c` has a new value of 6, it is definitely less than 10, so we get the final result `console.log(++c)`, which returns 7. 
 
+Note that `arguments` is not available on arrow functions.
+
 For PHP developer, we have `func_get_args()` in PHP that does the same thing, but it will not override the value passed. Check it by yourself at https://3v4l.org/dMfhW
 
 </p>
