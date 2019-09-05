@@ -1093,4 +1093,32 @@ For that reason, `Object.entries(this.object)[0][1].sort()` will actually sort t
 </p>
 </details>
 
+###### 27. What's the output?
 
+```javascript
+
+const flag = ([] !==!!!!! []);
+
+let f = () => {};
+
+console.log((typeof f()).length + (flag.toString().length))
+
+```
+- A:  NaN
+- B:  12
+- C:  13
+- D:  14
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+Comparing two arrays or two objects in JavaScript always return `false` because both are passed by reference, unlike primitive types such as string, number or boolean. That is why comparing [] and [] using either == or === returns `false`. The weird part is the `!==!!!!!` which is equivalent to `!==`, nothing special. So the `flag` is `true`.
+
+In the expression function `f()`, we use arrow function here but and `{}` is a part of the function rather than an object. In case you want to return an object, you have to write as `let f = () => ({})` or simply using normal way to define function. With the keyword `return`, we can easily catch the content of the function when using normal way to define function.
+
+Thus, the `typeof f()` returns `undefined` rathern `object`. We then get the length 9 and the flag (true) becomes 'true' (a string, by using toString() function), which returns 3 with the property `length`. We finally get 13.
+
+</p>
+</details>
