@@ -1148,6 +1148,7 @@ Thus, the `typeof f()` returns `undefined` rathern `object`. We then get the len
 
 #### Answer: D
 
+
 We have a self-invoking function with three parameters declared. Note that `arguments` inside a function returns an object consisting of the parameters of the function. 
 
 The key part here is that when we assign a value to that array (or any element), the function will use that value rather than the value from the parameter we pass to it when calling the function. Hence, `c` will be `(typeof arguments).length;` (6) rather than 3.
