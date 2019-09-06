@@ -1151,11 +1151,13 @@ Thus, the `typeof f()` returns `undefined` rathern `object`. We then get the len
 
 We have a self-invoking function with three parameters declared. Note that `arguments` inside a function returns an object consisting of the parameters of the function. 
 
-The key part here is that when we assign a value to that array (or any element), the function will use that value rather than the value from the parameter we pass to it when calling the function. Hence, `c` will be `(typeof arguments).length;` (6) rather than 3.
+The key part here is that when we assign a value to that array (it is array-like, as mentioned above) (or any element), the function will use that value rather than the value from the parameter we pass to it when calling the function. Hence, `c` will be `(typeof arguments).length;` (6) rather than 3.
 
 As `c` has a new value of 6, it is definitely less than 10, so we get the final result `console.log(++c)`, which returns 7. 
 
 Note that `arguments` is not available on arrow functions. See more detailed here https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+
+From ES6 onwards, it is recommended to use ...restParameter given that it is a true array. It means you can manipulate the parameter with native JavaScript functions such as map, reduce or filter.
 
 For PHP developer, we have `func_get_args()` in PHP that does the same thing, but it will not override the value passed. Check it by yourself at https://3v4l.org/dMfhW
 
