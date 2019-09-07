@@ -1163,3 +1163,50 @@ For PHP developer, we have `func_get_args()` in PHP that does the same thing, bu
 
 </p>
 </details>
+
+---
+
+###### 29. What's the output?
+
+```javascript
+
+class Calculator{
+  
+  constructor(a, b){
+    this.a = a
+    this.b = b
+  }
+  static getFlag(){
+    
+      return new Array(this.a).length == new Array(this.b).toString().length;
+  }
+  
+  getValue(){
+    
+    return Calculator.getFlag() ? typeof this.a: typeof new Number(this.b);
+  }
+}
+
+const me = new Calculator(5, 5);
+
+console.log(me.getValue());
+
+```
+- A:  NaN
+- B:  "string"
+- C:  "object"
+- D:  "number"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+We have a class named Calculator. When declaring a new instance of the object, we pass two parameters `a` and `b`. These two parameters have the same value but `new Array(this.a).length` is totally different from `new Array(this.b).toString().length` because the latter returns a string `",,,,"` meaning the length 4 while the former returns the length of an array and we therefore get 5.
+
+For that reason `getFlag()` returns `false`. In `getValue()` we get `typeof new Number(this.b);` which returns `object`. That is a bit different from `typeof b`, which returns `number`.
+
+</p>
+</details>
+
+
