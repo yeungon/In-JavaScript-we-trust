@@ -1210,3 +1210,51 @@ For that reason `getFlag()` returns `false`. In `getValue()` we get `typeof new 
 </details>
 
 
+---
+
+###### 30. What's the output?
+
+```javascript
+
+var name = "Auckland";
+
+const nz = {
+  
+  name: "Kiwi",
+  
+  callMe: function(){
+  
+    return this.name;
+  }   
+  
+}
+
+let me = nz.callMe;
+
+let she = nz.callMe.bind(nz);
+
+let result = me() === nz.callMe() ? she(): `${me()} ${she()}`;
+
+console.log(result);
+
+
+```
+- A:  undefined
+- B:  "Auckland"
+- C:  "Kiwi"
+- D:  "Auckland Kiwi"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The key point in this question involves the keyword `this` in JavaScript. We have a simple object that contains one method and one string property `name`. 
+
+First, it is important to write down is that `let me = nz.callMe;` and then call `me()` is totally different from directly calling `nz.callMe()`. If we assign a variable to a method delared inside an object, `this` in that method will behave differently (when we call the variable as a method and when dirrectly call that method). In particular, in the first case, `this` is the `window` object while in the second one, `this` inside the function still points to property `name` in the object `nz`. It means `me()` returns "Auckland" while `nz.callMe` returns "Kiwi".
+
+Then `result` will return `false` and we get the final output value `${me()} ${she()}`. Why `she()` is different from `me()`? You might easily guess that `she` still `bind` to the object `nz` rather than `window` object as in `me()`.
+
+</p>
+</details>
+
