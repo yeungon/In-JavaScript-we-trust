@@ -450,7 +450,7 @@ x.name.lengthy();
 
 That is not challenging to realise that `"string".length()` always returns `hello`. Yet, the tricky part lies in the `delete object` where we might think that this expression will entirely delete the object. That is not the case as `delete` is used to delete the property of the object only. It does not delete the object. Then we get `hello` rather than `ReferenceError`.
 
-Note that if we declare object without `let, const` or `var`, we then have a global object. `delete object` then return true. Otherwise, it always return false.
+Note that if we declare object without `let, const` or `var`, we then have a global object. `delete objectName` then return `true`. Otherwise, it always returns `false`.
 
 </p>
 </details>
