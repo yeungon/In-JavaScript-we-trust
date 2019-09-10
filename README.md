@@ -1258,3 +1258,61 @@ Then `result` will return `false` and we get the final output value `${me()} ${s
 </p>
 </details>
 
+---
+
+###### 31. What's the output?
+
+```javascript
+
+const club = {
+  name: 'Juventus',
+  player : ['Ronaldo'],
+  showMePlayer: function() {         
+    this.player.map(function(thename){
+      console.log(this.name.length);
+    }, this);
+  },
+  showMe: function() {         
+    this.player.forEach(function(thename){
+      console.log(this.name.length);
+    }.bind(this));
+  },
+  show: function() { 
+    const self = this;
+    this.player.map(function(thename){
+      console.log(self.name.length);
+    });
+  },
+  Me: function() {         
+    this.player.map(function(thename){
+      console.log(this.name.length);
+    });
+  },
+  
+};
+
+
+club.showMePlayer();
+club.showMe();
+club.show();
+club.Me();
+
+```
+- A:  8 - 8 - 8 - 8
+- B:  "Juventus" - "Juventus" - "Juventus" - "Juventus"
+- C:  "Ronaldo" - "Ronaldo" - "Ronaldo" - "Ronaldo"
+- D:  8 - 8 - 8 - 0
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The code snippet above is not a big challenge for you I guess. It simply gives you an example of `this` in different contexts when we declare an anonymous function inside a method of an object. The three first methods are common ways to handle `this` using `this` as second parameter in `map()`, by using `bind(this)` in `forEach` (or map()) or by `that = this`technique (we did use `seft` rathern `that`).
+
+The last method `Me()` will cause unexpected result because `this.name` does not bind to the object `club`. Note that you might get another result when testing the code on jsbin.com. On Chrome and Firefox, we get 0. 
+
+For further information, kindly have a look at http://speakingjs.com/es5/ch17.html#_pitfall_losing_this_when_extracting_a_method
+
+</p>
+</details>
