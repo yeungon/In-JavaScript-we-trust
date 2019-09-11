@@ -1316,3 +1316,42 @@ For further information, kindly have a look at http://speakingjs.com/es5/ch17.ht
 
 </p>
 </details>
+
+---
+
+###### 32. What's the output?
+
+```javascript
+
+((...a)=>{
+  const b = ["javascript", "new zealand"];
+  
+  const c = [...a, typeof a, ...b, "kiwi"];
+      
+  console.log(c.length + c[0].length);  
+  
+})(new Array(10));
+
+```
+- A:  5
+- B:  10
+- C:  15
+- D:  20
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+`...` can be used in two ways in JavaScript (and PHP) as either `spread operator` or `rest parameter`. You might have to check the following article about the two. They are the same as three dots, but the way they are employed vary considerably between the two. https://javascript.info/rest-parameters-spread-operator
+
+We see both `spread operator` and `rest parameter` in the code snippet above. First the parameter `(...a)` in the self-invoking function is of course a `rest parameter` while the constant `c` we see the `spread operator`. In the former case, it simply means that you can pass to the function as many parameter as you want. Note that the `typeof a` in this case is `object` even though it is a native array in JavaScript. (I means native array because you might think about array-like if we use arguments. Please have a look at the question 28 or this link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments).
+
+`Spread operator` as in the constant `c` allows us to combine array. So `...a` in the code above is `rest parameter` when it is used as function parameter but in this case it is the syntax of `spread operator`.
+
+
+Finally, we get `c` with 5 elements but the first element has 10 child elements (when we pass to the function `new Array(10)`). The length of both then returns 15.
+
+</p>
+</details>
+
