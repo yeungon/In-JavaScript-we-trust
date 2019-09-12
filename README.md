@@ -1355,3 +1355,41 @@ Finally, we get `c` with 5 elements but the first element has 10 child elements 
 </p>
 </details>
 
+---
+
+###### 33. What's the output?
+
+```javascript
+
+function Kiora(name, ...career) {
+  
+  this.name = name;
+      
+  return Array.isArray(career) === true && typeof career === "object"? {} : "";
+  
+}
+
+var student = new Kiora("Vuong");
+
+console.log(student.name);
+
+```
+- A:  "Vuong"
+- B:  undefined
+- C:  ErrorReference
+- D:  false
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+We have a function constructor `Kiora` (written with a capital letter, but that is optional) that can be used to create object, as the `student` object in the code above. In the function, we have two parameters with the second one is actually a `rest parameter`. The typeof operator is `object` but if we check with `Array.isArray(array)` it also returns true.
+
+For that reason, `Array.isArray(career) === true && typeof career === "object"` returns true. Hence the `return` operator finally returns an object `{}`.
+
+You might be surprised when `console.log(student.name);` outputs `undefined` given that the constructor function `Kiora` returns an object. Otherwise, we might simply get the value `name`.
+
+
+</p>
+</details>
