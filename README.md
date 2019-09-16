@@ -1393,3 +1393,56 @@ You might be surprised when `console.log(student.name);` outputs `undefined` giv
 
 </p>
 </details>
+
+---
+
+###### 34. What's the output?
+
+```javascript
+
+class Filter{
+  constructor(element){
+    this.element = element;
+  }
+  filter(){
+     return this.type() === "object" ? this.element[0].name: "hello";
+  }
+  
+  type(){
+    return typeof this.element;
+  }
+}
+
+let countries = [{name: "New Zealand", isdeveloped: true}, 
+                   {name: "Vietnam", isdeveloped: false}]
+
+let x = new Filter(countries);
+
+const filter = countries.filter((item) =>{
+  return !item.isdeveloped;
+})
+
+console.log(x.filter().length + filter[0].name.length)
+
+
+```
+- A:  15
+- B:  16
+- C:  17
+- D:  18
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+Apologize that the code snippet is a bit longer than usual. But actually it is not really challenging as you might think. You can easily get the correct result after spending a little of time to debug.
+
+First we declare a class that has two methods. The first method `filter()` will returns the first element of the array (of the propterty `element`) or simply returns `hello` depending on the `type()` method. We know that `typeof of array` will return `object` so the `filter()` method return `this.element[0].name`.
+
+Try to make you feel confused, we then call the built-in `filter()` method. This native method returns a new array depending on the condition we pass to the call-back function. Note that `!item.isdeveloped` means `false`. It means we get `Vietnam`.
+
+Finally we get `New Zealand`.length and `Vietnam`.length, which in total returns 18.
+
+</p>
+</details>
