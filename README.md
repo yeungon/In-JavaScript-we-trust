@@ -49,7 +49,7 @@ function Name(a, b){
   this.b = b;
 }
 
-const me = Name("Vuong", "Nguyen);
+const me = Name("Vuong", "Nguyen");
 
 console.log(!(a.length - window.a.length));
 ```
