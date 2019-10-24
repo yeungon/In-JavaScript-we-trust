@@ -5,11 +5,11 @@ In JS we trust - The best way to learn is by building/coding and teaching. I cre
 ###### 1. What's the output?
 
 ```javascript
-function a(x){
-  x++;
-  return function(){
-  console.log(++x)
-  }
+function a(x) {
+    x++;
+    return function () {
+        console.log(++x);
+    }
 }
 
 a(1)();
