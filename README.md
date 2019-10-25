@@ -5,11 +5,11 @@ In JS we trust - The best way to learn is by building/coding and teaching. I cre
 ###### 1. What's the output?
 
 ```javascript
-function a(x){
-  x++;
-  return function(){
-  console.log(++x)
-  }
+function a(x) {
+    x++;
+    return function () {
+        console.log(++x);
+    }
 }
 
 a(1)();
@@ -44,9 +44,9 @@ This kind of gotcha gives me the feeling of `static` variable in PHP world.
 ###### 2. What's the output?
 
 ```javascript
-function Name(a, b){
-  this.a = a;
-  this.b = b;
+function Name(a, b) {
+    this.a = a;
+    this.b = b;
 }
 
 const me = Name("Vuong", "Nguyen");
