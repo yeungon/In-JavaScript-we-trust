@@ -44,12 +44,12 @@ This kind of gotcha gives me the feeling of `static` variable in PHP world.
 ###### 2. What's the output?
 
 ```javascript
-function Name(a, b){
-  this.a = a;
-  this.b = b;
+function Name(a, b) {
+    this.a = a;
+    this.b = b;
 }
 
-const me = Name("Vuong", "Nguyen);
+const me = Name("Vuong", "Nguyen");
 
 console.log(!(a.length - window.a.length));
 ```
