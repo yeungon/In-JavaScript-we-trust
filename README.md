@@ -110,20 +110,18 @@ Be aware that the function x() (in the form of `function express` or `anonymous 
 ###### 4. What's the output?
 
 ```javascript
-(function js(x){
-   
-   const y = (j) => j*x;
-   
-   console.log(y(s()))
-   
-   function s(){
-     return j();
-   }
-  
-   function j(){
-     return x**x;
-   }
-  
+(function js(x) {
+    const y = (j) => j * x;
+
+    console.log(y(s()));
+
+    function s() {
+        return j();
+    }
+
+    function j() {
+        return x ** x;
+    }
 })(3);
 ```
 
