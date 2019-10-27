@@ -155,19 +155,17 @@ Note that we can call `declare function` BEFORE the function is actually declare
 var tip = 100;
 
 (function () {
-    
-  console.log("I have $" + husband());
-  
-  function wife(){
-    return tip*2;
-  }
-  
-  function husband(){
-    return wife()/2;
-  }
-  
-  var tip = 10;
-  
+    console.log("I have $" + husband());
+
+    function wife() {
+        return tip * 2;
+    }
+
+    function husband() {
+        return wife() / 2;
+    }
+
+    var tip = 10;
 })();
 ```
 
