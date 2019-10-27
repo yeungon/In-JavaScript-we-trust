@@ -76,15 +76,15 @@ Imagine what would happen when we create the instance `me` with the `new` keywor
 ###### 3. What's the output?
 
 ```javascript
-const x = function (...x){
-  let k = (typeof x).length;
-  let y = ()=> "freetut".length;
-  let z = {y:y};
-  return k - z.y();
-  
+const x = function (...x) {
+    let k = (typeof x).length;
+    let y = () => "freetut".length;
+    let z = {y: y};
+
+    return k - z.y();
 };
 
-console.log(Boolean(x()))
+console.log(Boolean(x()));
 ```
 
 - A: `true`
