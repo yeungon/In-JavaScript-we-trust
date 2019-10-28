@@ -233,24 +233,24 @@ Now is time to think about coping an object in JS either shallow or deep one.
 
 ```javascript
 var candidate = {
-	name : 'Vuong',
-	age  : 30
-}
+    name: 'Vuong',
+    age: 30
+};
 
 var job = {
-	frontend : 'Vuejs or Reactjs',
-	backend : 'PHP and Laravel',
-	city : 'Auckland'
-} 
+    frontend: 'Vuejs or Reactjs',
+    backend: 'PHP and Laravel',
+    city: 'Auckland'
+};
 
-class Combine{
-  static get(){
-    return Object.assign(candidate, job)
-  }
-  
-  static count(){    
-    return Object.keys(this.get()).length;
-  }
+class Combine {
+    static get() {
+        return Object.assign(candidate, job);
+    }
+
+    static count() {
+        return Object.keys(this.get()).length;
+    }
 }
 
 console.log(Combine.count());
