@@ -76,15 +76,15 @@ Imagine what would happen when we create the instance `me` with the `new` keywor
 ###### 3. What's the output?
 
 ```javascript
-const x = function (...x){
-  let k = (typeof x).length;
-  let y = ()=> "freetut".length;
-  let z = {y:y};
-  return k - z.y();
-  
+const x = function (...x) {
+    let k = (typeof x).length;
+    let y = () => "freetut".length;
+    let z = {y: y};
+
+    return k - z.y();
 };
 
-console.log(Boolean(x()))
+console.log(Boolean(x()));
 ```
 
 - A: `true`
@@ -110,20 +110,18 @@ Be aware that the function x() (in the form of `function express` or `anonymous 
 ###### 4. What's the output?
 
 ```javascript
-(function js(x){
-   
-   const y = (j) => j*x;
-   
-   console.log(y(s()))
-   
-   function s(){
-     return j();
-   }
-  
-   function j(){
-     return x**x;
-   }
-  
+(function js(x) {
+    const y = (j) => j * x;
+
+    console.log(y(s()));
+
+    function s() {
+        return j();
+    }
+
+    function j() {
+        return x ** x;
+    }
 })(3);
 ```
 
@@ -157,19 +155,17 @@ Note that we can call `declare function` BEFORE the function is actually declare
 var tip = 100;
 
 (function () {
-    
-  console.log("I have $" + husband());
-  
-  function wife(){
-    return tip*2;
-  }
-  
-  function husband(){
-    return wife()/2;
-  }
-  
-  var tip = 10;
-  
+    console.log("I have $" + husband());
+
+    function wife() {
+        return tip * 2;
+    }
+
+    function husband() {
+        return wife() / 2;
+    }
+
+    var tip = 10;
 })();
 ```
 
@@ -237,24 +233,24 @@ Now is time to think about coping an object in JS either shallow or deep one.
 
 ```javascript
 var candidate = {
-	name : 'Vuong',
-	age  : 30
-}
+    name: 'Vuong',
+    age: 30
+};
 
 var job = {
-	frontend : 'Vuejs or Reactjs',
-	backend : 'PHP and Laravel',
-	city : 'Auckland'
-} 
+    frontend: 'Vuejs or Reactjs',
+    backend: 'PHP and Laravel',
+    city: 'Auckland'
+};
 
-class Combine{
-  static get(){
-    return Object.assign(candidate, job)
-  }
-  
-  static count(){    
-    return Object.keys(this.get()).length;
-  }
+class Combine {
+    static get() {
+        return Object.assign(candidate, job);
+    }
+
+    static count() {
+        return Object.keys(this.get()).length;
+    }
 }
 
 console.log(Combine.count());
@@ -283,10 +279,10 @@ Note that two methods `get()` and `count()` are defined as `static`, so they nee
 ```javascript
 var x = 1;
 
-(()=> {x += 1; ++x})();
-((y)=> {x +=y; x = x%y;})(2);
-(()=> x += x)();
-(()=> x *= x)();
+(() => {x += 1; ++x})();
+((y) => {x +=y; x = x%y;})(2);
+(() => x += x)();
+(() => x *= x)();
 
 console.log(x);
 ```
@@ -316,7 +312,8 @@ In the third and fouth IIFE functions, we get 2 `x = x + x` and then 4 `x = x * 
 
 ```php
 $var = 10;
-$f = function($let)use($var){
+
+$f = function($let) use ($var) {
     return ++$let + $var;
 };
 
@@ -328,7 +325,6 @@ echo $f(10);
 var x = 10;
 
 const f = (l) => ++l + x;
-;
 
 x = 15;
 console.log(f(10));
