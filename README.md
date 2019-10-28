@@ -312,7 +312,8 @@ In the third and fouth IIFE functions, we get 2 `x = x + x` and then 4 `x = x * 
 
 ```php
 $var = 10;
-$f = function($let)use($var){
+
+$f = function($let) use ($var) {
     return ++$let + $var;
 };
 
@@ -324,7 +325,6 @@ echo $f(10);
 var x = 10;
 
 const f = (l) => ++l + x;
-;
 
 x = 15;
 console.log(f(10));
