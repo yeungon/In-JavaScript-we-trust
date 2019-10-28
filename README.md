@@ -418,19 +418,15 @@ For reference, read this https://stackoverflow.com/questions/8341803/difference-
 ###### 12. What's the output?
 
 ```javascript
-
-String.prototype.lengthy = ()=>{
-  
+String.prototype.lengthy = () => {
     console.log("hello");
-  
- };
+};
 
-let x = {name: "Vuong"}
+let x = {name: "Vuong"};
 
 delete x;
 
 x.name.lengthy();
-
 ```
 - A:  "Vuong";
 - B:  "hello";
@@ -442,9 +438,9 @@ x.name.lengthy();
 
 #### Answer: B
 
-`String.prototype.something = function(){}` is the common way to define a new built-in method for `String`. We can do the same thing with `Array`, `Object` or `FunctionName` where FunctionName is the function designed by ourself.
+`String.prototype.someThing = function () {}` is the common way to define a new built-in method for `String`. We can do the same thing with `Array`, `Object` or `FunctionName` where FunctionName is the function designed by ourself.
 
-That is not challenging to realise that `"string".length()` always returns `hello`. Yet, the tricky part lies in the `delete object` where we might think that this expression will entirely delete the object. That is not the case as `delete` is used to delete the property of the object only. It does not delete the object. Then we get `hello` rather than `ReferenceError`.
+That is not challenging to realise that `"string".lengthy()` always returns `hello`. Yet, the tricky part lies in the `delete object` where we might think that this expression will entirely delete the object. That is not the case as `delete` is used to delete the property of the object only. It does not delete the object. Then we get `hello` rather than `ReferenceError`.
 
 Note that if we declare object without `let, const` or `var`, we then have a global object. `delete objectName` then return `true`. Otherwise, it always returns `false`.
 
