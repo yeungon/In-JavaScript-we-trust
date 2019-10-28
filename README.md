@@ -279,10 +279,10 @@ Note that two methods `get()` and `count()` are defined as `static`, so they nee
 ```javascript
 var x = 1;
 
-(()=> {x += 1; ++x})();
-((y)=> {x +=y; x = x%y;})(2);
-(()=> x += x)();
-(()=> x *= x)();
+(() => {x += 1; ++x})();
+((y) => {x +=y; x = x%y;})(2);
+(() => x += x)();
+(() => x *= x)();
 
 console.log(x);
 ```
