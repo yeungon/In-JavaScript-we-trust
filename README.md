@@ -484,35 +484,33 @@ Then we overwrite the property `hi` with a new value 11. Last we have 11 + 1 = 1
 ###### 14. What's the output?
 
 ```javascript
-const array = (a)=>{
-  let length = a.length;
-  delete a[length-1];
-  return a.length;
+const array = (a) => {
+    let length = a.length;
+    delete a[length - 1];
+    return a.length;
 };
 
 console.log(array([1, 2, 3, 4]));
 
+const object = (obj) => {
+    let key = Object.keys(obj);
+    let length = key.length;
+    delete obj[key[length - 1]];
 
-const object = (obj)=>{
-  let key = Object.keys(obj);  
-  let length = key.length;  
-  delete obj[key[length - 1]];
-  return Object.keys(obj).length;
+    return Object.keys(obj).length;
 };
 
-console.log(object({1: 2, 2: 3, 3: 4, 4:5}));
+console.log(object({1: 2, 2: 3, 3: 4, 4: 5}));
 
+const setPropNull = (obj) => {
+    let key = Object.keys(obj);
+    let length = key.length;
+    obj[key[length - 1]] = null;
 
-const setPropNull = (obj)=>{
-  let key = Object.keys(obj);  
-  let length = key.length;  
-  obj[key[length - 1]] = null;  
-  return Object.keys(obj).length;
-  
+    return Object.keys(obj).length;
 };
 
-console.log(setPropNull({1: 2, 2: 3, 3: 4, 4:5}));
-
+console.log(setPropNull({1: 2, 2: 3, 3: 4, 4: 5}));
 ```
 - A:  333
 - B:  444
