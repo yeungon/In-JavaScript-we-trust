@@ -668,32 +668,27 @@ The correct anwser is D. The `score()` and `getAge()` functions are nothing spec
 ###### 18. What's the output?
 
 ```javascript
-
 var ronaldo = {age: 34};
 
 var messi = {age: 32};
 
 function score(year, tr, t) {
-   
-   if(typeof tr === 'function' && typeof t === 'function') {
-
-      console.log(`You score ${tr(year, t(this.age))} times`);
-      
-  }
+    if (typeof tr === 'function' && typeof t === 'function') {
+        console.log(`You score ${tr(year, t(this.age))} times`);
+    }
 }
 
 const transform = (x, y) => x - y;
 
-const title = (x) => ++x+x++;
+const title = (x) => ++x + x++;
 
 const helloRonaldo = score.bind(ronaldo, 2029, transform, title);
 
-helloRonaldo(); 
+helloRonaldo();
 
 const helloMessi = score.bind(messi, 2029, transform, title);
 
-helloMessi(); 
-
+helloMessi();
 ```
 
 - A:  "You score 1989 times" and "You score 1963 times"
