@@ -620,22 +620,25 @@ Then we have 4 << 4 in the `if-else` flow that returns the bitwise value, equiva
 ###### 17. What's the output?
 
 ```javascript
-var player = {name: 'Ronaldo', age: 34, getAge: function(){return ++this.age - this.name.length}};
+var player = {
+    name: 'Ronaldo',
+    age: 34,
+    getAge: function () {
+        return ++this.age - this.name.length
+    }
+};
 
 function score(greeting, year) {
-
-  console.log(greeting + ' ' + this.name + `! You were born in  ${year - this.getAge()}`);
+    console.log(greeting + ' ' + this.name + `! You were born in  ${year - this.getAge()}`);
 }
 
+window.window.window.score.call(window.window.window.player, 'Kiora', 2019);
 
-window.window.window.score.call(window.window.window.player, 'Kiora', 2019); 
-
-score.apply(player, ['Kiora', 2009 ]); 
+score.apply(player, ['Kiora', 2009]);
 
 const helloRonaldo = window.score.bind(window.player, 'Kiora', 2029);
 
 helloRonaldo(); 
-
 ```
 
 - A:  "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985"
