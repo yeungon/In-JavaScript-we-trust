@@ -579,25 +579,20 @@ The third one gives us a hint to copy an array in JavaScript using `slice()` met
 ###### 16. What's the output?
 
 ```javascript
-
 var languages = {
-  name:['elixir', 'golang', 'js', 'php', {name:"feature"}],
-  feature: 'awesome',
-}
-
+    name: ['elixir', 'golang', 'js', 'php', {name: "feature"}],
+    feature: 'awesome',
+};
 
 let flag = languages.hasOwnProperty(Object.values(languages)[0][4].name);
 
-
 (() => {
-  if (flag !==false){
-    console.log(Object.getOwnPropertyNames(languages)[0].length << Object.keys(languages)[0].length);
-  }else{
-    console.log(Object.getOwnPropertyNames(languages)[1].length << Object.keys(languages)[1].length);
-  }
-})()
-
-
+    if (flag !== false) {
+        console.log(Object.getOwnPropertyNames(languages)[0].length << Object.keys(languages)[0].length);
+    } else {
+        console.log(Object.getOwnPropertyNames(languages)[1].length << Object.keys(languages)[1].length);
+    }
+})();
 ```
 
 - A:  8
