@@ -715,36 +715,38 @@ When we bind `score()` with `ronaldo` and `messi`, we pass three parameters as d
 ###### 19. What's the output?
 
 ```javascript
-
 var person = {};
 
-Object.defineProperties(person, 
-    {'name':{
-  value : 'Vuong',
-  enumerable: true
-    },'job': {
-     value: 'developer',
-     enumerable: true     
-    }, 'studying':{
-      value: "PhD",
-      enumerable: true
-    }, 'money':{
-      value: "NZD",
-      enumerable: false
+Object.defineProperties(person, {
+    'name': {
+        value: 'Vuong',
+        enumerable: true
+    },
+    'job': {
+        value: 'developer',
+        enumerable: true
+    },
+    'studying': {
+        value: "PhD",
+        enumerable: true
+    },
+    'money': {
+        value: "NZD",
+        enumerable: false
     }
-})
+});
 
-class Evaluate{
-  
-  static checkFlag(obj){
-    return Object.getOwnPropertyNames(obj) > Object.keys(obj)? Object.getOwnPropertyNames(obj) : Object.keys(obj); 
-  }
+class Evaluate {
+    static checkFlag(obj) {
+        return Object.getOwnPropertyNames(obj) > Object.keys(obj)
+            ? Object.getOwnPropertyNames(obj)
+            : Object.keys(obj);
+    }
 }
 
 const flag = Evaluate.checkFlag(person);
 
-console.log(flag.length)
-
+console.log(flag.length);
 ```
 - A:  1
 - B:  2
@@ -755,7 +757,7 @@ console.log(flag.length)
 <p>
 
 #### Answer: D
-`Object.keys(obj)` is almost identical to `Object.getOwnPropertyNames(obj)` except the fact that the latter returns any type of object's property regardless of `enumerable`. By default `enumerable` is true when creating object. Using Object.defineProperties or Object.defineProperty we can manually set this option to `false`.
+`Object.keys(obj)` is almost identical to `Object.getOwnPropertyNames(obj)` except the fact that the latter returns any type of object's property regardless of `enumerable`. By default `enumerable` is true when creating object. Using `Object.defineProperties` or `Object.defineProperty` we can manually set this option to `false`.
 
 As such the object `person` will get 3 using`Object.keys(obj)`but 4 with `Object.getOwnPropertyNames(obj)`. `In short Object.keys(obj)` only returns the property setting the enumerable as `true`.
 
