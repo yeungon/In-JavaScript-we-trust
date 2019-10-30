@@ -772,19 +772,15 @@ As such the object `person` will get 3 using`Object.keys(obj)`but 4 with `Object
 ```javascript
 const id = 10;
 
-const getID = (...id) =>{
-  
-  id(id);
-  
-  function id(id){
+const getID = (...id) => {
+    id(id);
 
-    console.log(typeof id)
+    function id(id) {
+        console.log(typeof id);
+    }
+};
 
-  }
-}
-
-getID(id)
-
+getID(id);
 ```
 - A:  ReferenceError
 - B:  10
