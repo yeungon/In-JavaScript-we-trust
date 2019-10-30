@@ -805,23 +805,20 @@ The result of the code depending on the operator `typeof id`, which is `function
 ###### 21. What's the output?
 
 ```javascript
-
 var book1 = {
-  name: 'Name of the rose',
-  getName: function () {
-    console.log(this.name);
-  }
+    name: 'Name of the rose',
+    getName: function () {
+        console.log(this.name);
+    }
 };
 
 var book2 = {
-  name: {value: "Harry Potter"}  
+    name: {value: "Harry Potter"}
 };
-
 
 var bookCollection = Object.create(book1, book2);
 
-bookCollection.getName()
-
+bookCollection.getName();
 
 ```
 - A:  'Harry Potter'
