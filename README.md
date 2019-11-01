@@ -418,19 +418,15 @@ For reference, read this https://stackoverflow.com/questions/8341803/difference-
 ###### 12. What's the output?
 
 ```javascript
-
-String.prototype.lengthy = ()=>{
-  
+String.prototype.lengthy = () => {
     console.log("hello");
-  
- };
+};
 
-let x = {name: "Vuong"}
+let x = {name: "Vuong"};
 
 delete x;
 
 x.name.lengthy();
-
 ```
 - A:  "Vuong";
 - B:  "hello";
@@ -442,9 +438,9 @@ x.name.lengthy();
 
 #### Answer: B
 
-`String.prototype.something = function(){}` is the common way to define a new built-in method for `String`. We can do the same thing with `Array`, `Object` or `FunctionName` where FunctionName is the function designed by ourself.
+`String.prototype.someThing = function () {}` is the common way to define a new built-in method for `String`. We can do the same thing with `Array`, `Object` or `FunctionName` where FunctionName is the function designed by ourself.
 
-That is not challenging to realise that `"string".length()` always returns `hello`. Yet, the tricky part lies in the `delete object` where we might think that this expression will entirely delete the object. That is not the case as `delete` is used to delete the property of the object only. It does not delete the object. Then we get `hello` rather than `ReferenceError`.
+That is not challenging to realise that `"string".lengthy()` always returns `hello`. Yet, the tricky part lies in the `delete object` where we might think that this expression will entirely delete the object. That is not the case as `delete` is used to delete the property of the object only. It does not delete the object. Then we get `hello` rather than `ReferenceError`.
 
 Note that if we declare object without `let, const` or `var`, we then have a global object. `delete objectName` then return `true`. Otherwise, it always returns `false`.
 
@@ -488,35 +484,33 @@ Then we overwrite the property `hi` with a new value 11. Last we have 11 + 1 = 1
 ###### 14. What's the output?
 
 ```javascript
-const array = (a)=>{
-  let length = a.length;
-  delete a[length-1];
-  return a.length;
+const array = (a) => {
+    let length = a.length;
+    delete a[length - 1];
+    return a.length;
 };
 
 console.log(array([1, 2, 3, 4]));
 
+const object = (obj) => {
+    let key = Object.keys(obj);
+    let length = key.length;
+    delete obj[key[length - 1]];
 
-const object = (obj)=>{
-  let key = Object.keys(obj);  
-  let length = key.length;  
-  delete obj[key[length - 1]];
-  return Object.keys(obj).length;
+    return Object.keys(obj).length;
 };
 
-console.log(object({1: 2, 2: 3, 3: 4, 4:5}));
+console.log(object({1: 2, 2: 3, 3: 4, 4: 5}));
 
+const setPropNull = (obj) => {
+    let key = Object.keys(obj);
+    let length = key.length;
+    obj[key[length - 1]] = null;
 
-const setPropNull = (obj)=>{
-  let key = Object.keys(obj);  
-  let length = key.length;  
-  obj[key[length - 1]] = null;  
-  return Object.keys(obj).length;
-  
+    return Object.keys(obj).length;
 };
 
-console.log(setPropNull({1: 2, 2: 3, 3: 4, 4:5}));
-
+console.log(setPropNull({1: 2, 2: 3, 3: 4, 4: 5}));
 ```
 - A:  333
 - B:  444
@@ -585,25 +579,20 @@ The third one gives us a hint to copy an array in JavaScript using `slice()` met
 ###### 16. What's the output?
 
 ```javascript
-
 var languages = {
-  name:['elixir', 'golang', 'js', 'php', {name:"feature"}],
-  feature: 'awesome',
-}
-
+    name: ['elixir', 'golang', 'js', 'php', {name: "feature"}],
+    feature: 'awesome',
+};
 
 let flag = languages.hasOwnProperty(Object.values(languages)[0][4].name);
 
-
 (() => {
-  if (flag !==false){
-    console.log(Object.getOwnPropertyNames(languages)[0].length << Object.keys(languages)[0].length);
-  }else{
-    console.log(Object.getOwnPropertyNames(languages)[1].length << Object.keys(languages)[1].length);
-  }
-})()
-
-
+    if (flag !== false) {
+        console.log(Object.getOwnPropertyNames(languages)[0].length << Object.keys(languages)[0].length);
+    } else {
+        console.log(Object.getOwnPropertyNames(languages)[1].length << Object.keys(languages)[1].length);
+    }
+})();
 ```
 
 - A:  8
@@ -631,22 +620,25 @@ Then we have 4 << 4 in the `if-else` flow that returns the bitwise value, equiva
 ###### 17. What's the output?
 
 ```javascript
-var player = {name: 'Ronaldo', age: 34, getAge: function(){return ++this.age - this.name.length}};
+var player = {
+    name: 'Ronaldo',
+    age: 34,
+    getAge: function () {
+        return ++this.age - this.name.length
+    }
+};
 
 function score(greeting, year) {
-
-  console.log(greeting + ' ' + this.name + `! You were born in  ${year - this.getAge()}`);
+    console.log(greeting + ' ' + this.name + `! You were born in  ${year - this.getAge()}`);
 }
 
+window.window.window.score.call(window.window.window.player, 'Kiora', 2019);
 
-window.window.window.score.call(window.window.window.player, 'Kiora', 2019); 
-
-score.apply(player, ['Kiora', 2009 ]); 
+score.apply(player, ['Kiora', 2009]);
 
 const helloRonaldo = window.score.bind(window.player, 'Kiora', 2029);
 
 helloRonaldo(); 
-
 ```
 
 - A:  "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985"
@@ -676,32 +668,27 @@ The correct anwser is D. The `score()` and `getAge()` functions are nothing spec
 ###### 18. What's the output?
 
 ```javascript
-
 var ronaldo = {age: 34};
 
 var messi = {age: 32};
 
 function score(year, tr, t) {
-   
-   if(typeof tr === 'function' && typeof t === 'function') {
-
-      console.log(`You score ${tr(year, t(this.age))} times`);
-      
-  }
+    if (typeof tr === 'function' && typeof t === 'function') {
+        console.log(`You score ${tr(year, t(this.age))} times`);
+    }
 }
 
 const transform = (x, y) => x - y;
 
-const title = (x) => ++x+x++;
+const title = (x) => ++x + x++;
 
 const helloRonaldo = score.bind(ronaldo, 2029, transform, title);
 
-helloRonaldo(); 
+helloRonaldo();
 
 const helloMessi = score.bind(messi, 2029, transform, title);
 
-helloMessi(); 
-
+helloMessi();
 ```
 
 - A:  "You score 1989 times" and "You score 1963 times"
@@ -728,36 +715,38 @@ When we bind `score()` with `ronaldo` and `messi`, we pass three parameters as d
 ###### 19. What's the output?
 
 ```javascript
-
 var person = {};
 
-Object.defineProperties(person, 
-    {'name':{
-  value : 'Vuong',
-  enumerable: true
-    },'job': {
-     value: 'developer',
-     enumerable: true     
-    }, 'studying':{
-      value: "PhD",
-      enumerable: true
-    }, 'money':{
-      value: "NZD",
-      enumerable: false
+Object.defineProperties(person, {
+    'name': {
+        value: 'Vuong',
+        enumerable: true
+    },
+    'job': {
+        value: 'developer',
+        enumerable: true
+    },
+    'studying': {
+        value: "PhD",
+        enumerable: true
+    },
+    'money': {
+        value: "NZD",
+        enumerable: false
     }
-})
+});
 
-class Evaluate{
-  
-  static checkFlag(obj){
-    return Object.getOwnPropertyNames(obj) > Object.keys(obj)? Object.getOwnPropertyNames(obj) : Object.keys(obj); 
-  }
+class Evaluate {
+    static checkFlag(obj) {
+        return Object.getOwnPropertyNames(obj) > Object.keys(obj)
+            ? Object.getOwnPropertyNames(obj)
+            : Object.keys(obj);
+    }
 }
 
 const flag = Evaluate.checkFlag(person);
 
-console.log(flag.length)
-
+console.log(flag.length);
 ```
 - A:  1
 - B:  2
@@ -768,7 +757,7 @@ console.log(flag.length)
 <p>
 
 #### Answer: D
-`Object.keys(obj)` is almost identical to `Object.getOwnPropertyNames(obj)` except the fact that the latter returns any type of object's property regardless of `enumerable`. By default `enumerable` is true when creating object. Using Object.defineProperties or Object.defineProperty we can manually set this option to `false`.
+`Object.keys(obj)` is almost identical to `Object.getOwnPropertyNames(obj)` except the fact that the latter returns any type of object's property regardless of `enumerable`. By default `enumerable` is true when creating object. Using `Object.defineProperties` or `Object.defineProperty` we can manually set this option to `false`.
 
 As such the object `person` will get 3 using`Object.keys(obj)`but 4 with `Object.getOwnPropertyNames(obj)`. `In short Object.keys(obj)` only returns the property setting the enumerable as `true`.
 
@@ -783,19 +772,15 @@ As such the object `person` will get 3 using`Object.keys(obj)`but 4 with `Object
 ```javascript
 const id = 10;
 
-const getID = (...id) =>{
-  
-  id(id);
-  
-  function id(id){
+const getID = (...id) => {
+    id(id);
 
-    console.log(typeof id)
+    function id(id) {
+        console.log(typeof id);
+    }
+};
 
-  }
-}
-
-getID(id)
-
+getID(id);
 ```
 - A:  ReferenceError
 - B:  10
@@ -820,23 +805,20 @@ The result of the code depending on the operator `typeof id`, which is `function
 ###### 21. What's the output?
 
 ```javascript
-
 var book1 = {
-  name: 'Name of the rose',
-  getName: function () {
-    console.log(this.name);
-  }
+    name: 'Name of the rose',
+    getName: function () {
+        console.log(this.name);
+    }
 };
 
 var book2 = {
-  name: {value: "Harry Potter"}  
+    name: {value: "Harry Potter"}
 };
-
 
 var bookCollection = Object.create(book1, book2);
 
-bookCollection.getName()
-
+bookCollection.getName();
 
 ```
 - A:  'Harry Potter'
