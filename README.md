@@ -1424,3 +1424,69 @@ Finally we get `New Zealand`.length and `Vietnam`.length, which in total returns
 
 </p>
 </details>
+
+---
+
+###### 35. What's the output?
+
+```javascript
+
+async function abc(){
+  console.log(8);
+    
+  await Promise.resolve(2).then(console.log)
+  
+  console.log(3)
+      
+}
+
+setTimeout(()=>{
+    console.log(1)
+}, 0)
+
+abc()
+
+queueMicrotask(()=>{
+    console.log(0)
+})
+
+Promise.resolve(4).then(console.log)
+
+console.log(6)
+
+
+```
+- A:  6 - 8 - 3 - 0 - 4 - 2 - 1
+- B:  8 - 2 - 3 - 0 - 4 - 6 - 1
+- C:  6 - 8 - 2 - 0 - 4 - 3 - 1
+- D:  8 - 6 - 2 - 0 - 4 - 3 - 1
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+D is correct anwser. The order of the asynchronous code's output depends on the MicroTask or MacroTask. MicroTask has a higher priority. Note that the synchronous code always be executed before asynchronous code. So in essense, we have the order as follows:
+
+      1) synchronous code
+      2) microtask code (promise, queueMicrotask)
+      3) macrotask code (setTimeout, setInterval)
+
+Be awared that in Nodejs environment, we also have `process.nextTick(callback)` which has the highest priority but we dont have it in this code.
+
+So, first callback in the `setTimeout()` will be executed last given that this is a MacroTask. That is why we got 1 last.
+
+Second, the function `abc()` is called next. Then we have 8 printed out in the console first. As the next line of code inside that function is an asynchrnous code with the keyword "await", we then `console.log(6)` as `Promise.resolve(4).then(console.log)` is an asynchrnous code. That is why we got 6.
+
+Now is the time for `Promise.resolve(2)`, so we get 2. At this point, you might have some sort of confusion. What will happend if we do not pass the keyword "await" before `Promise.resolve(2)` ? 
+
+As we have `await`, the code will be blocked here. Then what? We get 0 and 4 not 3. `Promise` and `queueMicrotask` are both microtask and they are already to run before `console.log(3)`. The reason is that microtask queue need to be emptied before any other codes can be called in the callstack.
+
+In the next step, we get 3 and the last one is 1.
+
+What would happend if we do not have the `await` keyword? Then the order of the output will be 8 - 3 - 6 - 2 - 0 - 4 -1.
+
+
+</p>
+</details>
+
