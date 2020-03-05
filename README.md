@@ -1490,3 +1490,56 @@ What would happend if we do not have the `await` keyword? Then the order of the 
 </p>
 </details>
 
+
+###### 36. What's the output?
+
+```javascript
+function myAccount(money){
+  let myMoney = money;
+  
+  return {
+    status: function(){
+      return `You have $ ${myMoney} in your account`;
+    },
+    dePoSit: function(amount){
+      myMoney = myMoney + amount;
+    },
+    withDraw: function(amount){
+      if(amount > myMoney){
+        return `You cannot withdraw money now`;
+      }
+      myMoney = myMoney - amount;
+    }
+  }
+}
+
+const vuong = myAccount(1000);
+
+vuong.withDraw(500);
+
+vuong.withDraw(200);
+
+vuong.dePoSit(100);
+
+vuong.withDraw(50);
+
+console.log(vuong.status());
+
+```
+- A:  "You have $ 950 in your account"
+- B:  "You have $ 1000 in your account"
+- C:  "You have $ 550 in your account"
+- D:  "You have $ 350 in your account"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+As the "state" of the data is preserved each time we call `dePoSit()` or `withDraw()`, hence we get $350 after all.
+
+Noted that that is a kind of "factory" function with "preload" data. You might think about another object when pass to `myAccount(somedata);` some other data. That is a really helpful way to create multiple objects from a factory function.
+
+</p>
+</details>
+
