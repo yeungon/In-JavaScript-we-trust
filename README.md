@@ -1543,3 +1543,41 @@ Noted that that is a kind of "factory" function with "preload" data. You might t
 </p>
 </details>
 
+
+###### 37. What's the output?
+
+```javascript
+
+const hoccoban = {
+  x: "youtube.com/hoccoban".length,
+  getMe(){
+    const inner = function(){
+      console.log(++this.x)
+    }
+    inner.bind(this)();
+  }
+};
+
+hoccoban.getMe();
+```
+- A:  20
+- B:  21
+- C:  22
+- D:  23
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+We get 21. First "youtube.com/hoccoban" returns 20 as we are using the property length of the string. Then it is being added one more value in `++this.x`. The question here seems trivial but it is actually not. There is a crucial note we should keep in mind is that `console.log(++this.x)` will not work as `x` is undefined when it is called outside of the object. 
+
+We can solve the problem with `this` in this case by using arrow function in the inner so that is can become something like `const inner = () => {}` as the arrow function does not actually have `this`. It will automatically look around and call the available object when the function is executed. 
+
+The second solution is that we can somehow "bypass" the tricky `this" by using that/this solution. We just need to declare a new variable `const that = this` inside getMe() and before declaring inner function. That is a quite common practice.
+
+The third solution is to take advantage of call(), bind() and apply() which are native methods of function (yes, function is also an object in JavaScript). In this case, we implement `bind(this)` to "bind" the function and the object so that `this` can actually point to the object when the function is executed. Note that bind() cannot be instantlly executed so that we need to add () after we bridge the function and the object. If we replace bind() with call(), then we do not need to pass () as in the above example. So inner.bind(this)();` will become `inner.call(this);`. They are technically equal. In practice, we tend to create a new variable to get the result from the binding of the function and the object.
+
+</p>
+</details>
+
