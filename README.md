@@ -1581,3 +1581,41 @@ The third solution is to take advantage of call(), bind() and apply() which are 
 </p>
 </details>
 
+
+###### 38. What's the output?
+
+```javascript
+
+function* hocCoBan(){
+  yield "js.edu.vn";
+  yield "youtube.com/hoccoban";
+  yield "Vuong Nguyen";
+}
+
+let data = hocCoBan();
+
+console.log((typeof data).length + data.next().value.length)
+
+```
+- A:  NaN
+- B:  10
+- C:  Error
+- D:  15
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+First, take a closer look at the function. It has a asterisk (*) next to the keyword "function". We do not have `return` keyword inside the function itself. What is going on here?
+
+It you have already known about generator, then this code snippet is not a big deal at all. We do not use generator very often, but this native JavaScript feature is the basis for async/await function, which is supported in ES7 that allows us to handle the flow of asynchronous code much easily.
+
+The operator `typeof data` will return `object` rather than `function`, which is the same case with `typeof hocCoBan()`. Of course, `typeof hocCoBan` still returns `function`. But it is actually a normal function. Basically, we get 6 in the operator `(typeof data).length`.
+
+Then `data.next()` calls the the built-in method `next()` which will output the value in the first `yield`, which is declared in the function. Then we get the length 9 with the string `js.edu.vn`.
+
+After all, we get 15. Not that understanding generator is quite important if you really want to understand `async/await` function.
+
+</p>
+</details>
