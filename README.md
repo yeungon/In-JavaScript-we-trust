@@ -1619,3 +1619,33 @@ After all, we get 15. Not that understanding generator is quite important if you
 
 </p>
 </details>
+
+
+###### 39. What's the output?
+
+```javascript
+const a = [1, 2, "chó", 3, 1, "chó", "mèo", 3];
+
+const b = [... new Set(a)];
+
+b.length = "chó".length;
+
+console.log(b)
+
+```
+- A:  4
+- B:  [1, 2, "chó", 3, "mèo"]
+- C:  [1, 2, "chó", "mèo"]
+- D:  [1, 2, "chó"]
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+When using ... in array, it is called spread operator in JavaScript which, technically, is similar to rest parameter (using in the context of function). It provides a more elegant way to concat (combine) or copy array. In the code above, b is a copy of a. However, as we pass a in to a `Set`, it will return the unique value only in a. It means, now we have `[1, 2, "chó", 3, "mèo"] in b.
+
+However, we then set the length for b as 3. Note that "chó".length returns 3 but in PHP, strlen("chó") returns 4, just in case you are coming from PHP world.
+
+As we set the length for the array b, we also cut down the array itselt. That is the reason why we get [1, 2, "chó"] printing out in the console.
+</p>
+</details>
