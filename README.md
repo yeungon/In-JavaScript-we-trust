@@ -1690,6 +1690,61 @@ The last thing we have to take note is that the typeof operator of an array will
 </details>
 
 
+###### 41. What's the output?
+
+```javascript
+class Component{
+  
+  constructor(age){    
+    this.age = age + `${typeof Coder}`.length;
+  }
+
+  getAge(){
+    return ++this.age;
+  }
+
+}
+
+class Coder extends Component{
+  
+   constructor(age){    
+     super(age)
+     this.age = age - `${typeof Coder}`.length;
+  }
+  
+}
+
+
+const a = new Coder(16);
+
+console.log(a.getAge())
+
+```
+- A:  7
+- B:  8
+- C:  9
+- D:  10
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+We have two simple classes in which Coder extends Component. Nothing fancy. As `typeof ClassName` returns `function` rather than `class`, we then get 8 in the operator `"function".length`.
+
+Though we implement `super(age)` in the Coder class, we actually overwrite the contructor of the parent class Component in the child class Coder. Therefore, when initiating the object `a`, the following code is automatically triggered `this.age = age - `${typeof Coder}`.length;`. The difference between the child and parent 's constructor is minus (-) and plus (+) in the above code. 
+
+As such, we have 16 - 8 rather than 16 + 8, which returns 8. The function `getAge()` returns 9, so the corrent answer is C.
+
+Bear in mind that JavaSCript is not a "real" OOP programming language even though we can now implement `class` and `object` as in other languages. 
+
+</p>
+</details>
+
+
+
+
+
 
 
 
