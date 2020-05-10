@@ -1649,3 +1649,56 @@ However, we then set the length for b as 3. Note that "chó".length returns 3 bu
 As we set the length for the array b, we also cut down the array itselt. That is the reason why we get [1, 2, "chó"] printing out in the console.
 </p>
 </details>
+
+###### 40. What's the output?
+
+```javascript
+const mot = function(m){
+   return arguments[0]; 
+}
+
+
+const hai = function(...m){
+   return arguments[arguments[0]]; 
+}
+
+
+const a = [mot(123), hai(1, 2, 3)];
+
+console.log(typeof a !== "object" ? a[0]: a[1])
+
+```
+- A:  1
+- B:  2
+- C:  3
+- D:  123
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+First, it should be noted that `arguments` cannot be used in an arrow function, so in order to take advantage of this feature, we have to write the function in the casual form. `arguments` returns an array-like object that contains any parameter we pass into the function when executing it. 
+
+`...` is a `rest operator`. We use this feature in function and array. Noted that in the context of array, it is called `spread operator` and it behaves differently. When declaring a function with ..., we can pass as many parameters into the function itselt when executing it as we want. 
+
+Note that in the function `hai`, we return `arguments[arguments[0]]` which means `hai(1, 2, 3)` will return 2 rathern than 1 because `arguments[0]` return 1 and then `arguments[1]` returns 2.
+
+The last thing we have to take note is that the typeof operator of an array will return `object`, here the trick seems more daunting. The final anwser is 2 as we got it in `a[1]`, or `hai(1, 2, 3)`.
+
+</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
