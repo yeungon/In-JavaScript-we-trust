@@ -1788,6 +1788,39 @@ Similar to `map` or `reduce` function, `filter` always returns a new array from 
 </details>
 
 
+###### 43. What's the output?
+
+```javascript
+
+const coderfarm = [1, [], {}, [], 2, 3];
+
+const converted = Number(coderfarm instanceof Array);
+  
+const result =  coderfarm.indexOf(converted + true);
+
+console.log(result);
+
+```
+- A:  []
+- B:  {}
+- C:  2
+- D:  4
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+We have a simple array in the code snippet above that includes some digits, two other arrays and one object. Using the built-in function `Number`, we can convert any value passing to the function into `digit`. As `coderfarm instanceof Array` returns `true`, then `converted` get 1. Noted that you can use another way to check the type of an array is `Array.isArrray(arrayToBeChecked)` which return a `boolean` value. Suprisingly, the operator `typeof []` returns `object` rather than `array`. 
+
+The built-in function `indexOf` will return the index of the element that is being checked. So as `converted + true` return 2, we are going to check the index of the element with the value 2 in the array `coderfarm`. 
+
+We get 4 in the `console.log` and the correct answer is D.
+
+</p>
+</details>
+
+
 
 
 
