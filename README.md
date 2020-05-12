@@ -1742,6 +1742,52 @@ Bear in mind that JavaSCript is not a "real" OOP programming language even thoug
 </details>
 
 
+###### 42. What's the output?
+
+```javascript
+
+class RemoveFalse{
+
+  constructor(element){        
+
+    this.element = element;
+    
+    this.length = this.removeFalse().length;
+  }
+    
+  removeFalse(){
+
+    this.element = this.element.filter(Boolean)
+    
+    return this.element;
+  }
+}
+
+const theArray = [true, false, 1, 0, NaN, undefined, "", null, "js.edu.vn"];
+
+const a = new RemoveFalse(theArray);
+
+console.log(a.length)
+
+```
+- A:  false
+- B:  true
+- C:  2
+- D:  3
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The key message that can be taken away in the code snippet above is `filer(Boolean)` which can be taken into consideration in case you want to eliminate `falsy values` in an array. We can use `filter(callback)` or `filter(Boolean)` in particular in this case to do that. Note that we have to pass into the filter function a callback and in this case Boolean is actually a function. You can check `typeof Boolean` to see it. 
+
+Similar to `map` or `reduce` function, `filter` always returns a new array from the exisiting one. `[true, false, 1, 0, NaN, undefined, "", null, "js.edu.vn"].filter(Boolean);` will return `[true, 1, "js.edu.vn"];`, hence calling the function `removeFalse()` gives us 3. So the correct answer is 3.
+
+</p>
+</details>
+
+
 
 
 
