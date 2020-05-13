@@ -1902,8 +1902,6 @@ So the answer is C, which is 8 (first execution of the generator) + 7 (second ex
 </details>
 
 
-
-
 ###### 46. What's the output?
 
 ```javascript
@@ -1947,6 +1945,47 @@ So `response.push(currentValue + ages.length)` will add the value 25 + 4 to the 
 
 </p>
 </details>
+
+
+
+###### 47. What's the output?
+
+```javascript
+
+const getSTring = (string, method = false) => {
+  
+  if(method === true){
+    
+    return string.slice(1, 4).length
+  }
+  
+  return string.substr(1, 4).length;
+};
+
+
+console.log(getSTring("hello", true) + getSTring("hello"))
+
+
+```
+- A:  6
+- B:  7
+- C:  8
+- D:  9
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+`getString()` is an arrow function with two parameters. As you can see that the parameter `method` has the default value `false`, then if you do not pass any value to it when executing the function, the default value will be used.
+
+The key thing to take note from the code above is the difference betweet `slice(1, 4)` (which returns 3 characters) and `substr(1, 4)` (which returns 4 ones). 
+
+Finally `console.log(getSTring("hello", true) + getSTring("hello"))` returns 7 because `slice` and `substr` are both used.
+
+</p>
+</details>
+
 
 
 
