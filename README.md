@@ -1823,6 +1823,46 @@ We get 4 in the `console.log` and the correct answer is D.
 
 
 
+###### 43. What's the output?
+
+```javascript
+
+const converter = (arrayInput) => {
+  return {...arrayInput}
+
+};
+
+const content = ["function", "object", "decorator"];
+
+const checking = content [Number(false)];
+
+const result = typeof converter(content) === content[1];
+
+console.log(checking ? result ? (typeof converter).length: false : false);
+
+```
+- A:  6
+- B:  NaN
+- C:  true
+- D:  8
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The operator `...` in JavaScript is very handy. The function `converter` is quite trivial, it takes advantege of `...` (rest operator || spread operator) to turn an array into an object. 
+
+First we have the constant `checking` with the value `function` given that `Number(false)` gives us 0 and that is the first index in the array `content`. 
+
+Second, the constant `result` gives us the value `true` as the `typeof converter(content)` is `function`, which is also the value of `content[1]`.
+
+Then in the final code, we have `checking = true`, and then `result = true` as well, so the final result is `(typeof converter).length` which is equivalent to `"function".length` because the `typeof of converter` is simply `function`. We get 8 after all and the correct answer is D.
+
+</p>
+</details>
+
+
 
 
 
