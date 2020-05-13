@@ -1988,6 +1988,40 @@ Finally `console.log(getSTring("hello", true) + getSTring("hello"))` returns 7 b
 
 
 
+###### 48. What's the output?
+
+```javascript
+
+(function(a, b, c){
+  
+  console.log(Boolean([...arguments].slice(2, 3)[0].slice(3, 4)));
+    
+})("hello", "world", "new zealand");
+
+```
+- A:  "new"
+- B:  true
+- C:  "land"
+- D:  false
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+The code above is a self-executing function. It runs when it is being declared. We have three parameters and three arguments passed are `"hello", "world"` and `"new zealand"`. 
+
+First, `arguments` returns an object consisting of arguments passed to the function when executing it. However, using spread operator `...`, we then convert the object to an array. We can also do it by using `Array.from(object)`.
+
+Second, `slice(2, 3)` extracts the element from the index 2 to the index 3, which returns `"new zealand"`. It is still an array. We then extract the element with the index `[0]` and we get the string `"new zealand"` rather than an array. 
+
+Third, `"new zealand".slice(3, 4)` gives us an empty string (with a space between) `" "`. The `Boolean(" ")` gives us `true`. Noted that if there is no space in the empty string, we get `false` instead.
+
+So the correct answer is B.
+
+</p>
+</details>
+
 
 
 
