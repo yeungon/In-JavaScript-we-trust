@@ -1904,6 +1904,53 @@ So the answer is C, which is 8 (first execution of the generator) + 7 (second ex
 
 
 
+###### 46. What's the output?
+
+```javascript
+
+var ages = [10, 15, 20, 25];
+
+let response = [];
+
+ages.some(function(currentValue, index, ages){
+  if(currentValue > ages[ages.length - index])
+    
+  response.push(currentValue + ages.length)
+});
+
+console.log(response)
+
+```
+- A:  [20]
+- B:  [20, 25]
+- C:  [25, 29]
+- D:  [29]
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+`Array.prototype.some()` is a built-in function facilitating us to iterate the array using a callback. As in the code snippet above, there are three parameters in the callback, namely `currentValue` (the value of the current element that is being checked), `index` (the index of the element in the array that is being checked/evaluated) and `ages` (the array itself).
+
+The function `some()` returns a `boolean` value. The code `currentValue > ages[ages.length - index]` returns `true` only one time, which is the last element. Let 's examine the code when it runs through each element:
+
+1) 10 > ages[4 - 0]. As ages[4] returns `undefined`, and `10 > undefined` returns `false`, it stops.
+
+2) 15 > ages[4 - 1]. As ages[3] returns 25, it breaks as the operator returns `false`.
+
+3) 20 > ages[4 - 2]. As ages[2] returns 20, it breaks as the operator returns `false`.
+
+4) 25 > ages[4 - 3]. As ages[1] returns 10, it returns `true`. Only this value is being pushed to the array `response`.
+
+So `response.push(currentValue + ages.length)` will add the value 25 + 4 to the array `response`, D is the correct answer.
+
+</p>
+</details>
+
+
+
+
 
 
 
