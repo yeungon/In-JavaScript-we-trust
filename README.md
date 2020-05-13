@@ -1822,8 +1822,7 @@ We get 4 in the `console.log` and the correct answer is D.
 
 
 
-
-###### 43. What's the output?
+###### 44. What's the output?
 
 ```javascript
 
