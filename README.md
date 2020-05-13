@@ -2024,6 +2024,57 @@ So the correct answer is B.
 
 
 
+###### 49. What's the output?
+
+```javascript
+
+class HocCoBan{
+  name = "hello world";
+
+  getSlice(slice){
+    return this.getName(slice).slice(true, this.name.length)
+  }
+
+  getName(space){
+    return this.name.split(space)
+  }
+}
+
+HocCoBan.prototype.split = function(argument){
+      
+  return this.getSlice(argument)
+    
+}
+
+const a = new HocCoBan()
+
+console.log(a.split("").length);
+
+```
+- A:  NaN
+- B:  true
+- C:  10
+- D:  11
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+The code above does nothing special. However it is in a complicated way on purpose. First, we have a class named "HocCoBan" with methods and one property. Then we add another method `split` using the tradional way (via `prototype`). 
+
+When we call the method `split`, we pass the argument empty string to it. This method then call other methods. The flow is as follows:
+
+`split("")` ==> `this.getSlice("")` ==> `this.getName("")` ==> `this.name.split("")`. Here `split` is a built-in function that convert a string to an array. 
+
+Noted that in `getSlice()`, we also use `.slice(true, this.name.length)` to `slice` (cut) the array from the index 1 to 11. So the length is 10.
+
+So the final answer is C.
+
+This code might help us master the concept function `prototype` in JavaScript and the understand the difference between the built in function `String.prototype.split` and the function we declare by ourself `HocCoBan.prototype.split`.
+
+</p>
+</details>
 
 
 
