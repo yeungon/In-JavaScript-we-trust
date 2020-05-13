@@ -1865,6 +1865,41 @@ So the key message here is that we can take advantate of the `spread operator` (
 
 
 
+###### 45. What's the output?
+
+```javascript
+
+function *js(length){
+  for (let i = length.length; i > 0; --i) {
+    yield i
+  }
+}
+
+let getJS = js(typeof js)
+
+let result = getJS.next().value;
+
+console.log(result + getJS.next().value)
+
+```
+- A:  10
+- B:  14
+- C:  15
+- D:  16
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+We have a generator function in the code snippet above, which is defined with the *. Noted that we can "store" as many result as we want in a generator thanks to the keyword `yield`. 
+
+As the `typeof js` is `function`, so the length of the string `function` is 8. So when calling `getJS.next().value;`, we get 8. However, in the next calling, it returns 7, and in the following calling after that, we get 6. That is why generator can "store" and "release" (or return) as many value as we want.
+
+So the answer is C, which is 8 (first execution of the generator) + 7 (second execution of the generator).
+
+</p>
+</details>
 
 
 
