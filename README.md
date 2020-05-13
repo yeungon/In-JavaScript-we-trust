@@ -1858,6 +1858,8 @@ Second, the constant `result` gives us the value `true` as the `typeof converter
 
 Then in the final code, we have `checking = true`, and then `result = true` as well, so the final result is `(typeof converter).length` which is equivalent to `"function".length` because the `typeof of converter` is simply `function`. We get 8 after all and the correct answer is D.
 
+So the key message here is that we can take advantate of the `spread operator` (or `...`) to turn an array to an object. For example: `const a = ["hello", 2]`, then we can have a go with `const b = {...a}` and b is now an object with the following value: `{0: "hello", 1: 2}`. The key of the object is actually the index of the original array.
+
 </p>
 </details>
 
