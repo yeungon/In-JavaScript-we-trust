@@ -2077,6 +2077,48 @@ This code might help us master the concept function `prototype` in JavaScript an
 </details>
 
 
+###### 50. What's the output?
+
+```javascript
+
+function javaScript(node){
+  
+  let mot =  node.includes("I") ? "love": "you";    
+    
+  return function(deno = mot){        
+        
+    let hai =  node.replace(deno, "done");
+    
+    return function(done = hai){
+                  
+      return (node + deno + done).length;
+    }
+  }
+}
+
+console.log(javaScript("I love you")()())
+
+```
+- A:  18
+- B:  24
+- C:  20
+- D:  25
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+Apart from learning some built-in functions to handle string such as `replace` and `inclues`, we are reviving the concept of `currying function` in JavaScript. Say you want to declare a function with three parameters, you may consider refactoring the code by declaring 3 nested functions, each with one parameter you wish to pass to. Basically, both of them work in the same way. However, noted that only the outerest (the main) function has the name as `javaScript` in the code above. Both nested (inner) functions are declared without the name. We also use three `return` keywords in the code.
+
+When executing the function, you then have three `()` as in the `javaScript("I love you")()()`. We do not pass any argument into the second and third functions (both are inner/nested functions without the name) and these functions will take the default value we have alreaded declared when being executing. 
+
+All in all, we have the final operator `return (node + deno + done).length;` in which `node` is "I love you", `deno` is "love" and `done` is "I done you". The length of these strings is 24, which you can calculate by yourself the concatenated string `I love youyou I done you`. Be aware of the `empty space`, which is also taken into account.
+
+</p>
+</details>
+
+
 
 
 
