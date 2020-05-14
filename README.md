@@ -2061,9 +2061,9 @@ console.log(a.split("").length);
 
 #### Answer: C
 
-The code above does nothing special. However it is in a complicated way on purpose. First, we have a class named "HocCoBan" with methods and one property. Then we add another method `split` using the tradional way (via `prototype`). 
+The code above is nothing much special. However it is written in a complicated way on purpose. First, we have a class named "HocCoBan" with two methods and one property. Then we add another method `split` using the tradional way (via `prototype`). Note that `class` in JavaScript is simply a syntactic sugar of `function` given that `typeof  ClassName` return `function`.
 
-When we call the method `split`, we pass the argument empty string to it. This method then call other methods. The flow is as follows:
+When we call the method `split`, we pass the an empty string to it. This method then call other methods. The flow is as follows:
 
 `split("")` ==> `this.getSlice("")` ==> `this.getName("")` ==> `this.name.split("")`. Here `split` is a built-in function that convert a string to an array. 
 
