@@ -2119,6 +2119,39 @@ All in all, we have the final operator `return (node + deno + done).length;` in 
 </details>
 
 
+###### 51. What's the output?
+
+```javascript
+
+const www = ["hello", "coranovirus", "kiora", "world", "new zealand"]
+
+const found = www.find(function(world){ 
+  return world > "victory"
+});
+
+const result = found[1] < www[0][0] ? www[false ? 1 : 0]: www[true ? 0: 1];
+
+console.log(result);
+```
+- A:  "hello"
+- B:  "world"
+- C:  "victory"
+- D:  "w"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+The key information in the question above is about the method `Array.prototype.find()`. It returns the first element in the array that meets the condition declared in the callback function, which is passed to the function. The array is being iterated to check every single element. In the code above, we might easily see that the element `world` is the first element in the array that has a larger value than `victory`. Remember that "w" > "v" return trues if the two letters are compared. When two words are being compared, only the first letter in each word is being utilised to compare.
+
+As the result, `found` is now `world` and thus `found[1]` returns the letter `w` whereas `www[0][0]` gives us the letter `h` in the element `hello`. It means `found[1] < www[0][0]` returns `false`.
+
+So the final result is `www[true ? 0: 1]` or `www[0]`, which is `hello`. And the correct answer is A.
+
+</p>
+</details>
+
 
 
 
