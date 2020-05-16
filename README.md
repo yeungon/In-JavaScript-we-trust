@@ -6,10 +6,10 @@ In JS we trust - The best way to learn is by building/coding and teaching. I cre
 
 ```javascript
 function a(x) {
-    x++;
-    return function () {
-        console.log(++x);
-    }
+  x++;
+  return function () {
+    console.log(++x);
+  };
 }
 
 a(1)();
@@ -37,16 +37,18 @@ This question reminds us about Closure in JS. Closure allows us to create a `sta
 We have here 3, 3, 3 and 3, 4, 5 because first we simply call the function `a()`. It works like a normal function and we do not see something `stateful` here. In later case, we declare a variable `x` and it stores the value of function `a(1)`, that is why we get 3. 4. 5 rather than 3, 3, 3.
 
 This kind of gotcha gives me the feeling of `static` variable in PHP world.
+
 </p>
 </details>
 
 ---
+
 ###### 2. What's the output?
 
 ```javascript
 function Name(a, b) {
-    this.a = a;
-    this.b = b;
+  this.a = a;
+  this.b = b;
 }
 
 const me = Name("Vuong", "Nguyen");
@@ -64,31 +66,33 @@ console.log(!(a.length - window.a.length));
 
 #### Answer: C
 
-We get true in the console. The tricky part is when we create an object from the constructor function Name but we DO NOT USE `new` keywork. That makes the variable `a` global one and get the value "Vuong". Remember that it is actually a property of the global object `window` (in the browser) or `global` in the nodejs. 
+We get true in the console. The tricky part is when we create an object from the constructor function Name but we DO NOT USE `new` keywork. That makes the variable `a` global one and get the value "Vuong". Remember that it is actually a property of the global object `window` (in the browser) or `global` in the nodejs.
 
 We then get `a.length` ~ 5 and `window.a.length` ~ 5 which return 0. !0 returns true.
 
 Imagine what would happen when we create the instance `me` with the `new` keywork. That is an interesting inquire!
+
 </p>
 </details>
 
 ---
+
 ###### 3. What's the output?
 
 ```javascript
 const x = function (...x) {
-    let k = (typeof x).length;
-    let y = () => "freetut".length;
-    let z = {y: y};
+  let k = (typeof x).length;
+  let y = () => "freetut".length;
+  let z = { y: y };
 
-    return k - z.y();
+  return k - z.y();
 };
 
 console.log(Boolean(x()));
 ```
 
 - A: `true`
-- B:  1
+- B: 1
 - C: -1
 - D: `false`
 
@@ -99,86 +103,89 @@ console.log(Boolean(x()));
 
 The spread operator `...x` might help us obtain the parameter in the function in the form of array. Yet, in Javascript the typeof array return "object" rather than "array". It is totally odd if you are coming from PHP.
 
-That is said, we now have the length of the string `object` which returns 6. z.y() simply returns the length of the string 'freetut' (7). 
+That is said, we now have the length of the string `object` which returns 6. z.y() simply returns the length of the string 'freetut' (7).
 
 Be aware that the function x() (in the form of `function express` or `anonymous function` (if you are coming from PHP) return -1 when being called and when converted to bool with `Boolean(-1)` return true instead of false. Noted that `Boolean(0)` return false.
+
 </p>
 </details>
 
-
 ---
+
 ###### 4. What's the output?
 
 ```javascript
 (function js(x) {
-    const y = (j) => j * x;
+  const y = (j) => j * x;
 
-    console.log(y(s()));
+  console.log(y(s()));
 
-    function s() {
-        return j();
-    }
+  function s() {
+    return j();
+  }
 
-    function j() {
-        return x ** x;
-    }
+  function j() {
+    return x ** x;
+  }
 })(3);
 ```
 
 - A: `undefined`
-- B:  18
-- C:  81
-- D:  12
+- B: 18
+- C: 81
+- D: 12
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: C
+
 The function `js()` can be automatically executed without calling it and known as IIFE (Immediately Invoked Function Expression). Noted the parameter `x` of the function `js` is actuallly passed with the value 3.
 
-The value return of the function is y(s())), meaning calling three other functions `y()`, `s()` and `j()` because the function `s()` returns `j()`. 
+The value return of the function is y(s())), meaning calling three other functions `y()`, `s()` and `j()` because the function `s()` returns `j()`.
 
 j() returns 3^3 = 27 so that s() returns 27.
 
-y(s()) means y(27) which returns 27*3 = 81.
+y(s()) means y(27) which returns 27\*3 = 81.
 
 Note that we can call `declare function` BEFORE the function is actually declared but not with `expression function`.
+
 </p>
 </details>
 
-
 ---
+
 ###### 5. What's the output?
 
 ```javascript
-
 var tip = 100;
 
 (function () {
-    console.log("I have $" + husband());
+  console.log("I have $" + husband());
 
-    function wife() {
-        return tip * 2;
-    }
+  function wife() {
+    return tip * 2;
+  }
 
-    function husband() {
-        return wife() / 2;
-    }
+  function husband() {
+    return wife() / 2;
+  }
 
-    var tip = 10;
+  var tip = 10;
 })();
 ```
 
-- A:  "I have $10";
-- B:  "I have $100";
-- C:  "I have $50";
-- D:  "I have $NaN";
+- A: "I have \$10";
+- B: "I have \$100";
+- C: "I have \$50";
+- D: "I have \$NaN";
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
-We have here an IIFE (Immediately Invoked Function Expression). It means we do not have to call it but it will be excuted automatically when declared. The flow is as: husband() returns wife()/2 and wife() returns tip*2. 
+
+We have here an IIFE (Immediately Invoked Function Expression). It means we do not have to call it but it will be excuted automatically when declared. The flow is as: husband() returns wife()/2 and wife() returns tip\*2.
 
 We might think that tip = 100 because it is a global variable when declaring with `var` keyword. However, it is actually `undefined` because we also have `var tip = 10` INSIDE the function. As the variable `tip` is hoisted with default value `undefined`, the final result would be D. We know that `undefined` returns NaN when we try to divide to 2 or multiple with 2.
 
@@ -189,15 +196,14 @@ JS is fun, right?
 </p>
 </details>
 
-
 ---
+
 ###### 6. What's the output?
 
 ```javascript
-
 const js = { language: "loosely type", label: "difficult" };
 
-const edu = {...js, level: "PhD"};
+const edu = { ...js, level: "PhD" };
 
 const newbie = edu;
 
@@ -206,10 +212,10 @@ delete edu.language;
 console.log(Object.keys(newbie).length);
 ```
 
-- A:  2;
-- B:  3;
-- C:  4;
-- D:  5;
+- A: 2;
+- B: 3;
+- C: 4;
+- D: 5;
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -225,41 +231,43 @@ Then we declare another variable named `newbie`. IMPORTANT note: By declaring th
 Then we have 2 as `edu.language` is deleted. Both objects now have only two elements.
 
 Now is time to think about coping an object in JS either shallow or deep one.
+
 </p>
 </details>
 
 ---
+
 ###### 7. What's the output?
 
 ```javascript
 var candidate = {
-    name: 'Vuong',
-    age: 30
+  name: "Vuong",
+  age: 30,
 };
 
 var job = {
-    frontend: 'Vuejs or Reactjs',
-    backend: 'PHP and Laravel',
-    city: 'Auckland'
+  frontend: "Vuejs or Reactjs",
+  backend: "PHP and Laravel",
+  city: "Auckland",
 };
 
 class Combine {
-    static get() {
-        return Object.assign(candidate, job);
-    }
+  static get() {
+    return Object.assign(candidate, job);
+  }
 
-    static count() {
-        return Object.keys(this.get()).length;
-    }
+  static count() {
+    return Object.keys(this.get()).length;
+  }
 }
 
 console.log(Combine.count());
 ```
 
-- A:  5;
-- B:  6;
-- C:  7;
-- D:  8;
+- A: 5;
+- B: 6;
+- C: 7;
+- D: 8;
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -274,23 +282,30 @@ Note that two methods `get()` and `count()` are defined as `static`, so they nee
 </details>
 
 ---
+
 ###### 8. What's the output?
 
 ```javascript
 var x = 1;
 
-(() => {x += 1; ++x})();
-((y) => {x +=y; x = x%y;})(2);
-(() => x += x)();
-(() => x *= x)();
+(() => {
+  x += 1;
+  ++x;
+})();
+((y) => {
+  x += y;
+  x = x % y;
+})(2);
+(() => (x += x))();
+(() => (x *= x))();
 
 console.log(x);
 ```
 
-- A:  4;
-- B:  50;
-- C:  2;
-- D:  10;
+- A: 4;
+- B: 50;
+- C: 2;
+- D: 10;
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -306,8 +321,8 @@ In the third and fouth IIFE functions, we get 2 `x = x + x` and then 4 `x = x * 
 </p>
 </details>
 
-
 ---
+
 ###### 9. What's the output?
 
 ```php
@@ -330,10 +345,10 @@ x = 15;
 console.log(f(10));
 ```
 
-- A:  26 and 26;
-- B:  21 and 21;
-- C:  21 and 26;
-- D:  26 and 21;
+- A: 26 and 26;
+- B: 21 and 21;
+- C: 21 and 26;
+- D: 26 and 21;
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -344,12 +359,13 @@ This question illustrates the diffences between PHP and JavaScript when handling
 
 On the contrary, JavaScript treats the variable a bit different when it is passed to anonymous function. We do not have to use the keyword `use` here to pass variable to the closure. The variable `x` in the second snippet is updated before the closure is called, then we get 26.
 
-Note that in PHP 7.4, we have arrow function and we then do not have to use the keyword `use` to pass the variable to function. Another way to call a `global` ariable inside a function in PHP is to use the keyword `global` or employ the built-in GLOBAL variable $GLOBALS.
+Note that in PHP 7.4, we have arrow function and we then do not have to use the keyword `use` to pass the variable to function. Another way to call a `global` ariable inside a function in PHP is to use the keyword `global` or employ the built-in GLOBAL variable \$GLOBALS.
 
 </p>
 </details>
 
 ---
+
 ###### 10. What's the output?
 
 ```javascript
@@ -363,10 +379,10 @@ console.log(x == z);
 console.log(x === z);
 ```
 
-- A:  true    true    true    true;
-- B:  false   false   false   false;
-- C:  true    true    false   false;
-- D:  false   false   true    true;
+- A: true true true true;
+- B: false false false false;
+- C: true true false false;
+- D: false false true true;
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -380,24 +396,24 @@ Technically, `x` and `y` have the same value. Both are empty objects. However, w
 </p>
 </details>
 
-
 ---
+
 ###### 11. What's the output?
 
 ```javascript
 console.log("hello");
 
-setTimeout(()=>console.log("hey"), 1);
-setTimeout(()=>console.log("kiora"), 2);
-setTimeout(()=>console.log("world"), 0);
+setTimeout(() => console.log("hey"), 1);
+setTimeout(() => console.log("kiora"), 2);
+setTimeout(() => console.log("world"), 0);
 
 console.log("hi");
 ```
 
-- A:  "hello" "hey" "kiora" "world" "hi"
-- B:  "hello" "hi"  "hey"   "kiora" "world"
-- C:  "hello" "hi"  "world" "hey"   "kiora"
-- D:  "hello" "hi"  "hey"   "world" "kiora"
+- A: "hello" "hey" "kiora" "world" "hi"
+- B: "hello" "hi" "hey" "kiora" "world"
+- C: "hello" "hi" "world" "hey" "kiora"
+- D: "hello" "hi" "hey" "world" "kiora"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -409,9 +425,9 @@ Given that three setTimeout() functions will be kept in the `task queue` before 
 We might have the feeling that three setTimeout() functions should be executed in the order "world" -> "hey" -> "kiora" providing that the time we have set are 0 mil second -> 1 mil second -> 2 mil second respectively. Yet, there is no different between 0 and 1 mil second. That is why we will see "hey" in the next. "world" is being executed then and following by the last on "kiora".
 
 For reference, read this https://stackoverflow.com/questions/8341803/difference-between-settimeoutfn-0-and-settimeoutfn-1
+
 </p>
 </details>
-
 
 ---
 
@@ -419,19 +435,20 @@ For reference, read this https://stackoverflow.com/questions/8341803/difference-
 
 ```javascript
 String.prototype.lengthy = () => {
-    console.log("hello");
+  console.log("hello");
 };
 
-let x = {name: "Vuong"};
+let x = { name: "Vuong" };
 
 delete x;
 
 x.name.lengthy();
 ```
-- A:  "Vuong";
-- B:  "hello";
-- C:  "undefined"
-- D:  "ReferenceError"
+
+- A: "Vuong";
+- B: "hello";
+- C: "undefined"
+- D: "ReferenceError"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -452,7 +469,6 @@ Note that if we declare object without `let, const` or `var`, we then have a glo
 ###### 13. What's the output?
 
 ```javascript
-
 let x = {};
 
 x.__proto__.hi = 10;
@@ -460,12 +476,12 @@ x.__proto__.hi = 10;
 Object.prototype.hi = ++x.hi;
 
 console.log(x.hi + Object.keys(x).length);
-
 ```
-- A:  10
-- B:  11
-- C:  12
-- D:  NaN
+
+- A: 10
+- B: 11
+- C: 12
+- D: NaN
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -485,37 +501,38 @@ Then we overwrite the property `hi` with a new value 11. Last we have 11 + 1 = 1
 
 ```javascript
 const array = (a) => {
-    let length = a.length;
-    delete a[length - 1];
-    return a.length;
+  let length = a.length;
+  delete a[length - 1];
+  return a.length;
 };
 
 console.log(array([1, 2, 3, 4]));
 
 const object = (obj) => {
-    let key = Object.keys(obj);
-    let length = key.length;
-    delete obj[key[length - 1]];
+  let key = Object.keys(obj);
+  let length = key.length;
+  delete obj[key[length - 1]];
 
-    return Object.keys(obj).length;
+  return Object.keys(obj).length;
 };
 
-console.log(object({1: 2, 2: 3, 3: 4, 4: 5}));
+console.log(object({ 1: 2, 2: 3, 3: 4, 4: 5 }));
 
 const setPropNull = (obj) => {
-    let key = Object.keys(obj);
-    let length = key.length;
-    obj[key[length - 1]] = null;
+  let key = Object.keys(obj);
+  let length = key.length;
+  obj[key[length - 1]] = null;
 
-    return Object.keys(obj).length;
+  return Object.keys(obj).length;
 };
 
-console.log(setPropNull({1: 2, 2: 3, 3: 4, 4: 5}));
+console.log(setPropNull({ 1: 2, 2: 3, 3: 4, 4: 5 }));
 ```
-- A:  333
-- B:  444
-- C:  434
-- D:  343
+
+- A: 333
+- B: 444
+- C: 434
+- D: 343
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -531,14 +548,11 @@ For those who are familiar with PHP, we have `unset($someArray[index])` that rem
 </p>
 </details>
 
-
-
 ---
 
 ###### 15. What's the output?
 
 ```javascript
-
 var a = [1, 2, 3];
 var b = [1, 2, 3];
 
@@ -548,15 +562,15 @@ var d = c;
 var e = [1, 2, 3];
 var f = e.slice();
 
-console.log(a === b); 
-console.log(c === d); 
-console.log(e === f); 
-
+console.log(a === b);
+console.log(c === d);
+console.log(e === f);
 ```
-- A:  true  true  true
-- B:  false false true
-- C:  true  true  false
-- D:  false true  false
+
+- A: true true true
+- B: false false true
+- C: true true false
+- D: false true false
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -572,33 +586,37 @@ The third one gives us a hint to copy an array in JavaScript using `slice()` met
 </p>
 </details>
 
-
-
-
 ---
+
 ###### 16. What's the output?
 
 ```javascript
 var languages = {
-    name: ['elixir', 'golang', 'js', 'php', {name: "feature"}],
-    feature: 'awesome',
+  name: ["elixir", "golang", "js", "php", { name: "feature" }],
+  feature: "awesome",
 };
 
 let flag = languages.hasOwnProperty(Object.values(languages)[0][4].name);
 
 (() => {
-    if (flag !== false) {
-        console.log(Object.getOwnPropertyNames(languages)[0].length << Object.keys(languages)[0].length);
-    } else {
-        console.log(Object.getOwnPropertyNames(languages)[1].length << Object.keys(languages)[1].length);
-    }
+  if (flag !== false) {
+    console.log(
+      Object.getOwnPropertyNames(languages)[0].length <<
+        Object.keys(languages)[0].length
+    );
+  } else {
+    console.log(
+      Object.getOwnPropertyNames(languages)[1].length <<
+        Object.keys(languages)[1].length
+    );
+  }
 })();
 ```
 
-- A:  8
-- B:  NaN
-- C:  64
-- D:  12
+- A: 8
+- B: NaN
+- C: 64
+- D: 12
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -607,51 +625,54 @@ let flag = languages.hasOwnProperty(Object.values(languages)[0][4].name);
 
 The code snippet is quite tricky as it has a couple of different built-in methods handling object in `JavaScript`. For example, both `Object.keys` and `Object.getOwnPropertyNames` are used even thought they are quite similar except that the latter can return non-enumerable properties. You might want to have a look at this thoroughly written reference https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames
 
+`Object.values` and `Object.keys` return the property value and property name of the object, respectively. That is nothing new. `object.hasOwnProperty('propertyName')` returns a `boolean` confirming whether a property exists or not.
 
-`Object.values` and `Object.keys` return the property value and property name of the object, respectively. That is nothing new. `object.hasOwnProperty('propertyName')` returns a `boolean` confirming whether a property exists or not. 
-
-We have `flag` true because `Object.values(languages)[0][4].name` returns `feature`, which is also the name of the property. 
+We have `flag` true because `Object.values(languages)[0][4].name` returns `feature`, which is also the name of the property.
 
 Then we have 4 << 4 in the `if-else` flow that returns the bitwise value, equivalent to `4*2^4` ~ `4*16` ~ 64.
+
 </p>
 </details>
 
 ---
+
 ###### 17. What's the output?
 
 ```javascript
 var player = {
-    name: 'Ronaldo',
-    age: 34,
-    getAge: function () {
-        return ++this.age - this.name.length
-    }
+  name: "Ronaldo",
+  age: 34,
+  getAge: function () {
+    return ++this.age - this.name.length;
+  },
 };
 
 function score(greeting, year) {
-    console.log(greeting + ' ' + this.name + `! You were born in  ${year - this.getAge()}`);
+  console.log(
+    greeting + " " + this.name + `! You were born in  ${year - this.getAge()}`
+  );
 }
 
-window.window.window.score.call(window.window.window.player, 'Kiora', 2019);
+window.window.window.score.call(window.window.window.player, "Kiora", 2019);
 
-score.apply(player, ['Kiora', 2009]);
+score.apply(player, ["Kiora", 2009]);
 
-const helloRonaldo = window.score.bind(window.player, 'Kiora', 2029);
+const helloRonaldo = window.score.bind(window.player, "Kiora", 2029);
 
-helloRonaldo(); 
+helloRonaldo();
 ```
 
-- A:  "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985", "Kiora Ronaldo! You were born in  1985"
-- B:  "Kiora Ronaldo! You were born in  1991", "Kiora Ronaldo! You were born in  1991", "Kiora Ronaldo! You were born in  1999"
-- C:  "Kiora Ronaldo! You were born in  1991",  NaN,                                     "Kiora Ronaldo! You were born in  1980"
-- D:  "Kiora Ronaldo! You were born in  1991", "Kiora Ronaldo! You were born in  1980", "Kiora Ronaldo! You were born in  1999"
+- A: "Kiora Ronaldo! You were born in 1985", "Kiora Ronaldo! You were born in 1985", "Kiora Ronaldo! You were born in 1985"
+- B: "Kiora Ronaldo! You were born in 1991", "Kiora Ronaldo! You were born in 1991", "Kiora Ronaldo! You were born in 1999"
+- C: "Kiora Ronaldo! You were born in 1991", NaN, "Kiora Ronaldo! You were born in 1980"
+- D: "Kiora Ronaldo! You were born in 1991", "Kiora Ronaldo! You were born in 1980", "Kiora Ronaldo! You were born in 1999"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-We can use `call()`, `apply()` and `bind()` to appy a function to any object. At first sight, it seems that three functions do the same thing. Yet there are some situations where they are differently employed to handle respective contexts or solve particular problems. 
+We can use `call()`, `apply()` and `bind()` to appy a function to any object. At first sight, it seems that three functions do the same thing. Yet there are some situations where they are differently employed to handle respective contexts or solve particular problems.
 
 Of the three, only `bind()` can be executed after binding. We can create a variable to store the result as `helloRonaldo()` in the code snippet above. `apply()` and `call()` will bind and execute the function at the same time. `apply()` hints us `a` ~ array where we need to pass an array as parameter. `call()` hints us `c` or comma where we pass parameters with a comma. You might want to have a look at this post https://stackoverflow.com/questions/15455009/javascript-call-apply-vs-bind
 
@@ -659,23 +680,22 @@ Note that `window.window.window.score` or `window.score` or simply `score` do th
 
 The correct anwser is D. The `score()` and `getAge()` functions are nothing special.
 
-
 </p>
 </details>
 
-
 ---
+
 ###### 18. What's the output?
 
 ```javascript
-var ronaldo = {age: 34};
+var ronaldo = { age: 34 };
 
-var messi = {age: 32};
+var messi = { age: 32 };
 
 function score(year, tr, t) {
-    if (typeof tr === 'function' && typeof t === 'function') {
-        console.log(`You score ${tr(year, t(this.age))} times`);
-    }
+  if (typeof tr === "function" && typeof t === "function") {
+    console.log(`You score ${tr(year, t(this.age))} times`);
+  }
 }
 
 const transform = (x, y) => x - y;
@@ -691,17 +711,17 @@ const helloMessi = score.bind(messi, 2029, transform, title);
 helloMessi();
 ```
 
-- A:  "You score 1989 times" and "You score 1963 times"
-- B:  "You score 1959 times" and "You score 1989 times"
-- C:  "You score 1989 times" and "You score 1953 times"
-- D:  "You score 1959 times" and "You score 1963 times"
+- A: "You score 1989 times" and "You score 1963 times"
+- B: "You score 1959 times" and "You score 1989 times"
+- C: "You score 1989 times" and "You score 1953 times"
+- D: "You score 1959 times" and "You score 1963 times"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-`bind()` allows us to bind a function declared with any object. Here we bind `score()` and both `ronaldo` and `messi`. 
+`bind()` allows us to bind a function declared with any object. Here we bind `score()` and both `ronaldo` and `messi`.
 
 In `score()` we pass three parameters `year`, `tr` and `t` in which both `tr` and `t` are function. They handle simple things as defined afterwards.
 
@@ -718,49 +738,50 @@ When we bind `score()` with `ronaldo` and `messi`, we pass three parameters as d
 var person = {};
 
 Object.defineProperties(person, {
-    'name': {
-        value: 'Vuong',
-        enumerable: true
-    },
-    'job': {
-        value: 'developer',
-        enumerable: true
-    },
-    'studying': {
-        value: "PhD",
-        enumerable: true
-    },
-    'money': {
-        value: "NZD",
-        enumerable: false
-    }
+  name: {
+    value: "Vuong",
+    enumerable: true,
+  },
+  job: {
+    value: "developer",
+    enumerable: true,
+  },
+  studying: {
+    value: "PhD",
+    enumerable: true,
+  },
+  money: {
+    value: "NZD",
+    enumerable: false,
+  },
 });
 
 class Evaluate {
-    static checkFlag(obj) {
-        return Object.getOwnPropertyNames(obj) > Object.keys(obj)
-            ? Object.getOwnPropertyNames(obj)
-            : Object.keys(obj);
-    }
+  static checkFlag(obj) {
+    return Object.getOwnPropertyNames(obj) > Object.keys(obj)
+      ? Object.getOwnPropertyNames(obj)
+      : Object.keys(obj);
+  }
 }
 
 const flag = Evaluate.checkFlag(person);
 
 console.log(flag.length);
 ```
-- A:  1
-- B:  2
-- C:  3
-- D:  4
+
+- A: 1
+- B: 2
+- C: 3
+- D: 4
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
+
 `Object.keys(obj)` is almost identical to `Object.getOwnPropertyNames(obj)` except the fact that the latter returns any type of object's property regardless of `enumerable`. By default `enumerable` is true when creating object. Using `Object.defineProperties` or `Object.defineProperty` we can manually set this option to `false`.
 
 As such the object `person` will get 3 using`Object.keys(obj)`but 4 with `Object.getOwnPropertyNames(obj)`. `In short Object.keys(obj)` only returns the property setting the enumerable as `true`.
-
 
 </p>
 </details>
@@ -773,32 +794,32 @@ As such the object `person` will get 3 using`Object.keys(obj)`but 4 with `Object
 const id = 10;
 
 const getID = (...id) => {
-    id(id);
+  id(id);
 
-    function id(id) {
-        console.log(typeof id);
-    }
+  function id(id) {
+    console.log(typeof id);
+  }
 };
 
 getID(id);
 ```
-- A:  ReferenceError
-- B:  10
-- C:  undefined
-- D:  'function'
+
+- A: ReferenceError
+- B: 10
+- C: undefined
+- D: 'function'
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-When declaring a function inside another function, we are working with Closure in JavaScript. Note that if a function is declared as normal (rather than function expression), it is hoisted. We might see several `id` in the code snippet above but in fact, some of them does nothing. 
+When declaring a function inside another function, we are working with Closure in JavaScript. Note that if a function is declared as normal (rather than function expression), it is hoisted. We might see several `id` in the code snippet above but in fact, some of them does nothing.
 
 The result of the code depending on the operator `typeof id`, which is `function`. So `id` in this operation is the `id()` function.
 
 </p>
 </details>
-
 
 ---
 
@@ -806,25 +827,25 @@ The result of the code depending on the operator `typeof id`, which is `function
 
 ```javascript
 var book1 = {
-    name: 'Name of the rose',
-    getName: function () {
-        console.log(this.name);
-    }
+  name: "Name of the rose",
+  getName: function () {
+    console.log(this.name);
+  },
 };
 
 var book2 = {
-    name: {value: "Harry Potter"}
+  name: { value: "Harry Potter" },
 };
 
 var bookCollection = Object.create(book1, book2);
 
 bookCollection.getName();
-
 ```
-- A:  'Harry Potter'
-- B:  'Name of the rose'
-- C:   ReferenceError
-- D:   Object object
+
+- A: 'Harry Potter'
+- B: 'Name of the rose'
+- C: ReferenceError
+- D: Object object
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -843,80 +864,74 @@ bookCollection.getName();
 ###### 22. What's the output?
 
 ```javascript
-
 (() => {
-  
-    const a = Object.create({});
-  
-    const b = Object.create(null);
-  
-    let f1 = a.hasOwnProperty('toString');
-  
-    let f2 = ('toString' in b);
-        
-    let result = (f1 === false && f2 === false)?console.log((typeof a.toString()).length):console.log(b.toString());
-  
-})();
+  const a = Object.create({});
 
+  const b = Object.create(null);
+
+  let f1 = a.hasOwnProperty("toString");
+
+  let f2 = "toString" in b;
+
+  let result =
+    f1 === false && f2 === false
+      ? console.log((typeof a.toString()).length)
+      : console.log(b.toString());
+})();
 ```
-- A:  ReferenceError
-- B:  undefined
-- C:  0
-- D:  6
+
+- A: ReferenceError
+- B: undefined
+- C: 0
+- D: 6
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-The two objects `a` and `b` are created using `Object.create()` operator. There is a bit of difference between them as `a` inherits from Object prototype but `b` is totally empty when we pass the `null` paramater. Yet `hasOwnProperty('toString')` always returns `false` neither `a` nor `b` given that `toString()` is not defined inside these objects. The method however is still available as it is inherited from Object prototype. 
+The two objects `a` and `b` are created using `Object.create()` operator. There is a bit of difference between them as `a` inherits from Object prototype but `b` is totally empty when we pass the `null` paramater. Yet `hasOwnProperty('toString')` always returns `false` neither `a` nor `b` given that `toString()` is not defined inside these objects. The method however is still available as it is inherited from Object prototype.
 
 Both `f1` and `f2` return `false`. Note that we use `object.hasOwnProperty('key')` and `('key' in object)` to check the availability of a key in an object. There is a bit difference between the two as the latter also returns the key inherited. You might want to have a look here: https://stackoverflow.com/questions/455338/how-do-i-check-if-an-object-has-a-key-in-javascript
 
 Then `typeof a.toString()` returns `string`, which gives us 6 with the `.length` property.
 
 If the syntax is odd to you, you might look for 'self-invoking function' and 'arrow function' in JavaScript.
+
 </p>
 </details>
-
-
 
 ---
 
 ###### 23. What's the output?
 
 ```javascript
+let promise = new Promise((rs, rj) => {
+  setTimeout(() => rs(4), 0);
 
-let promise = new Promise((rs, rj)=>{
-        
-    setTimeout(() => rs(4), 0);
-          
-    Promise.resolve(console.log(3));
+  Promise.resolve(console.log(3));
 
-    console.log(2);
-    
+  console.log(2);
 });
 
 promise
-.then(
-   rs => {
-   console.log(rs ? rs**rs: rs)
-   return rs
-   }
-).then(
-  rs => console.log(rs == 256 ? rs: rs*rs)
-)
-  
+  .then((rs) => {
+    console.log(rs ? rs ** rs : rs);
+    return rs;
+  })
+  .then((rs) => console.log(rs == 256 ? rs : rs * rs));
 ```
-- A:  3,    2,    256,  256
-- B:  3,    2,    256,  16
-- C:  256,  16,   3,    2
-- D:  16,   256,  3,    2
+
+- A: 3, 2, 256, 256
+- B: 3, 2, 256, 16
+- C: 256, 16, 3, 2
+- D: 16, 256, 3, 2
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: B
+
 We first declare a promise-based code with `let` and then call it. Given that `setTimeout()` is an asynchronous action, it will run last even the time is set to 0 in `setTimeout(() => rs(4), 0);`. Although `Promise.resolve(console.log(3))` also returns a promise but it is a Microtasks, then it has a higher priority than Tasks as set by `setTimeout()`. You might want to have a look at this post https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/.
 
 In `.then()` we chain the result so that we have `4^4` in the first then() and `4*4` in the second `then()`. Note that `return rs` returns the original value.
@@ -929,30 +944,25 @@ In `.then()` we chain the result so that we have `4^4` in the first then() and `
 ###### 24. What's the output?
 
 ```javascript
-
 async function f() {
-  
-    let promise = new Promise((resolve, reject) => {
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done!"), 0);
+  });
 
-      setTimeout(() => resolve("done!"), 0);
+  setTimeout(() => console.log("world"), 0);
 
-    });
-  
-    setTimeout(()=> console.log("world"), 0);
-  
-    console.log(await promise);
-    
-    console.log("hello");
-  
+  console.log(await promise);
+
+  console.log("hello");
 }
 
-f(setTimeout(()=>console.log("kiora"),0));
-  
+f(setTimeout(() => console.log("kiora"), 0));
 ```
-- A:  ReferenceError
-- B:  done, hello, world
-- C:  hello, done, world
-- D:  kiora, done, hello, world
+
+- A: ReferenceError
+- B: done, hello, world
+- C: hello, done, world
+- D: kiora, done, hello, world
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -961,7 +971,7 @@ f(setTimeout(()=>console.log("kiora"),0));
 
 Though we do not declare any paramater for the function `f()`, we pass `setTimeout(()=>console.log("kiora"),0)` when call it. We therefore get 'kiora' first.
 
-Given that the variable `promise` returns a solved promise and it is called with the keyword `await`, JavaScript will 'pause' at this line `console.log(await promise);` till the result is resolved. That is why we get "done" at the next result. 
+Given that the variable `promise` returns a solved promise and it is called with the keyword `await`, JavaScript will 'pause' at this line `console.log(await promise);` till the result is resolved. That is why we get "done" at the next result.
 
 Why we do not get "world" or "hello" at the second ? As JavaScript "pauses" at the line with `await` keyword, we cannot get "hello" as usual (note that whenever we call setTimeout(), this function will run last because it is an asynchronous task operator), whereas `setTimeout(()=> console.log("world"), 0);` should always run last.
 
@@ -976,41 +986,39 @@ Here we might see a bit of difference when employing `await` keyword before asyn
 
 ```javascript
 function name() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve('New Zealand');
+      resolve("New Zealand");
     }, 10);
   });
 }
 
 function fruit() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve('Kiwi');
+      resolve("Kiwi");
     }, 20);
   });
 }
 
 (async function countryandfruit() {
-  
   const getName = await name();
   const getFruit = await fruit();
 
-  console.log(`Kiora: ${getName} ${getFruit }`);
+  console.log(`Kiora: ${getName} ${getFruit}`);
 })();
 
 (async function fruitandcountry() {
   const [getName, getFruit] = await Promise.all([name(), fruit()]);
 
-  console.log(`Hello: ${ getName } ${ getFruit }`);
+  console.log(`Hello: ${getName} ${getFruit}`);
 })();
-
- 
 ```
-- A:  Null
-- B:  Kiora
-- C:  "Hello: New Zealand Kiwi" -> "Kiora: New Zealand Kiwi" 
-- D:  "Kiora: New Zealand Kiwi" -> "Hello: New Zealand Kiwi"
+
+- A: Null
+- B: Kiora
+- C: "Hello: New Zealand Kiwi" -> "Kiora: New Zealand Kiwi"
+- D: "Kiora: New Zealand Kiwi" -> "Hello: New Zealand Kiwi"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1031,42 +1039,40 @@ You might want to have a look at the difference between the two at https://allig
 ###### 26. What's the output?
 
 ```javascript
-
-class MySort{
-  constructor(object){
+class MySort {
+  constructor(object) {
     this.object = object;
   }
-  
-  getSort(){
-    return Object.entries(this.object)[0][1].sort()[Object.values(this.object).length];    
-    
+
+  getSort() {
+    return Object.entries(this.object)[0][1].sort()[
+      Object.values(this.object).length
+    ];
   }
 }
 
 const object = {
-   month: ["July", "September", "January", "December"]
-   
+  month: ["July", "September", "January", "December"],
 };
 
 const sortMe = new MySort(object);
 
-console.log(sortMe.getSort())
-
+console.log(sortMe.getSort());
 ```
-- A:  July
-- B:  September
-- C:  January
-- D:  December
+
+- A: July
+- B: September
+- C: January
+- D: December
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: C
 
-`Object.entries` returns an array consisting of both key and value from an object while `Object.values` retuns an array of the values of object and `Object.keys` gives us an array of keys of the object. As such, `Object.entries(object)` in the code snippet above gives us a nested array with just one element in which the values are put in another nested array like that `[["month", ["July", "September", "January", "December"]]]`. 
+`Object.entries` returns an array consisting of both key and value from an object while `Object.values` retuns an array of the values of object and `Object.keys` gives us an array of keys of the object. As such, `Object.entries(object)` in the code snippet above gives us a nested array with just one element in which the values are put in another nested array like that `[["month", ["July", "September", "January", "December"]]]`.
 
 For that reason, `Object.entries(this.object)[0][1].sort()` will actually sort the value array and return a new order as "December" -> "January" -> "July" -> "September". Hence, when we get the element with the index given by `[Object.values(this.object).length]` we get `January` because `[Object.values(this.object).length]` give us 1 (the length of the array given by Object.values);
-
 
 </p>
 </details>
@@ -1076,18 +1082,17 @@ For that reason, `Object.entries(this.object)[0][1].sort()` will actually sort t
 ###### 27. What's the output?
 
 ```javascript
-
-const flag = ([] !==!!!!! []);
+const flag = [] !== !!!!![];
 
 let f = () => {};
 
-console.log((typeof f()).length + (flag.toString().length))
-
+console.log((typeof f()).length + flag.toString().length);
 ```
-- A:  NaN
-- B:  12
-- C:  13
-- D:  14
+
+- A: NaN
+- B: 12
+- C: 13
+- D: 14
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1108,30 +1113,27 @@ Thus, the `typeof f()` returns `undefined` rathern `object`. We then get the len
 ###### 28. What's the output?
 
 ```javascript
-
-(function(a, b, c){
-    arguments[2] = (typeof arguments).length;
-    c > 10 ? console.log(c): console.log(++c);
+(function (a, b, c) {
+  arguments[2] = (typeof arguments).length;
+  c > 10 ? console.log(c) : console.log(++c);
 })(1, 2, 3);
-
-
 ```
-- A:  4
-- B:  5
-- C:  6
-- D:  7
+
+- A: 4
+- B: 5
+- C: 6
+- D: 7
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-
-We have a self-invoking function with three parameters declared. Note that `arguments` inside a function returns an object consisting of the parameters of the function. 
+We have a self-invoking function with three parameters declared. Note that `arguments` inside a function returns an object consisting of the parameters of the function.
 
 The key part here is that when we assign a value to that array (it is array-like, as mentioned above) (or any element), the function will use that value rather than the value from the parameter we pass to it when calling the function. Hence, `c` will be `(typeof arguments).length;` (6) rather than 3.
 
-As `c` has a new value of 6, it is definitely less than 10, so we get the final result `console.log(++c)`, which returns 7. 
+As `c` has a new value of 6, it is definitely less than 10, so we get the final result `console.log(++c)`, which returns 7.
 
 Note that `arguments` is not available on arrow functions. See more detailed here https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
 
@@ -1147,33 +1149,29 @@ For PHP developer, we have `func_get_args()` in PHP that does the same thing, bu
 ###### 29. What's the output?
 
 ```javascript
+class Calculator {
+  constructor(a, b) {
+    this.a = a;
+    this.b = b;
+  }
+  static getFlag() {
+    return new Array(this.a).length == new Array(this.b).toString().length;
+  }
 
-class Calculator{
-  
-  constructor(a, b){
-    this.a = a
-    this.b = b
-  }
-  static getFlag(){
-    
-      return new Array(this.a).length == new Array(this.b).toString().length;
-  }
-  
-  getValue(){
-    
-    return Calculator.getFlag() ? typeof this.a: typeof new Number(this.b);
+  getValue() {
+    return Calculator.getFlag() ? typeof this.a : typeof new Number(this.b);
   }
 }
 
 const me = new Calculator(5, 5);
 
 console.log(me.getValue());
-
 ```
-- A:  NaN
-- B:  "string"
-- C:  "object"
-- D:  "number"
+
+- A: NaN
+- B: "string"
+- C: "object"
+- D: "number"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1187,47 +1185,41 @@ For that reason `getFlag()` returns `false`. In `getValue()` we get `typeof new 
 </p>
 </details>
 
-
 ---
 
 ###### 30. What's the output?
 
 ```javascript
-
 var name = "Auckland";
 
 const nz = {
-  
   name: "Kiwi",
-  
-  callMe: function(){
-  
+
+  callMe: function () {
     return this.name;
-  }   
-  
-}
+  },
+};
 
 let me = nz.callMe;
 
 let she = nz.callMe.bind(nz);
 
-let result = me() === nz.callMe() ? she(): `${me()} ${she()}`;
+let result = me() === nz.callMe() ? she() : `${me()} ${she()}`;
 
 console.log(result);
-
-
 ```
-- A:  undefined
-- B:  "Auckland"
-- C:  "Kiwi"
-- D:  "Auckland Kiwi"
+
+- A: undefined
+- B: "Auckland"
+- C: "Kiwi"
+- D: "Auckland Kiwi"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-The key point in this question involves the keyword `this` in JavaScript. We have a simple object that contains one method and one string property `name`. 
+The key point in this question involves the keyword `this` in JavaScript. We have a simple object that contains one method and one string property `name`.
 
 First, it is important to write down is that `let me = nz.callMe;` and then call `me()` is totally different from directly calling `nz.callMe()`. If we assign a variable to a method delared inside an object, `this` in that method will behave differently (when we call the variable as a method and when dirrectly call that method). In particular, in the first case, `this` is the `window` object while in the second one, `this` inside the function still points to property `name` in the object `nz`. It means `me()` returns "Auckland" while `nz.callMe` returns "Kiwi".
 
@@ -1241,45 +1233,44 @@ Then `result` will return `false` and we get the final output value `${me()} ${s
 ###### 31. What's the output?
 
 ```javascript
-
 const club = {
-  name: 'Juventus',
-  player : ['Ronaldo'],
-  showMePlayer: function() {         
-    this.player.map(function(thename){
+  name: "Juventus",
+  player: ["Ronaldo"],
+  showMePlayer: function () {
+    this.player.map(function (thename) {
       console.log(this.name.length);
     }, this);
   },
-  showMe: function() {         
-    this.player.forEach(function(thename){
-      console.log(this.name.length);
-    }.bind(this));
+  showMe: function () {
+    this.player.forEach(
+      function (thename) {
+        console.log(this.name.length);
+      }.bind(this)
+    );
   },
-  show: function() { 
+  show: function () {
     const self = this;
-    this.player.map(function(thename){
+    this.player.map(function (thename) {
       console.log(self.name.length);
     });
   },
-  Me: function() {         
-    this.player.map(function(thename){
+  Me: function () {
+    this.player.map(function (thename) {
       console.log(this.name.length);
     });
   },
-  
 };
-
 
 club.showMePlayer();
 club.showMe();
 club.show();
 club.Me();
-
 ```
-- A:  8 - 8 - 8 - 8
-- B:  "Juventus" - "Juventus" - "Juventus" - "Juventus"
-- C:  "Ronaldo" - "Ronaldo" - "Ronaldo" - "Ronaldo"
-- D:  8 - 8 - 8 - 0
+
+- A: 8 - 8 - 8 - 8
+- B: "Juventus" - "Juventus" - "Juventus" - "Juventus"
+- C: "Ronaldo" - "Ronaldo" - "Ronaldo" - "Ronaldo"
+- D: 8 - 8 - 8 - 0
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1288,7 +1279,7 @@ club.Me();
 
 The code snippet above is not a big challenge for you I guess. It simply gives you an example of `this` in different contexts when we declare an anonymous function inside a method of an object. The three first methods are common ways to handle `this` using `this` as second parameter in `map()`, by using `bind(this)` in `forEach` (or map()) or by `that = this`technique (we did use `seft` rathern `that`).
 
-The last method `Me()` will cause unexpected result because `this.name` does not bind to the object `club`. Note that you might get another result when testing the code on jsbin.com. On Chrome and Firefox, we get 0. 
+The last method `Me()` will cause unexpected result because `this.name` does not bind to the object `club`. Note that you might get another result when testing the code on jsbin.com. On Chrome and Firefox, we get 0.
 
 For further information, kindly have a look at http://speakingjs.com/es5/ch17.html#_pitfall_losing_this_when_extracting_a_method
 
@@ -1300,21 +1291,19 @@ For further information, kindly have a look at http://speakingjs.com/es5/ch17.ht
 ###### 32. What's the output?
 
 ```javascript
-
-((...a)=>{
+((...a) => {
   const b = ["javascript", "new zealand"];
-  
-  const c = [...a, typeof a, ...b, "kiwi"];
-      
-  console.log(c.length + c[0].length);  
-  
-})(new Array(10));
 
+  const c = [...a, typeof a, ...b, "kiwi"];
+
+  console.log(c.length + c[0].length);
+})(new Array(10));
 ```
-- A:  5
-- B:  10
-- C:  15
-- D:  20
+
+- A: 5
+- B: 10
+- C: 15
+- D: 20
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1327,7 +1316,6 @@ We see both `spread operator` and `rest parameter` in the code snippet above. Fi
 
 `Spread operator` as in the constant `c` allows us to combine array. So `...a` in the code above is `rest parameter` when it is used as function parameter but in this case it is the syntax of `spread operator`.
 
-
 Finally, we get `c` with 5 elements but the first element has 10 child elements (when we pass to the function `new Array(10)`). The length of both then returns 15.
 
 </p>
@@ -1338,24 +1326,21 @@ Finally, we get `c` with 5 elements but the first element has 10 child elements 
 ###### 33. What's the output?
 
 ```javascript
-
 function Kiora(name, ...career) {
-  
   this.name = name;
-      
-  return Array.isArray(career) === true && typeof career === "object"? {} : "";
-  
+
+  return Array.isArray(career) === true && typeof career === "object" ? {} : "";
 }
 
 var student = new Kiora("Vuong");
 
 console.log(student.name);
-
 ```
-- A:  "Vuong"
-- B:  undefined
-- C:  ErrorReference
-- D:  false
+
+- A: "Vuong"
+- B: undefined
+- C: ErrorReference
+- D: false
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1368,7 +1353,6 @@ For that reason, `Array.isArray(career) === true && typeof career === "object"` 
 
 You might be surprised when `console.log(student.name);` outputs `undefined` given that the constructor function `Kiora` returns an object. Otherwise, we might simply get the value `name`.
 
-
 </p>
 </details>
 
@@ -1377,37 +1361,37 @@ You might be surprised when `console.log(student.name);` outputs `undefined` giv
 ###### 34. What's the output?
 
 ```javascript
-
-class Filter{
-  constructor(element){
+class Filter {
+  constructor(element) {
     this.element = element;
   }
-  filter(){
-     return this.type() === "object" ? this.element[0].name: "hello";
+  filter() {
+    return this.type() === "object" ? this.element[0].name : "hello";
   }
-  
-  type(){
+
+  type() {
     return typeof this.element;
   }
 }
 
-let countries = [{name: "New Zealand", isdeveloped: true}, 
-                   {name: "Vietnam", isdeveloped: false}]
+let countries = [
+  { name: "New Zealand", isdeveloped: true },
+  { name: "Vietnam", isdeveloped: false },
+];
 
 let x = new Filter(countries);
 
-const filter = countries.filter((item) =>{
+const filter = countries.filter((item) => {
   return !item.isdeveloped;
-})
+});
 
-console.log(x.filter().length + filter[0].name.length)
-
-
+console.log(x.filter().length + filter[0].name.length);
 ```
-- A:  15
-- B:  16
-- C:  17
-- D:  18
+
+- A: 15
+- B: 16
+- C: 17
+- D: 18
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1430,36 +1414,33 @@ Finally we get `New Zealand`.length and `Vietnam`.length, which in total returns
 ###### 35. What's the output?
 
 ```javascript
-
-async function abc(){
+async function abc() {
   console.log(8);
-    
-  await Promise.resolve(2).then(console.log)
-  
-  console.log(3)
-      
+
+  await Promise.resolve(2).then(console.log);
+
+  console.log(3);
 }
 
-setTimeout(()=>{
-    console.log(1)
-}, 0)
+setTimeout(() => {
+  console.log(1);
+}, 0);
 
-abc()
+abc();
 
-queueMicrotask(()=>{
-    console.log(0)
-})
+queueMicrotask(() => {
+  console.log(0);
+});
 
-Promise.resolve(4).then(console.log)
+Promise.resolve(4).then(console.log);
 
-console.log(6)
-
-
+console.log(6);
 ```
-- A:  6 - 8 - 3 - 0 - 4 - 2 - 1
-- B:  8 - 2 - 3 - 0 - 4 - 6 - 1
-- C:  6 - 8 - 2 - 0 - 4 - 3 - 1
-- D:  8 - 6 - 2 - 0 - 4 - 3 - 1
+
+- A: 6 - 8 - 3 - 0 - 4 - 2 - 1
+- B: 8 - 2 - 3 - 0 - 4 - 6 - 1
+- C: 6 - 8 - 2 - 0 - 4 - 3 - 1
+- D: 8 - 6 - 2 - 0 - 4 - 3 - 1
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1478,7 +1459,7 @@ So, first callback in the `setTimeout()` will be executed last given that this i
 
 Second, the function `abc()` is called next. Then we have 8 printed out in the console first. As the next line of code inside that function is an asynchrnous code with the keyword "await", we then `console.log(6)` as `Promise.resolve(4).then(console.log)` is an asynchrnous code. That is why we got 6.
 
-Now is the time for `Promise.resolve(2)`, so we get 2. At this point, you might have some sort of confusion. What will happend if we do not pass the keyword "await" before `Promise.resolve(2)` ? 
+Now is the time for `Promise.resolve(2)`, so we get 2. At this point, you might have some sort of confusion. What will happend if we do not pass the keyword "await" before `Promise.resolve(2)` ?
 
 As we have `await`, the code will be blocked here. Then what? We get 0 and 4 not 3. `Promise` and `queueMicrotask` are both microtask and they are already to run before `console.log(3)`. The reason is that microtask queue need to be emptied before any other codes can be called in the callstack.
 
@@ -1486,31 +1467,29 @@ In the next step, we get 3 and the last one is 1.
 
 What would happend if we do not have the `await` keyword? Then the order of the output will be 8 - 3 - 6 - 2 - 0 - 4 -1.
 
-
 </p>
 </details>
-
 
 ###### 36. What's the output?
 
 ```javascript
-function myAccount(money){
+function myAccount(money) {
   let myMoney = money;
-  
+
   return {
-    status: function(){
+    status: function () {
       return `You have $ ${myMoney} in your account`;
     },
-    dePoSit: function(amount){
+    dePoSit: function (amount) {
       myMoney = myMoney + amount;
     },
-    withDraw: function(amount){
-      if(amount > myMoney){
+    withDraw: function (amount) {
+      if (amount > myMoney) {
         return `You cannot withdraw money now`;
       }
       myMoney = myMoney - amount;
-    }
-  }
+    },
+  };
 }
 
 const vuong = myAccount(1000);
@@ -1524,55 +1503,54 @@ vuong.dePoSit(100);
 vuong.withDraw(50);
 
 console.log(vuong.status());
-
 ```
-- A:  "You have $ 950 in your account"
-- B:  "You have $ 1000 in your account"
-- C:  "You have $ 550 in your account"
-- D:  "You have $ 350 in your account"
+
+- A: "You have \$ 950 in your account"
+- B: "You have \$ 1000 in your account"
+- C: "You have \$ 550 in your account"
+- D: "You have \$ 350 in your account"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-As the "state" of the data is preserved each time we call `dePoSit()` or `withDraw()`, hence we get $350 after all.
+As the "state" of the data is preserved each time we call `dePoSit()` or `withDraw()`, hence we get \$350 after all.
 
 Noted that that is a kind of "factory" function with "preload" data. You might think about another object when pass to `myAccount(somedata);` some other data. That is a really helpful way to create multiple objects from a factory function.
 
 </p>
 </details>
 
-
 ###### 37. What's the output?
 
 ```javascript
-
 const hoccoban = {
   x: "youtube.com/hoccoban".length,
-  getMe(){
-    const inner = function(){
-      console.log(++this.x)
-    }
+  getMe() {
+    const inner = function () {
+      console.log(++this.x);
+    };
     inner.bind(this)();
-  }
+  },
 };
 
 hoccoban.getMe();
 ```
-- A:  20
-- B:  21
-- C:  22
-- D:  23
+
+- A: 20
+- B: 21
+- C: 22
+- D: 23
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: B
 
-We get 21. First "youtube.com/hoccoban" returns 20 as we are using the property length of the string. Then it is being added one more value in `++this.x`. The question here seems trivial but it is actually not. There is a crucial note we should keep in mind is that `console.log(++this.x)` will not work as `x` is undefined when it is called outside of the object. 
+We get 21. First "youtube.com/hoccoban" returns 20 as we are using the property length of the string. Then it is being added one more value in `++this.x`. The question here seems trivial but it is actually not. There is a crucial note we should keep in mind is that `console.log(++this.x)` will not work as `x` is undefined when it is called outside of the object.
 
-We can solve the problem with `this` in this case by using arrow function in the inner so that is can become something like `const inner = () => {}` as the arrow function does not actually have `this`. It will automatically look around and call the available object when the function is executed. 
+We can solve the problem with `this` in this case by using arrow function in the inner so that is can become something like `const inner = () => {}` as the arrow function does not actually have `this`. It will automatically look around and call the available object when the function is executed.
 
 The second solution is that we can somehow "bypass" the tricky `this` by using that/this solution. We just need to declare a new variable `const that = this` inside getMe() and before declaring inner function. That is a quite common practice.
 
@@ -1581,12 +1559,10 @@ The third solution is to take advantage of call(), bind() and apply() which are 
 </p>
 </details>
 
-
 ###### 38. What's the output?
 
 ```javascript
-
-function* hocCoBan(){
+function* hocCoBan() {
   yield "js.edu.vn";
   yield "youtube.com/hoccoban";
   yield "Vuong Nguyen";
@@ -1594,20 +1570,20 @@ function* hocCoBan(){
 
 let data = hocCoBan();
 
-console.log((typeof data).length + data.next().value.length)
-
+console.log((typeof data).length + data.next().value.length);
 ```
-- A:  NaN
-- B:  10
-- C:  Error
-- D:  15
+
+- A: NaN
+- B: 10
+- C: Error
+- D: 15
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-First, take a closer look at the function. It has a asterisk (*) next to the keyword "function". We do not have `return` keyword inside the function itself. What is going on here?
+First, take a closer look at the function. It has a asterisk (\*) next to the keyword "function". We do not have `return` keyword inside the function itself. What is going on here?
 
 It you have already known about generator, then this code snippet is not a big deal at all. We do not use generator very often, but this native JavaScript feature is the basis for async/await function, which is supported in ES7 that allows us to handle the flow of asynchronous code much easily.
 
@@ -1620,67 +1596,66 @@ After all, we get 15. Not that understanding generator is quite important if you
 </p>
 </details>
 
-
 ###### 39. What's the output?
 
 ```javascript
 const a = [1, 2, "chó", 3, 1, "chó", "mèo", 3];
 
-const b = [... new Set(a)];
+const b = [...new Set(a)];
 
 b.length = "chó".length;
 
-console.log(b)
-
+console.log(b);
 ```
-- A:  4
-- B:  [1, 2, "chó", 3, "mèo"]
-- C:  [1, 2, "chó", "mèo"]
-- D:  [1, 2, "chó"]
+
+- A: 4
+- B: [1, 2, "chó", 3, "mèo"]
+- C: [1, 2, "chó", "mèo"]
+- D: [1, 2, "chó"]
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
+
 When using ... in array, it is called spread operator in JavaScript which, technically, is similar to rest parameter (using in the context of function). It provides a more elegant way to concat (combine) or copy array. In the code above, b is a copy of a. However, as we pass a in to a `Set`, it will return the unique value only in a. It means, now we have `[1, 2, "chó", 3, "mèo"] in b.
 
 However, we then set the length for b as 3. Note that "chó".length returns 3 but in PHP, strlen("chó") returns 4, just in case you are coming from PHP world.
 
 As we set the length for the array b, we also cut down the array itselt. That is the reason why we get [1, 2, "chó"] printing out in the console.
+
 </p>
 </details>
 
 ###### 40. What's the output?
 
 ```javascript
-const mot = function(m){
-   return arguments[0]; 
-}
+const mot = function (m) {
+  return arguments[0];
+};
 
-
-const hai = function(...m){
-   return arguments[arguments[0]]; 
-}
-
+const hai = function (...m) {
+  return arguments[arguments[0]];
+};
 
 const a = [mot(123), hai(1, 2, 3)];
 
-console.log(typeof a !== "object" ? a[0]: a[1])
-
+console.log(typeof a !== "object" ? a[0] : a[1]);
 ```
-- A:  1
-- B:  2
-- C:  3
-- D:  123
+
+- A: 1
+- B: 2
+- C: 3
+- D: 123
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: B
 
-First, it should be noted that `arguments` cannot be used in an arrow function, so in order to take advantage of this feature, we have to write the function in the casual form. `arguments` returns an array-like object that contains any parameter we pass into the function when executing it. 
+First, it should be noted that `arguments` cannot be used in an arrow function, so in order to take advantage of this feature, we have to write the function in the casual form. `arguments` returns an array-like object that contains any parameter we pass into the function when executing it.
 
-`...` is a `rest operator`. We use this feature in function and array. Noted that in the context of array, it is called `spread operator` and it behaves differently. When declaring a function with ..., we can pass as many parameters into the function itselt when executing it as we want. 
+`...` is a `rest operator`. We use this feature in function and array. Noted that in the context of array, it is called `spread operator` and it behaves differently. When declaring a function with ..., we can pass as many parameters into the function itselt when executing it as we want.
 
 Note that in the function `hai`, we return `arguments[arguments[0]]` which means `hai(1, 2, 3)` will return 2 rathern than 1 because `arguments[0]` return 1 and then `arguments[1]` returns 2.
 
@@ -1689,41 +1664,35 @@ The last thing we have to take note is that the typeof operator of an array will
 </p>
 </details>
 
-
 ###### 41. What's the output?
 
 ```javascript
-class Component{
-  
-  constructor(age){    
+class Component {
+  constructor(age) {
     this.age = age + `${typeof Coder}`.length;
   }
 
-  getAge(){
+  getAge() {
     return ++this.age;
   }
-
 }
 
-class Coder extends Component{
-  
-   constructor(age){    
-     super(age)
-     this.age = age - `${typeof Coder}`.length;
+class Coder extends Component {
+  constructor(age) {
+    super(age);
+    this.age = age - `${typeof Coder}`.length;
   }
-  
 }
-
 
 const a = new Coder(16);
 
-console.log(a.getAge())
-
+console.log(a.getAge());
 ```
-- A:  7
-- B:  8
-- C:  9
-- D:  10
+
+- A: 7
+- B: 8
+- C: 9
+- D: 10
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1732,33 +1701,28 @@ console.log(a.getAge())
 
 We have two simple classes in which Coder extends Component. Nothing fancy. As `typeof ClassName` returns `function` rather than `class`, we then get 8 in the operator `"function".length`.
 
-Though we implement `super(age)` in the Coder class, we actually overwrite the contructor of the parent class Component in the child class Coder. Therefore, when initiating the object `a`, the following code is automatically triggered `this.age = age - `${typeof Coder}`.length;`. The difference between the child and parent 's constructor is minus (-) and plus (+) in the above code. 
+Though we implement `super(age)` in the Coder class, we actually overwrite the contructor of the parent class Component in the child class Coder. Therefore, when initiating the object `a`, the following code is automatically triggered `this.age = age -`\${typeof Coder}`.length;`. The difference between the child and parent 's constructor is minus (-) and plus (+) in the above code.
 
 As such, we have 16 - 8 rather than 16 + 8, which returns 8. The function `getAge()` returns 9, so the corrent answer is C.
 
-Bear in mind that JavaSCript is not a "real" OOP programming language even though we can now implement `class` and `object` as in other languages. 
+Bear in mind that JavaSCript is not a "real" OOP programming language even though we can now implement `class` and `object` as in other languages.
 
 </p>
 </details>
 
-
 ###### 42. What's the output?
 
 ```javascript
-
-class RemoveFalse{
-
-  constructor(element){        
-
+class RemoveFalse {
+  constructor(element) {
     this.element = element;
-    
+
     this.length = this.removeFalse().length;
   }
-    
-  removeFalse(){
 
-    this.element = this.element.filter(Boolean)
-    
+  removeFalse() {
+    this.element = this.element.filter(Boolean);
+
     return this.element;
   }
 }
@@ -1767,92 +1731,86 @@ const theArray = [true, false, 1, 0, NaN, undefined, "", null, "js.edu.vn"];
 
 const a = new RemoveFalse(theArray);
 
-console.log(a.length)
-
+console.log(a.length);
 ```
-- A:  false
-- B:  true
-- C:  2
-- D:  3
+
+- A: false
+- B: true
+- C: 2
+- D: 3
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-The key message that can be taken away in the code snippet above is `filer(Boolean)` which can be taken into consideration in case you want to eliminate `falsy values` in an array. We can use `filter(callback)` or `filter(Boolean)` in particular in this case to do that. Note that we have to pass into the filter function a callback and in this case Boolean is actually a function. You can check `typeof Boolean` to see it. 
+The key message that can be taken away in the code snippet above is `filer(Boolean)` which can be taken into consideration in case you want to eliminate `falsy values` in an array. We can use `filter(callback)` or `filter(Boolean)` in particular in this case to do that. Note that we have to pass into the filter function a callback and in this case Boolean is actually a function. You can check `typeof Boolean` to see it.
 
 Similar to `map` or `reduce` function, `filter` always returns a new array from the exisiting one. `[true, false, 1, 0, NaN, undefined, "", null, "js.edu.vn"].filter(Boolean);` will return `[true, 1, "js.edu.vn"];`, hence calling the function `removeFalse()` gives us 3. So the correct answer is 3.
 
 </p>
 </details>
 
-
 ###### 43. What's the output?
 
 ```javascript
-
 const coderfarm = [1, [], {}, [], 2, 3];
 
 const converted = Number(coderfarm instanceof Array);
-  
-const result =  coderfarm.indexOf(converted + true);
+
+const result = coderfarm.indexOf(converted + true);
 
 console.log(result);
-
 ```
-- A:  []
-- B:  {}
-- C:  2
-- D:  4
+
+- A: []
+- B: {}
+- C: 2
+- D: 4
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-We have a simple array in the code snippet above that includes some digits, two other arrays and one object. Using the built-in function `Number`, we can convert any value passing to the function into `digit`. As `coderfarm instanceof Array` returns `true`, then `converted` get 1. Noted that you can use another way to check the type of an array is `Array.isArrray(arrayToBeChecked)` which return a `boolean` value. Suprisingly, the operator `typeof []` returns `object` rather than `array`. 
+We have a simple array in the code snippet above that includes some digits, two other arrays and one object. Using the built-in function `Number`, we can convert any value passing to the function into `digit`. As `coderfarm instanceof Array` returns `true`, then `converted` get 1. Noted that you can use another way to check the type of an array is `Array.isArrray(arrayToBeChecked)` which return a `boolean` value. Suprisingly, the operator `typeof []` returns `object` rather than `array`.
 
-The built-in function `indexOf` will return the index of the element that is being checked. So as `converted + true` return 2, we are going to check the index of the element with the value 2 in the array `coderfarm`. 
+The built-in function `indexOf` will return the index of the element that is being checked. So as `converted + true` return 2, we are going to check the index of the element with the value 2 in the array `coderfarm`.
 
 We get 4 in the `console.log` and the correct answer is D.
 
 </p>
 </details>
 
-
-
 ###### 44. What's the output?
 
 ```javascript
-
 const converter = (arrayInput) => {
-  return {...arrayInput}
-
+  return { ...arrayInput };
 };
 
 const content = ["function", "object", "decorator"];
 
-const checking = content [Number(false)];
+const checking = content[Number(false)];
 
 const result = typeof converter(content) === content[1];
 
-console.log(checking ? result ? (typeof converter).length: false : false);
-
+console.log(checking ? (result ? (typeof converter).length : false) : false);
 ```
-- A:  6
-- B:  NaN
-- C:  true
-- D:  8
+
+- A: 6
+- B: NaN
+- C: true
+- D: 8
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-The operator `...` in JavaScript is very handy. The function `converter` is quite trivial, it takes advantege of `...` (rest operator || spread operator) to turn an array into an object. 
+The operator `...` in JavaScript is very handy. The function `converter` is quite trivial, it takes advantege of `...` (rest operator || spread operator) to turn an array into an object.
 
-First we have the constant `checking` with the value `function` given that `Number(false)` gives us 0 and that is the first index in the array `content`. 
+First we have the constant `checking` with the value `function` given that `Number(false)` gives us 0 and that is the first index in the array `content`.
 
 Second, the constant `result` gives us the value `true` as the `typeof converter(content)` is `function`, which is also the value of `content[1]`.
 
@@ -1863,36 +1821,33 @@ So the key message here is that we can take advantate of the `spread operator` (
 </p>
 </details>
 
-
-
 ###### 45. What's the output?
 
 ```javascript
-
-function *js(length){
+function* js(length) {
   for (let i = length.length; i > 0; --i) {
-    yield i
+    yield i;
   }
 }
 
-let getJS = js(typeof js)
+let getJS = js(typeof js);
 
 let result = getJS.next().value;
 
-console.log(result + getJS.next().value)
-
+console.log(result + getJS.next().value);
 ```
-- A:  10
-- B:  14
-- C:  15
-- D:  16
+
+- A: 10
+- B: 14
+- C: 15
+- D: 16
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: C
 
-We have a generator function in the code snippet above, which is defined with the *. Noted that we can "store" as many result as we want in a generator thanks to the keyword `yield`. 
+We have a generator function in the code snippet above, which is defined with the \*. Noted that we can "store" as many result as we want in a generator thanks to the keyword `yield`.
 
 As the `typeof js` is `function`, so the length of the string `function` is 8. So when calling `getJS.next().value;`, we get 8. However, in the next calling, it returns 7, and in the following calling after that, we get 6. That is why generator can "store" and "release" (or return) as many value as we want.
 
@@ -1901,28 +1856,25 @@ So the answer is C, which is 8 (first execution of the generator) + 7 (second ex
 </p>
 </details>
 
-
 ###### 46. What's the output?
 
 ```javascript
-
 var ages = [10, 15, 20, 25];
 
 let response = [];
 
-ages.some(function(currentValue, index, ages){
-  if(currentValue > ages[ages.length - index])
-    
-  response.push(currentValue + ages.length)
+ages.some(function (currentValue, index, ages) {
+  if (currentValue > ages[ages.length - index])
+    response.push(currentValue + ages.length);
 });
 
-console.log(response)
-
+console.log(response);
 ```
-- A:  [20]
-- B:  [20, 25]
-- C:  [25, 29]
-- D:  [29]
+
+- A: [20]
+- B: [20, 25]
+- C: [25, 29]
+- D: [29]
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1933,44 +1885,37 @@ console.log(response)
 
 The function `some()` returns a `boolean` value. The code `currentValue > ages[ages.length - index]` returns `true` only one time, which is the last element. Let 's examine the code when it runs through each element:
 
-1) 10 > ages[4 - 0]. As ages[4] returns `undefined`, and `10 > undefined` returns `false`, it stops.
+1. 10 > ages[4 - 0]. As ages[4] returns `undefined`, and `10 > undefined` returns `false`, it stops.
 
-2) 15 > ages[4 - 1]. As ages[3] returns 25, it breaks as the operator returns `false`.
+2. 15 > ages[4 - 1]. As ages[3] returns 25, it breaks as the operator returns `false`.
 
-3) 20 > ages[4 - 2]. As ages[2] returns 20, it breaks as the operator returns `false`.
+3. 20 > ages[4 - 2]. As ages[2] returns 20, it breaks as the operator returns `false`.
 
-4) 25 > ages[4 - 3]. As ages[1] returns 10, it returns `true`. Only this value is being pushed to the array `response`.
+4. 25 > ages[4 - 3]. As ages[1] returns 10, it returns `true`. Only this value is being pushed to the array `response`.
 
 So `response.push(currentValue + ages.length)` will add the value 25 + 4 to the array `response`, D is the correct answer.
 
 </p>
 </details>
 
-
-
 ###### 47. What's the output?
 
 ```javascript
-
 const getSTring = (string, method = false) => {
-  
-  if(method === true){
-    
-    return string.slice(1, 4).length
+  if (method === true) {
+    return string.slice(1, 4).length;
   }
-  
+
   return string.substr(1, 4).length;
 };
 
-
-console.log(getSTring("hello", true) + getSTring("hello"))
-
-
+console.log(getSTring("hello", true) + getSTring("hello"));
 ```
-- A:  6
-- B:  7
-- C:  8
-- D:  9
+
+- A: 6
+- B: 7
+- C: 8
+- D: 9
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -1979,41 +1924,36 @@ console.log(getSTring("hello", true) + getSTring("hello"))
 
 `getString()` is an arrow function with two parameters. As you can see that the parameter `method` has the default value `false`, then if you do not pass any value to it when executing the function, the default value will be used.
 
-The key thing to take note from the code above is the difference betweet `slice(1, 4)` (which returns 3 characters) and `substr(1, 4)` (which returns 4 ones). 
+The key thing to take note from the code above is the difference betweet `slice(1, 4)` (which returns 3 characters) and `substr(1, 4)` (which returns 4 ones).
 
 Finally `console.log(getSTring("hello", true) + getSTring("hello"))` returns 7 because `slice` and `substr` are both used.
 
 </p>
 </details>
 
-
-
 ###### 48. What's the output?
 
 ```javascript
-
-(function(a, b, c){
-  
+(function (a, b, c) {
   console.log(Boolean([...arguments].slice(2, 3)[0].slice(3, 4)));
-    
 })("hello", "world", "new zealand");
-
 ```
-- A:  "new"
-- B:  true
-- C:  "land"
-- D:  false
+
+- A: "new"
+- B: true
+- C: "land"
+- D: false
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: B
 
-The code above is a self-executing function. It runs when it is being declared. We have three parameters and three arguments passed are `"hello", "world"` and `"new zealand"`. 
+The code above is a self-executing function. It runs when it is being declared. We have three parameters and three arguments passed are `"hello", "world"` and `"new zealand"`.
 
 First, `arguments` returns an object consisting of arguments passed to the function when executing it. However, using spread operator `...`, we then convert the object to an array. We can also do it by using `Array.from(object)`.
 
-Second, `slice(2, 3)` extracts the element from the index 2 to the index 3, which returns `"new zealand"`. It is still an array. We then extract the element with the index `[0]` and we get the string `"new zealand"` rather than an array. 
+Second, `slice(2, 3)` extracts the element from the index 2 to the index 3, which returns `"new zealand"`. It is still an array. We then extract the element with the index `[0]` and we get the string `"new zealand"` rather than an array.
 
 Third, `"new zealand".slice(3, 4)` gives us an empty string (with a space between) `" "`. The `Boolean(" ")` gives us `true`. Noted that if there is no space in the empty string, we get `false` instead.
 
@@ -2022,50 +1962,45 @@ So the correct answer is B.
 </p>
 </details>
 
-
-
 ###### 49. What's the output?
 
 ```javascript
-
-class HocCoBan{
+class HocCoBan {
   name = "hello world";
 
-  getSlice(slice){
-    return this.getName(slice).slice(true, this.name.length)
+  getSlice(slice) {
+    return this.getName(slice).slice(true, this.name.length);
   }
 
-  getName(space){
-    return this.name.split(space)
+  getName(space) {
+    return this.name.split(space);
   }
 }
 
-HocCoBan.prototype.split = function(argument){
-      
-  return this.getSlice(argument)
-    
-}
+HocCoBan.prototype.split = function (argument) {
+  return this.getSlice(argument);
+};
 
-const a = new HocCoBan()
+const a = new HocCoBan();
 
 console.log(a.split("").length);
-
 ```
-- A:  NaN
-- B:  true
-- C:  10
-- D:  11
+
+- A: NaN
+- B: true
+- C: 10
+- D: 11
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: C
 
-The code above is nothing much special. However it is written in a complicated way on purpose. First, we have a class named "HocCoBan" with two methods and one property. Then we add another method `split` using the tradional way (via `prototype`). Note that `class` in JavaScript is simply a syntactic sugar of `function` given that `typeof  ClassName` return `function`.
+The code above is nothing much special. However it is written in a complicated way on purpose. First, we have a class named "HocCoBan" with two methods and one property. Then we add another method `split` using the tradional way (via `prototype`). Note that `class` in JavaScript is simply a syntactic sugar of `function` given that `typeof ClassName` return `function`.
 
 When we call the method `split`, we pass the an empty string to it. This method then call other methods. The flow is as follows:
 
-`split("")` ==> `this.getSlice("")` ==> `this.getName("")` ==> `this.name.split("")`. Here `split` is a built-in function that convert a string to an array. 
+`split("")` ==> `this.getSlice("")` ==> `this.getName("")` ==> `this.name.split("")`. Here `split` is a built-in function that convert a string to an array.
 
 Noted that in `getSlice()`, we also use `.slice(true, this.name.length)` to `slice` (cut) the array from the index 1 to 11. So the length is 10.
 
@@ -2076,33 +2011,28 @@ This code might help us master the concept function `prototype` in JavaScript an
 </p>
 </details>
 
-
 ###### 50. What's the output?
 
 ```javascript
+function javaScript(node) {
+  let mot = node.includes("I") ? "love" : "you";
 
-function javaScript(node){
-  
-  let mot =  node.includes("I") ? "love": "you";    
-    
-  return function(deno = mot){        
-        
-    let hai =  node.replace(deno, "done");
-    
-    return function(done = hai){
-                  
+  return function (deno = mot) {
+    let hai = node.replace(deno, "done");
+
+    return function (done = hai) {
       return (node + deno + done).length;
-    }
-  }
+    };
+  };
 }
 
-console.log(javaScript("I love you")()())
-
+console.log(javaScript("I love you")()());
 ```
-- A:  18
-- B:  24
-- C:  20
-- D:  25
+
+- A: 18
+- B: 24
+- C: 20
+- D: 25
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -2111,32 +2041,31 @@ console.log(javaScript("I love you")()())
 
 Apart from learning some built-in functions to handle string such as `replace` and `inclues`, we are reviving the concept of `currying function` in JavaScript. Say you want to declare a function with three parameters, you may consider refactoring the code by declaring 3 nested functions, each with one parameter you wish to pass to. Basically, both of them work in the same way. However, noted that only the outerest (the main) function has the name as `javaScript` in the code above. Both nested (inner) functions are declared without the name. We also use three `return` keywords in the code.
 
-When executing the function, you then have three `()` as in the `javaScript("I love you")()()`. We do not pass any argument into the second and third functions (both are inner/nested functions without the name) and these functions will take the default value we have alreaded declared when being executing. 
+When executing the function, you then have three `()` as in the `javaScript("I love you")()()`. We do not pass any argument into the second and third functions (both are inner/nested functions without the name) and these functions will take the default value we have alreaded declared when being executing.
 
 All in all, we have the final operator `return (node + deno + done).length;` in which `node` is "I love you", `deno` is "love" and `done` is "I done you". The length of these strings is 24, which you can calculate by yourself the concatenated string `I love youyou I done you`. Be aware of the `empty space`, which is also taken into account.
 
 </p>
 </details>
 
-
 ###### 51. What's the output?
 
 ```javascript
+const www = ["hello", "coranovirus", "kiora", "world", "new zealand"];
 
-const www = ["hello", "coranovirus", "kiora", "world", "new zealand"]
-
-const found = www.find(function(world){ 
-  return world > "victory"
+const found = www.find(function (world) {
+  return world > "victory";
 });
 
-const result = found[1] < www[0][0] ? www[false ? 1 : 0]: www[true ? 0: 1];
+const result = found[1] < www[0][0] ? www[false ? 1 : 0] : www[true ? 0 : 1];
 
 console.log(result);
 ```
-- A:  "hello"
-- B:  "world"
-- C:  "victory"
-- D:  "w"
+
+- A: "hello"
+- B: "world"
+- C: "victory"
+- D: "w"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -2152,23 +2081,20 @@ So the final result is `www[true ? 0: 1]` or `www[0]`, which is `hello`. And the
 </p>
 </details>
 
-
 ###### 52. What's the output?
 
 ```javascript
+(function (flag) {
+  let age = Boolean(NaN === NaN ? false : flag);
 
-(function(flag){
-  let age = Boolean(NaN === NaN ? false: flag);
-  
-  console.log(age.toString()[Number(flag)]);     
-  
- }([]))
-
+  console.log(age.toString()[Number(flag)]);
+})([]);
 ```
-- A:  "f"
-- B:  "t"
-- C:  true
-- D:  false
+
+- A: "f"
+- B: "t"
+- C: true
+- D: false
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -2184,8 +2110,45 @@ Keep in mind that `Boolean([])` ==> `true` but `Number([])` ==> `0`. And sadly `
 </p>
 </details>
 
+###### 53. What's the output?
 
+```javascript
 
+1) console.log(Boolean([]));
+2) console.log(Number([]));
+3) console.log(Number(Boolean([])));
+4) console.log(Boolean(Number([])));
 
+5) console.log(Boolean({}));
+6) console.log(Number({}));
+7) console.log(Number(Boolean({})));
+8) console.log(Boolean(Number({})));
+
+9) console.log(Boolean(new Boolean(false)));
+
+```
+
+- A: true - 0 - 1 - false - true  -  1    - 1 - false - false
+- B: true - 0 - 1 - false - false - NaN   - 1 - false - true
+- C: true - 0 - 1 - false - false - false - 1 - false - false
+- D: true - 0 - 1 - false - true  - NaN   - 1 - false - true
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+JavaScript is sometimes tedious to deal with given that it is a loosely type language. The data type of a variable can be changed depending on the value. An unexpected behaviour might unfortunately occur when you change/convert the original value to another one. 
+
+For example, the example 2 `Number([])` returns `0` and 6 `(Number({}))` returns `NaN`, although both `(Boolean([]))` and `(Boolean([]))` return `true`.
+
+In the code 9, `Boolean(new Boolean(false))`, we get `true` even though we pass into the `Boolean()` a `false` parameter. However, if we do not use the keyword `new`, then `false` will return. It seems that the in `Boolean(new Boolean(false))`, we have a valid opreration, so it is `true`. In the `Boolean(Boolean(false)))`, we get `false` because now a `false` value is being evaluated though.
+
+So the correct answer is D.
+
+Credit: @tiepphan, Vietnamese Angular Facebook group.
+
+</p>
+</details>
 
 
