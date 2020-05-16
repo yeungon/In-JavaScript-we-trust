@@ -2153,6 +2153,37 @@ So the final result is `www[true ? 0: 1]` or `www[0]`, which is `hello`. And the
 </details>
 
 
+###### 52. What's the output?
+
+```javascript
+
+(function(flag){
+  let age = Boolean(NaN === NaN ? false: flag);
+  
+  console.log(age.toString()[Number(flag)]);     
+  
+ }([]))
+
+```
+- A:  "f"
+- B:  "t"
+- C:  true
+- D:  false
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+We have a self-executing function with the parameter/argument is an empty array. Noted that `NaN === NaN` returns `false`, then `age` gets the value `flag`, which is an empty array. However, the boolean value is `true` when we call `Boolean([])`.
+
+The function `toString()` returns the string `true` and the `Number([])` returns `0`. Then we get "t" in the console.log. The correct answer is B.
+
+Keep in mind that `Boolean([])` ==> `true` but `Number([])` ==> `0`. And sadly `NaN === NaN` returns `false`.
+
+</p>
+</details>
+
 
 
 
