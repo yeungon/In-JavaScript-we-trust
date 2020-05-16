@@ -2140,11 +2140,11 @@ Keep in mind that `Boolean([])` ==> `true` but `Number([])` ==> `0`. And sadly `
 
 JavaScript is sometimes tedious to deal with given that it is a loosely type language. The data type of a variable can be changed depending on the value. An unexpected behaviour might unfortunately occur when you change/convert the original value to another one. 
 
-For example, the example 2 `Number([])` returns `0` and 6 `(Number({}))` returns `NaN`, although both `(Boolean([]))` and `(Boolean([]))` return `true`.
+For example, the code 2 `Number([])` returns `0` and 6 `(Number({}))` returns `NaN`, although both `(Boolean([]))` and `(Boolean({}))` return `true`.
 
-In the code 9, `Boolean(new Boolean(false))`, we get `true` even though we pass into the `Boolean()` a `false` parameter. However, if we do not use the keyword `new`, then `false` will return. It seems that the in `Boolean(new Boolean(false))`, we have a valid opreration, so it is `true`. In the `Boolean(Boolean(false)))`, we get `false` because now a `false` value is being evaluated though.
+In the code 9 `Boolean(new Boolean(false))`, we get `true` even though we pass into the function constructor `Boolean()` a `false` (as the) parameter. However, if we do not use the keyword `new`, then `false` will return. It seems that in `Boolean(new Boolean(false))`, we have a valid opreration, so it is `true`. However, in the `Boolean(Boolean(false)))` where we do not use the keyword `new`, we then get `false` because now a `false` value is being evaluated rather than an operation.
 
-So the correct answer is D.
+So, the correct answer is D.
 
 Credit: @tiepphan, Vietnamese Angular Facebook group.
 
