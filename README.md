@@ -2151,4 +2151,39 @@ Credit: @tiepphan, Vietnamese Angular Facebook group.
 </p>
 </details>
 
+###### 54. What's the output?
+
+```javascript
+
+const myYoutube = {
+  name: "hoccoban",
+  address: "youtube.com/hoccoban",
+  getInfo(){
+    return this
+  },
+  content: ()=> this === window ? myYoutube.getInfo(): this
+}
+
+console.log(myYoutube.content().name)
+
+```
+- A: "hoccoban"
+- B: window (object)
+- C: NaN
+- D: undefined
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+To answer the tricky question above, you might want to have a look at the concept of `this` in JavaScript (on browser environment). By default, `this` refers to `window` object. Note that `Window` (written in capital) is the Function constructor of the `window` object. In this regard, `console.log(this === window)` return true but `console.log(this === Window)` returns false.
+
+As `getInfo()` is an arrow function, `this` declared inside this function points to `window`, so `myYoutube.content()` returns `myYoutube.getInfo()`. Noted that we have to explicitly write `myYoutube.getInfo()` to make sure the code will run correctly as `this` in this case does not work as it does not refer to the currect object. In the function `getInfo()`, however, `this` actually refers to the currect object instead of `window` object because we use a normal function here.
+
+Then we have the property `name` with the value "hoccoban". So the correct answer is A.
+
+</p>
+</details>
+
 
