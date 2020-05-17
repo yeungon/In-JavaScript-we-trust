@@ -2187,3 +2187,47 @@ Then we have the property `name` with the value "hoccoban". So the correct answe
 </details>
 
 
+###### 55. What's the output?
+
+```javascript
+const myArray = [1, 2, 3];
+
+myArray.someProperty = this;
+
+Array.prototype.someOtherProperty = "hello"
+
+let result = [];
+
+for (let key in myArray) {  
+  result.push(key)
+}
+
+for (let key in myArray) {  
+  if(myArray.hasOwnProperty(key)){
+      result.push(key)
+   }
+}
+
+console.log(result.length)
+
+```
+- A: 10
+- B: NaN
+- C: 9
+- D: 7
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+We have a simple array that consists of 3 elements. If checking the type of the array with the operator `typeof`, we will have `object`. (Hint, you can make use of `Array.isArray(array))` or `array instanceof Array` to check its type).
+
+When declaring `myArray.someProperty`, we now add a new property to that array and when declaring `Array.prototype.someOtherProperty = "hello"`, we add a new property to every single array. 
+
+As a result, the `for... in` loop will iterate through the array in question and return its key/property and the inherited property as well. However, in the second iteration, we take advantage of the method `hasOwnProperty(key)` to check whether a particular key/property actually belongs to the array in question rather than the inherited one.
+
+In short, in the first iteration, we get 5 (3 original ones, 1 property that is directly added to the array, 1 inherited from the Array.prototype. In the second one, we only get 4 as the inherited property is not taken into consideration.
+
+</p>
+</details>
