@@ -2229,5 +2229,7 @@ As a result, the `for... in` loop will iterate through the array in question and
 
 In short, in the first iteration, we get 5 (3 original ones, 1 property that is directly added to the array, 1 inherited from the Array.prototype. In the second one, we only get 4 as the inherited property is not taken into consideration.
 
+Keep in mind that, we use `for... of` to loop through an array or the traditional `for` loop. It is not a good practice to use `for ... in` to loop through an array. It is often used to loop through an object.
+
 </p>
 </details>
