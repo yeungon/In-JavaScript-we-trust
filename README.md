@@ -1316,7 +1316,7 @@ We see both `spread operator` and `rest parameter` in the code snippet above. Fi
 
 `Spread operator` as in the constant `c` allows us to combine array. So `...a` in the code above is `rest parameter` when it is used as function parameter but in this case it is the syntax of `spread operator`.
 
-Finally, we get `c` with 5 elements but the first element has 10 child elements (when we pass to the function `new Array(10)`). The length of both then returns 15.
+Finally, we get `c` with 5 elements (`...a` is a nested array, so the `length` is 1) but the first element has 10 child elements (when we pass to the function `new Array(10)`). The length of both then returns 15.
 
 </p>
 </details>
@@ -2233,3 +2233,50 @@ Keep in mind that, we use `for... of` to loop through an array or the traditiona
 
 </p>
 </details>
+
+
+
+
+###### 56. What's the output?
+
+```javascript
+
+const coderfarm = [1, 2, 3, 4, 5];
+
+const [top, ...bottom] = (function(a){
+  
+  let result = a;
+  
+  a.unshift(new Array(3));    
+  
+  return result;  
+  
+}(coderfarm))
+
+console.log(top.length + bottom.length)
+
+```
+- A: 8
+- B: 9
+- C: 10
+- D: 11
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+We are using destructure array (or object) technique to extract element of an array (or object). We also take advantage of `...` (spread parameter) here. 
+
+The array we are destructuring is returned from a self-executing function. First we pass the parameter `coderfarm`, which is the parameter `a` when declaring the function. Then we update this array with some additional value (an array with three `undefined` elements using `new Array(3)`) on the top of the array (using `unshift`). The array is updated now as `[[undefined, undefined, undefined], 1, 2, 3, 4, 5]`.
+
+So `top` is the first element of the array or `[undefined, undefined, undefined]`, which returns 3 when we check the length.
+
+The `bottom` returns the rest of the array in question, which is 5 when using `length` property.
+
+The final number is 8 and thus the correct answer is A.
+
+</p>
+</details>
+
+
