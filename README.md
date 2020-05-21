@@ -2279,4 +2279,47 @@ The final number is 8 and thus the correct answer is A.
 </p>
 </details>
 
+###### 57. What's the output?
+
+```javascript
+
+let age = {number: 10};
+
+const getAge = (flag) => {
+  flag ? delete age.number: delete age;
+  return age.number++;
+};
+
+console.log(getAge(false))
+
+console.log(age.number)
+
+console.log(getAge(true))
+
+console.log(age.number)
+
+```
+- A: 10 - 10 - NaN - NaN
+- B: 10 - 10 - undefined - undefined
+- C: 10 - 11 - undefined - undefined
+- D: 10 - 11 - NaN - NaN
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The operator `delete` only works on the property of an object, not the object itself. In the code snippet above, we have a simple function `getAge` with the parameter `flag`. When the `flag` is `true`, we trigger `delete age.number` and if it is `false`, we will use the operator `delete` upon the whole object.
+
+As this operator does not work on an object, if we can say that, it turns out that `delete age` actually does nothing. As such, `console.log(getAge(false))` returns 10 and simultanously increases the value of `age.number` to 11. The value is now being kept in the memory. As such, `console.log(age.number)` will return 11.
+
+When we pass the argument `flag` as `true` in the `console.log(getAge(true))`, we will trigger `delete age.number` which removes the value and the property `age.number` itself. It means `age.number` is now `undefined`. However, because we also attempt to increase the value of this `undefined` property using `++` operator, it returns `NaN`.
+
+`console.log(age.number)` also returns `NaN` as well. So the correct answer is D.
+
+
+
+
+</p>
+</details>
 
