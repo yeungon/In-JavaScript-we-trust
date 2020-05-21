@@ -2128,17 +2128,17 @@ Keep in mind that `Boolean([])` ==> `true` but `Number([])` ==> `0`. And sadly `
 
 ```
 
-- A: true - 0 - 1 - false - true  -  1    - 1 - false - false
-- B: true - 0 - 1 - false - false - NaN   - 1 - false - true
+- A: true - 0 - 1 - false - true - 1 - 1 - false - false
+- B: true - 0 - 1 - false - false - NaN - 1 - false - true
 - C: true - 0 - 1 - false - false - false - 1 - false - false
-- D: true - 0 - 1 - false - true  - NaN   - 1 - false - true
+- D: true - 0 - 1 - false - true - NaN - 1 - false - true
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-JavaScript is sometimes tedious to deal with given that it is a loosely type language. The data type of a variable can be changed depending on the value. An unexpected behaviour might unfortunately occur when you change/convert the original value to another one. 
+JavaScript is sometimes tedious to deal with given that it is a loosely type language. The data type of a variable can be changed depending on the value. An unexpected behaviour might unfortunately occur when you change/convert the original value to another one.
 
 For example, the code 2 `Number([])` returns `0` and 6 `(Number({}))` returns `NaN`, although both `(Boolean([]))` and `(Boolean({}))` return `true`.
 
@@ -2154,19 +2154,18 @@ Credit: @tiepphan, Vietnamese Angular Facebook group.
 ###### 54. What's the output?
 
 ```javascript
-
 const myYoutube = {
   name: "hoccoban",
   address: "youtube.com/hoccoban",
-  getInfo(){
-    return this
+  getInfo() {
+    return this;
   },
-  content: ()=> this === window ? myYoutube.getInfo(): this
-}
+  content: () => (this === window ? myYoutube.getInfo() : this),
+};
 
-console.log(myYoutube.content().name)
-
+console.log(myYoutube.content().name);
 ```
+
 - A: "hoccoban"
 - B: window (object)
 - C: NaN
@@ -2186,7 +2185,6 @@ Then we have the property `name` with the value "hoccoban". So the correct answe
 </p>
 </details>
 
-
 ###### 55. What's the output?
 
 ```javascript
@@ -2194,23 +2192,23 @@ const myArray = [1, 2, 3];
 
 myArray.someProperty = this;
 
-Array.prototype.someOtherProperty = "hello"
+Array.prototype.someOtherProperty = "hello";
 
 let result = [];
 
-for (let key in myArray) {  
-  result.push(key)
+for (let key in myArray) {
+  result.push(key);
 }
 
-for (let key in myArray) {  
-  if(myArray.hasOwnProperty(key)){
-      result.push(key)
-   }
+for (let key in myArray) {
+  if (myArray.hasOwnProperty(key)) {
+    result.push(key);
+  }
 }
 
-console.log(result.length)
-
+console.log(result.length);
 ```
+
 - A: 10
 - B: NaN
 - C: 9
@@ -2223,7 +2221,7 @@ console.log(result.length)
 
 We have a simple array that consists of 3 elements. If checking the type of the array with the operator `typeof`, we will have `object`. (Hint, you can make use of `Array.isArray(array))` or `array instanceof Array` to check its type).
 
-When declaring `myArray.someProperty`, we now add a new property to that array and when declaring `Array.prototype.someOtherProperty = "hello"`, we add a new property to every single array. 
+When declaring `myArray.someProperty`, we now add a new property to that array and when declaring `Array.prototype.someOtherProperty = "hello"`, we add a new property to every single array.
 
 As a result, the `for... in` loop will iterate through the array in question and return its key/property and the inherited property as well. However, in the second iteration, we take advantage of the method `hasOwnProperty(key)` to check whether a particular key/property actually belongs to the array in question rather than the inherited one.
 
@@ -2234,28 +2232,22 @@ Keep in mind that, we use `for... of` to loop through an array or the traditiona
 </p>
 </details>
 
-
-
-
 ###### 56. What's the output?
 
 ```javascript
-
 const coderfarm = [1, 2, 3, 4, 5];
 
-const [top, ...bottom] = (function(a){
-  
+const [top, ...bottom] = (function (a) {
   let result = a;
-  
-  a.unshift(new Array(3));    
-  
-  return result;  
-  
-}(coderfarm))
 
-console.log(top.length + bottom.length)
+  a.unshift(new Array(3));
 
+  return result;
+})(coderfarm);
+
+console.log(top.length + bottom.length);
 ```
+
 - A: 8
 - B: 9
 - C: 10
@@ -2266,7 +2258,7 @@ console.log(top.length + bottom.length)
 
 #### Answer: A
 
-We are using destructure array (or object) technique to extract element of an array (or object). We also take advantage of `...` (spread parameter) here. 
+We are using destructure array (or object) technique to extract element of an array (or object). We also take advantage of `...` (spread parameter) here.
 
 The array we are destructuring is returned from a self-executing function. First we pass the parameter `coderfarm`, which is the parameter `a` when declaring the function. Then we update this array with some additional value (an array with three `undefined` elements using `new Array(3)`) on the top of the array (using `unshift`). The array is updated now as `[[undefined, undefined, undefined], 1, 2, 3, 4, 5]`.
 
@@ -2282,23 +2274,22 @@ The final number is 8 and thus the correct answer is A.
 ###### 57. What's the output?
 
 ```javascript
-
-let age = {number: 10};
+let age = { number: 10 };
 
 const getAge = (flag) => {
-  flag ? delete age.number: delete age;
+  flag ? delete age.number : delete age;
   return age.number++;
 };
 
-console.log(getAge(false))
+console.log(getAge(false));
 
-console.log(age.number)
+console.log(age.number);
 
-console.log(getAge(true))
+console.log(getAge(true));
 
-console.log(age.number)
-
+console.log(age.number);
 ```
+
 - A: 10 - 10 - NaN - NaN
 - B: 10 - 10 - undefined - undefined
 - C: 10 - 11 - undefined - undefined
@@ -2317,9 +2308,45 @@ When we pass the argument `flag` as `true` in the `console.log(getAge(true))`, w
 
 `console.log(age.number)` also returns `NaN` as well. So the correct answer is D.
 
-
-
-
 </p>
 </details>
 
+###### 57. What's the output?
+
+```javascript
+
+const youtube = { name: "hoccoban" };
+
+const copy = Object.create(youtube);
+
+const cloneA = Object.assign({}, copy);
+
+const cloneB = Object.assign({}, youtube);
+
+console.log(cloneA.name);
+
+console.log(cloneB.name);
+
+console.log(copy.name);
+
+```
+- A: undefined    - "hoccoban"    - "hoccoban"
+- B: "hoccoban"   - "hoccoban"    - "hoccoban"
+- C: "hoccoban"   - "hoccoban"    - "undefined"
+- D: undefined    - "undefined"   - "hoccoban"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+We have three outputs in the code snippet above. 
+
+First `console.log(cloneA.name);` will return `undefined` but why? We use `Object.assign` to clone a new object from an empty and from the object `copy`. The object `copy` itself is actually created from the original object `youtube` using `Object.create`. Noted that because we use `Object.create`, `copy` will inherit the data from the original one but it is still an empty object itself.
+
+Second, both `console.log(cloneB.name)` and `console.log(copy.name)` return "hoccoban" because `cloneB.name` will have the actual property `name`. On the contrary, `copy.name` outputs the property `name` inherited from the `youtube`.
+
+So the correct answer is A.
+
+</p>
+</details>
