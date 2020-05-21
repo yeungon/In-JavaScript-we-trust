@@ -2311,7 +2311,7 @@ When we pass the argument `flag` as `true` in the `console.log(getAge(true))`, w
 </p>
 </details>
 
-###### 57. What's the output?
+###### 58. What's the output?
 
 ```javascript
 
