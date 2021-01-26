@@ -2314,7 +2314,6 @@ When we pass the argument `flag` as `true` in the `console.log(getAge(true))`, w
 ###### 58. What's the output?
 
 ```javascript
-
 const youtube = { name: "hoccoban" };
 
 const copy = Object.create(youtube);
@@ -2328,25 +2327,56 @@ console.log(cloneA.name);
 console.log(cloneB.name);
 
 console.log(copy.name);
-
 ```
-- A: undefined    - "hoccoban"    - "hoccoban"
-- B: "hoccoban"   - "hoccoban"    - "hoccoban"
-- C: "hoccoban"   - "hoccoban"    - "undefined"
-- D: undefined    - "undefined"   - "hoccoban"
+
+- A: undefined - "hoccoban" - "hoccoban"
+- B: "hoccoban" - "hoccoban" - "hoccoban"
+- C: "hoccoban" - "hoccoban" - "undefined"
+- D: undefined - "undefined" - "hoccoban"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: A
 
-We have three outputs in the code snippet above. 
+We have three outputs in the code snippet above.
 
 First `console.log(cloneA.name);` will return `undefined` but why? We use `Object.assign` to clone a new object from an empty and from the object `copy`. The object `copy` itself is actually created from the original object `youtube` using `Object.create`. Noted that because we use `Object.create`, `copy` will inherit the data from the original one but it is still an empty object itself.
 
 Second, both `console.log(cloneB.name)` and `console.log(copy.name)` return "hoccoban" because `cloneB.name` will have the actual property `name`. On the contrary, `copy.name` outputs the property `name` inherited from the `youtube`.
 
 So the correct answer is A.
+
+</p>
+</details>
+
+###### 59. What's the output?
+
+```javascript
+((x) => {
+  const data = !Array.isArray(x) ? x : x.entries();
+
+  console.log(data.next().value[1]);
+})(["hello", "world", "vuong"]);
+```
+
+- A: NaN
+- B: "hello"
+- C: "world"
+- D: "vuong"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+We have a self-invoking function here and we pass an array to it when the function is executed. Note that `Array.isArray(x)` return `true` but actually we use `!` before `Array.isArray(x)`. It means `data` will return `x.entries()`.
+
+The method `array.entries()`, as you might have already known, returns a `gererator`. Here we will call `next()` to iterate through each element. Note that if you only call `next()` once, it will only return the first element instead of the whole iterator.
+
+Then when we call `value`, it returns an array with the index and the value of the iterator. So what will we get if we call ` console.log(data.next().value[0])`. Sure, it returns `0` as `0` is the index.
+
+So the correct answer is B.
 
 </p>
 </details>
