@@ -2412,3 +2412,45 @@ So the correct answer is D.
 
 </p>
 </details>
+
+
+###### 61. What's the output?
+
+```javascript
+
+const frameworks = ["react", "angular", "vue"];
+
+const iterator = frameworks[Symbol.iterator]();
+const i = frameworks.entries();
+
+iterator.next();
+i.next();
+
+console.log(iterator.next().value[1]);
+console.log(i.next().value[1]);
+
+```
+
+- A: "react"    -   "angular"
+- B: "react"    -   "react"
+- C: "angular"  -   "angular"
+- D: "n"        -   "angular"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+As `frameworks` is an array, it has a built-in method named `Symbol.iterator`. You can hence iterate through the whole array using commonly used methods such as `for... of`, normal `for loop`, `forEach` or `map`, among others. That is relatively trivial, I suppose.
+
+This code challenge above is written to help us understand the concept of iteration better. First, we use the built-in method called `entries()` to create a new iteration. So does [Symbol.iterator](). Both seem to do the same thing.
+
+Each time we call `next()` method, the iteration will output one element. We then can call `value()` to get the value. The difference between `iterator` and `i` is that the former shows the value itself while the latter outputs an array consisting of the index and the value. It means that in the code above, `iterator.next().value` returns `angular` and `i.next().value` gives us `[1, angular]`.
+
+So the correct answer is D.
+
+</p>
+</details>
+
+
+
