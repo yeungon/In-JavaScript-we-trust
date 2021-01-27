@@ -2380,3 +2380,35 @@ So the correct answer is B.
 
 </p>
 </details>
+
+
+###### 60. What's the output?
+
+```javascript
+
+let x = Symbol();
+
+let y = Symbol();
+
+console.log(x === y ? `${typeof x}`[1] : `${typeof x}`[2])
+
+```
+
+- A: NaN
+- B: "object"
+- C: "y"
+- D: "m"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+As `x` and `y` are both instances of `symbol`, they are unique in our codebase; therefore, the `===` comparison will return `false` as expected. In the simple code snippet above, we get the `else` operation. 
+
+It should be noted that the `typeof x` operation gives us `symbol`, and since a string in JavaScript is iterable, we get `m` as we pass in the index 2.
+
+So the correct answer is D.
+
+</p>
+</details>
