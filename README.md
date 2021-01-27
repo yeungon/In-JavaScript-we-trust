@@ -2452,5 +2452,55 @@ So the correct answer is D.
 </p>
 </details>
 
+###### 62. What's the output?
+
+```javascript
+
+class React {	
+	theName = "Not React";	
+}
+
+class Author extends React{
+	
+	static theName = "Real React";
+
+	render(){
+		return this.theName;
+	}
+	
+	static render(){
+			return this.theName;
+	}
+}
+
+const me = new Author();
+
+console.log(me.render())
+
+console.log(Author.render())
+
+```
+- A: "Not React"   -   "Real React"
+- B: "Not React"   -    Error
+- C:  Error        -    Error
+- D:  Error        -   "Real React"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+We have two classes in the code snippet above. It sounds we are imitating React. The `React` class has only one property named `theName,` and no method is declared here. Providing that `Author` extends the `React` class, it inherits that property, surely. However, we have also declared another property with the same name in the `Author` classs. The difference is that the property declared in the child class is given the keyword `static.`
+
+The `Author` class also has two methods with the same name `render()`, one as regular methods and another with `static` keyword. Will that work in JavaScript?
+
+It turns out that JavaScript is quite flexible. It supports both property and method if they are declared with the same name as long as they are either regular property (or method) or static property (or method).
+
+The last thing you should be aware of is that the method `static render()` only calls the static property, here is `static theName = "Real React";` So does the regular method `render().` As such, the code does not run into any issues.
+
+So the correct answer is A.
+
+</p>
+</details>
 
 
