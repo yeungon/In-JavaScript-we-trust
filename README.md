@@ -2495,13 +2495,11 @@ So the correct answer is A.
 </p>
 </details>
 
-
 ###### 63. What's the output?
 
 ```javascript
-
-class js{	
-	say = "hello";			
+class js {
+  say = "hello";
 }
 
 js.prototype.say = "goodbye";
@@ -2509,22 +2507,21 @@ console.log(new js().say);
 
 js.prototype.thename = "google";
 console.log(new js().thename);
-
 ```
 
-- A: Error      -   Error
-- B: "hello"    -   "google"
-- C: "goodbye"  -   "google"
-- D: Error      -   "google"
+- A: Error - Error
+- B: "hello" - "google"
+- C: "goodbye" - "google"
+- D: Error - "google"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: B
 
-`js` is a standard class declared in the code snippet above that has only one property with the name `say.` Then we again declare another property with the same name `say` for it. You might think that the property `say` has been overwritten with a new value `goodbye.` 
+`js` is a standard class declared in the code snippet above that has only one property with the name `say.` Then we again declare another property with the same name `say` for it. You might think that the property `say` has been overwritten with a new value `goodbye.`
 
-That is not the case as we will get `hello` when we run `console.log(new js().say);`. It is clear that the JavaScript engine prioritizes the property declared inside the class more than the property declared later using the prototype mechanism. 
+That is not the case as we will get `hello` when we run `console.log(new js().say);`. It is clear that the JavaScript engine prioritizes the property declared inside the class more than the property declared later using the prototype mechanism.
 
 If the property has not been declared inside the class itself, we can then add a new one with the help of `prototype` as in `thename`. Without the doubt, the code `console.log(new js().thename);` gives us `google` as expected.
 
@@ -2533,9 +2530,42 @@ So the correct answer is B.
 </p>
 </details>
 
+###### 64. What's the output?
 
+```javascript
 
+const App = ([y, x, z]) => {			
+	return ()=>{
+			++x
+		return ()=>{
+			return x++;
+		}
+	}	
+}
 
+console.log(App([10, 20, 30, 40])()())
 
+```
 
+- A: 10
+- B: 32
+- C: 21
+- D: 22
 
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+To answer the question raised on the above code snippet, you might want to revisit two concepts, `currying function` and `destructing array or object.`
+
+First, `currying function` means we convert a function with multiple parameters into multiple functions with a SINGLE parameter. Then you can easily manipulate the flow of the data. Noted that `currying function` is relevant to `higher-order function`, you might want to have a look.
+
+`destructing array or object` means we attempt to extract a complex array or object more conveniently. For example, `[y, x, z] = [10, 20, 30, 40]` will extract y, x and z with the value 10, 20 and 30 respectively. 
+
+The last thing is incremental operator here `++x` returns 21 but `x++` does not as it still returns 21.
+
+So the correct answer is C.
+
+</p>
+</details>
