@@ -2381,17 +2381,14 @@ So the correct answer is B.
 </p>
 </details>
 
-
 ###### 60. What's the output?
 
 ```javascript
-
 let x = Symbol();
 
 let y = Symbol();
 
-console.log(x === y ? `${typeof x}`[1] : `${typeof x}`[2])
-
+console.log(x === y ? `${typeof x}`[1] : `${typeof x}`[2]);
 ```
 
 - A: NaN
@@ -2404,7 +2401,7 @@ console.log(x === y ? `${typeof x}`[1] : `${typeof x}`[2])
 
 #### Answer: D
 
-As `x` and `y` are both instances of `symbol`, they are unique in our codebase; therefore, the `===` comparison will return `false` as expected. In the simple code snippet above, we get the `else` operation. 
+As `x` and `y` are both instances of `symbol`, they are unique in our codebase; therefore, the `===` comparison will return `false` as expected. In the simple code snippet above, we get the `else` operation.
 
 It should be noted that the `typeof x` operation gives us `symbol`, and since a string in JavaScript is iterable, we get `m` as we pass in the index 2.
 
@@ -2413,11 +2410,9 @@ So the correct answer is D.
 </p>
 </details>
 
-
 ###### 61. What's the output?
 
 ```javascript
-
 const frameworks = ["react", "angular", "vue"];
 
 const iterator = frameworks[Symbol.iterator]();
@@ -2428,13 +2423,12 @@ i.next();
 
 console.log(iterator.next().value[1]);
 console.log(i.next().value[1]);
-
 ```
 
-- A: "react"    -   "angular"
-- B: "react"    -   "react"
-- C: "angular"  -   "angular"
-- D: "n"        -   "angular"
+- A: "react" - "angular"
+- B: "react" - "react"
+- C: "angular" - "angular"
+- D: "n" - "angular"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -2455,35 +2449,33 @@ So the correct answer is D.
 ###### 62. What's the output?
 
 ```javascript
-
-class React {	
-	theName = "Not React";	
+class React {
+  theName = "Not React";
 }
 
-class Author extends React{
-	
-	static theName = "Real React";
+class Author extends React {
+  static theName = "Real React";
 
-	render(){
-		return this.theName;
-	}
-	
-	static render(){
-			return this.theName;
-	}
+  render() {
+    return this.theName;
+  }
+
+  static render() {
+    return this.theName;
+  }
 }
 
 const me = new Author();
 
-console.log(me.render())
+console.log(me.render());
 
-console.log(Author.render())
-
+console.log(Author.render());
 ```
-- A: "Not React"   -   "Real React"
-- B: "Not React"   -    Error
-- C:  Error        -    Error
-- D:  Error        -   "Real React"
+
+- A: "Not React" - "Real React"
+- B: "Not React" - Error
+- C: Error - Error
+- D: Error - "Real React"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -2502,5 +2494,48 @@ So the correct answer is A.
 
 </p>
 </details>
+
+
+###### 63. What's the output?
+
+```javascript
+
+class js{	
+	say = "hello";			
+}
+
+js.prototype.say = "goodbye";
+console.log(new js().say);
+
+js.prototype.thename = "google";
+console.log(new js().thename);
+
+```
+
+- A: Error      -   Error
+- B: "hello"    -   "google"
+- C: "goodbye"  -   "google"
+- D: Error      -   "google"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+`js` is a standard class declared in the code snippet above that has only one property with the name `say.` Then we again declare another property with the same name `say` for it. You might think that the property `say` has been overwritten with a new value `goodbye.` 
+
+That is not the case as we will get `hello` when we run `console.log(new js().say);`. It is clear that the JavaScript engine prioritizes the property declared inside the class more than the property declared later using the prototype mechanism. 
+
+If the property has not been declared inside the class itself, we can then add a new one with the help of `prototype` as in `thename`. Without the doubt, the code `console.log(new js().thename);` gives us `google` as expected.
+
+So the correct answer is B.
+
+</p>
+</details>
+
+
+
+
+
 
 
