@@ -2569,3 +2569,52 @@ So the correct answer is C.
 
 </p>
 </details>
+
+###### 65. What's the output?
+
+```javascript
+
+const numbers = [5, 6, 7];
+
+function callback(accumulator, currentValue){
+	return accumulator + currentValue;
+}
+
+const theCallBack = (accumulator, currentValue) => accumulator + currentValue;
+
+const sum = numbers.reduce(callback, numbers.reduce(theCallBack, numbers.reduce(theCallBack, 7)));
+
+console.log(sum); 
+
+```
+
+- A: 54
+- B: 55
+- C: 60
+- D: 61
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+`Array.prototype.reduce()` is a bit perplexed built-in method that allows you to manipulate data in an array. It returns a single value from the array predefined as in the case with `map` or `filter`. The syntaxt of the function is `arr.reduce(callback( accumulator, currentValue, [, index[, array]] )[, initialValue])`, so it accepts a callback function with four arguments including `accumulator`, `currentValue`, `currentIndex` (optional) and `array` (optional). 
+
+The second argument of the `reduce` method, which is optional, is called `initialValue` that will be counted as the first element with the index 0 when `reduce` is executing. If `initialValue` is not provided, then `reduce` will run with the index 1 instead. `reduce()` sounds complicated, but truly it is not. In case you want to revise the function, kindly take a look at MDN here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+
+The above code has two callback functions named `callback` and `thecallback`, which do the same thing. The seemingly creepy code is the variable `sum`, which is returned by a couple of nested `reduce` functions. It turns out that there is only one "real" `reduce` function and the other ones give us `initialValue` only.
+
+- The first `initialValue` is 7;
+- The first nested `reduce` function gives us 7 (initialValue) + 5 + 6 + 7 = 25.
+- The second nested `reduce` has 25 as the initialValue, which we get from the above. Then it returns 25 + 5 + 6 + 7 = 43;
+- The "real" `reduce` function now has 43 as the initialValue, the we get the final result: 43 + 5+ 6 + 7 = 61.
+
+So the correct answer is D.
+
+</p>
+</details>
+
+
+
+
+
