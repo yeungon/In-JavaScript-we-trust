@@ -189,7 +189,7 @@ We have here an IIFE (Immediately Invoked Function Expression). It means we do n
 
 We might think that tip = 100 because it is a global variable when declaring with `var` keyword. However, it is actually `undefined` because we also have `var tip = 10` INSIDE the function. As the variable `tip` is hoisted with default value `undefined`, the final result would be D. We know that `undefined` returns NaN when we try to divide to 2 or multiple with 2.
 
-If we do not re-declare `var tip = 10;` at the end of the function, we will definately get D.
+If we do not re-declare `var tip = 10;` at the end of the function, we will definately get B.
 
 JS is fun, right?
 
