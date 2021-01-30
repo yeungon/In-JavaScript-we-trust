@@ -2616,5 +2616,46 @@ So the correct answer is D.
 
 
 
+###### 66. What's the output?
+
+```javascript
+
+const a = {name: "hoccoban.com"};
+const b = {name: "youtube.com/hoccoban"};
+
+const first = {...a}.name.length;
+const second = {...a, ...b}.name.length;
+const third = {...a, ...b, name: "hello"}.name.length;
+
+console.log(first + second + third)
+
+```
+
+- A: 12
+- B: 37
+- C: 5
+- D: 20
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The code snippet above is relatively trivial. What we can learn from it is all about the `spread operator` (three-dot ...). Sometimes it is also used as a `rest operator` to extract data from an object or array.
+
+We have two simple objects which both have the same key `name` but different values. The constant `first` gives us the length of the string value of the keyword `name` that is copied from `a`. So, `first` is now 12.
+
+The constant `second` merges `a` and `b` into one object. However, as `b` has the same key `name` with `a', the object created by merging two objects will have the value of `b`. It means the constant`second` gives us the length of `youtube.com/hoccoban`, which is 20.
+
+`third` does the same thing with `first` and `second` as it merges two objects into one. However, it also adds another key-value to the object. Coincidently, the key now is `name`, which is the same with the key attained from `a` and `b`. Hence, this key and value will take over the merged object. That means `third` is the length of the string `hello`, which is 5.
+
+In total, we have 12 + 20 + 5, and the final result is 37.
+
+So the correct answer is B.
+
+</p>
+</details>
+
+
 
 
