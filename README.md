@@ -2639,7 +2639,7 @@ console.log(first + second + third)
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: D
+#### Answer: B
 
 The code snippet above is relatively trivial. What we can learn from it is all about the `spread operator` (three-dot ...). Sometimes it is also used as a `rest operator` to extract data from an object or array.
 
