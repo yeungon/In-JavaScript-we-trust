@@ -2645,13 +2645,55 @@ The code snippet above is relatively trivial. What we can learn from it is all a
 
 We have two simple objects which both have the same key `name` but different values. The constant `first` gives us the length of the string value of the keyword `name` that is copied from `a`. So, `first` is now 12.
 
-The constant `second` merges `a` and `b` into one object. However, as `b` has the same key `name` with `a', the object created by merging two objects will have the value of `b`. It means the constant`second` gives us the length of `youtube.com/hoccoban`, which is 20.
+The constant `second` merges `a` and `b` into one object. However, as `b` has the same key `name` with `a`, the object created by merging two objects will have the value of `b`. It means the constant `second` gives us the length of `youtube.com/hoccoban`, which is 20.
 
 `third` does the same thing with `first` and `second` as it merges two objects into one. However, it also adds another key-value to the object. Coincidently, the key now is `name`, which is the same with the key attained from `a` and `b`. Hence, this key and value will take over the merged object. That means `third` is the length of the string `hello`, which is 5.
 
 In total, we have 12 + 20 + 5, and the final result is 37.
 
 So the correct answer is B.
+
+</p>
+</details>
+
+
+###### 67. What's the output?
+
+```javascript
+
+const hocCoBan = {};
+
+Object.defineProperty(hocCoBan, "domain", {
+    value: "hoccoban.com",    
+})
+
+async function App({year, age}){	
+	return year - age + hocCoBan.domain.length;
+}
+
+App({year: 2021, age: 30}).then(r => console.log(r));
+
+```
+
+- A: 2051
+- B: 2001
+- C: 30
+- D: 2003
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The code snippet above seems complicated regarding how we take advantage of `Object.defineProperty` to add key and value to the object `hocCoBan`. In fact, `Object.defineProperty` has a couple of handy features that allow us to control the behavior of the object in some situations where we want to make sure that the object created is mutable or not, whether it is iterable (using `for..in`) and so for. For example, if we set `configurable: false` when we declare an object with `Object.defineProperty`, we cannot use `delete` operator to delete the object's property. We cannot change the value of that property as well.
+
+The second "take away" message when reading the code above is the unpacking object technique, or a more frequent term is the destructing object. Say you have an object with two keys called `year` and `age`, then you can get them by using the destructing object technique as follows: `{year, age} = theOBject;`. In the code above, when declaring the function `App`, we also use destructing object technique to get the key from the object and use them as the parameters.
+
+If you are familiar with asynchronous code in JavaScript when using the keyword `async,` it is not a big deal to understand why we need to use `then` to get the function `App` being called. It fact, `async` always returns a promise, so we need to use `then` method to get the data we want. 
+
+The flow of the code is: 2021 - 30 + `"hoccoban.com".length` (which is 12). 
+
+The final result is 2003. So the correct answer is D.
 
 </p>
 </details>
