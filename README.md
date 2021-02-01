@@ -2699,4 +2699,55 @@ The final result is 2003. So the correct answer is D.
 
 
 
+###### 68. What's the output?
+
+```javascript
+
+class hoccoban {
+  #thisyear = 2021;
+  constructor(covidTheFirstYear) {
+    this.covidTheFirstYear = covidTheFirstYear;
+  }
+
+  getThisYear() {
+    return this.#thisyear;
+  }
+
+	getCovidFirstYear() {
+    return this.covidTheFirstYear;
+  }
+}
+
+const message = new hoccoban(2019);
+
+const result = hoccoban.hello ?? message.getThisYear() - message.getCovidFirstYear();
+
+console.log(result)
+
+```
+
+- A: NaN
+- B: 2019
+- C: undefined
+- D: 2
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+This challenge partly illustrates the newest features of JavaScript detailed in ECMAScript 2020 or ES11.
+
+Now you can declare a private property in a class thanks to the symbol `#`. Like other languages, a private property in JavaScript can only be accessed from inside the class. It will trigger an error when you attempt to call it outside the class, surely.
+
+The second feature you might see on the code snippet above is the `nullish coalescing operator` or `??`. When declaring some variable such as `let myVariable = number ?? 7`, if the variable `number` is either `undefined` or `null`, the variable `myVariable` will be assigned the value `7`.
+
+So `hoccoban.hello` means `undefined` because we have not added any value yet. Then by using `nullish coalescing operator` with `??` the variable `result` simply returns 2 as `message.getThisYear()` gives us 2020 and `message.getCovidFirstYear()` gives us 2019. Note that we can access the private property outside of the class via a method, as in the method `getThisYear()`.
+
+So the correct answer is D.
+
+</p>
+</details>
+
+
 
