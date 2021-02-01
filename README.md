@@ -403,29 +403,28 @@ Technically, `x` and `y` have the same value. Both are empty objects. However, w
 ```javascript
 console.log("hello");
 
-setTimeout(() => console.log("hey"), 1);
-setTimeout(() => console.log("kiora"), 2);
 setTimeout(() => console.log("world"), 0);
 
 console.log("hi");
 ```
 
-- A: "hello" "hey" "kiora" "world" "hi"
-- B: "hello" "hi" "hey" "kiora" "world"
-- C: "hello" "hi" "world" "hey" "kiora"
-- D: "hello" "hi" "hey" "world" "kiora"
+- A: "hello" -> "world" -> "hi"
+- B: "hello" -> "hi"    -> "world"
+- C: "hi"    -> "world" -> "hello"
+- D: "hi"    -> "hello" -> "world"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: D
+#### Answer: B
 
-Given that three setTimeout() functions will be kept in the `task queue` before jumping back to `stack`, "hello" and "hi" will be printed first, then A is totally incorrect.
+Given that the function setTimeout() will be kept in the `task queue` before jumping back to `stack,` "hello" and "hi" will be printed first, then A is incorrect. That is also the case of the answers C and D.
 
-We might have the feeling that three setTimeout() functions should be executed in the order "world" -> "hey" -> "kiora" providing that the time we have set are 0 mil second -> 1 mil second -> 2 mil second respectively. Yet, there is no different between 0 and 1 mil second. That is why we will see "hey" in the next. "world" is being executed then and following by the last on "kiora".
+No matter how many seconds you set to the `setTimeout()` function, it will run after synchronous code. So we will get "hello" first as it is put into the call stack first. Though the `setTimeout()` is then being put into the call stack, it will subsequently offload to web API (or Node API) and then being called when other synchronous codes are cleared. It means we then get "hi" and finally "world".
 
-For reference, read this https://stackoverflow.com/questions/8341803/difference-between-settimeoutfn-0-and-settimeoutfn-1
+So B is the correct answer.
 
+Credit: @kaitoubg (voz) for your suggestion regarding the ` timeout throttled` by which I have decided to alter the question slightly. It will ensure that readers will not get confused as the previous code might bring out different results when tested on other browsers or environments. The main point of the question is about the discrepancy between the synchronous code and asynchronous code when using `setTimeout.`.
 </p>
 </details>
 
