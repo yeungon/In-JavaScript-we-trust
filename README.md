@@ -409,9 +409,9 @@ console.log("hi");
 ```
 
 - A: "hello" -> "world" -> "hi"
-- B: "hello" -> "hi"    -> "world"
-- C: "hi"    -> "world" -> "hello"
-- D: "hi"    -> "hello" -> "world"
+- B: "hello" -> "hi" -> "world"
+- C: "hi" -> "world" -> "hello"
+- D: "hi" -> "hello" -> "world"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -425,6 +425,7 @@ No matter how many seconds you set to the `setTimeout()` function, it will run a
 So B is the correct answer.
 
 Credit: @kaitoubg (voz) for your suggestion regarding the ` timeout throttled` by which I have decided to alter the question slightly. It will ensure that readers will not get confused as the previous code might bring out different results when tested on other browsers or environments. The main point of the question is about the discrepancy between the synchronous code and asynchronous code when using `setTimeout.`.
+
 </p>
 </details>
 
@@ -2532,18 +2533,16 @@ So the correct answer is B.
 ###### 64. What's the output?
 
 ```javascript
+const App = ([y, x, z]) => {
+  return () => {
+    ++x;
+    return () => {
+      return x++;
+    };
+  };
+};
 
-const App = ([y, x, z]) => {			
-	return ()=>{
-			++x
-		return ()=>{
-			return x++;
-		}
-	}	
-}
-
-console.log(App([10, 20, 30, 40])()())
-
+console.log(App([10, 20, 30, 40])()());
 ```
 
 - A: 10
@@ -2560,7 +2559,7 @@ To answer the question raised on the above code snippet, you might want to revis
 
 First, `currying function` means we convert a function with multiple parameters into multiple functions with a SINGLE parameter. Then you can easily manipulate the flow of the data. Noted that `currying function` is relevant to `higher-order function`, you might want to have a look.
 
-`destructing array or object` means we attempt to extract a complex array or object more conveniently. For example, `[y, x, z] = [10, 20, 30, 40]` will extract y, x and z with the value 10, 20 and 30 respectively. 
+`destructing array or object` means we attempt to extract a complex array or object more conveniently. For example, `[y, x, z] = [10, 20, 30, 40]` will extract y, x and z with the value 10, 20 and 30 respectively.
 
 The last thing is incremental operator here `++x` returns 21 but `x++` does not as it still returns 21.
 
@@ -2572,19 +2571,20 @@ So the correct answer is C.
 ###### 65. What's the output?
 
 ```javascript
-
 const numbers = [5, 6, 7];
 
-function callback(accumulator, currentValue){
-	return accumulator + currentValue;
+function callback(accumulator, currentValue) {
+  return accumulator + currentValue;
 }
 
 const theCallBack = (accumulator, currentValue) => accumulator + currentValue;
 
-const sum = numbers.reduce(callback, numbers.reduce(theCallBack, numbers.reduce(theCallBack, 7)));
+const sum = numbers.reduce(
+  callback,
+  numbers.reduce(theCallBack, numbers.reduce(theCallBack, 7))
+);
 
-console.log(sum); 
-
+console.log(sum);
 ```
 
 - A: 54
@@ -2597,7 +2597,7 @@ console.log(sum);
 
 #### Answer: D
 
-`Array.prototype.reduce()` is a bit perplexed built-in method that allows you to manipulate data in an array. It returns a single value from the array predefined as in the case with `map` or `filter`. The syntaxt of the function is `arr.reduce(callback( accumulator, currentValue, [, index[, array]] )[, initialValue])`, so it accepts a callback function with four arguments including `accumulator`, `currentValue`, `currentIndex` (optional) and `array` (optional). 
+`Array.prototype.reduce()` is a bit perplexed built-in method that allows you to manipulate data in an array. It returns a single value from the array predefined as in the case with `map` or `filter`. The syntaxt of the function is `arr.reduce(callback( accumulator, currentValue, [, index[, array]] )[, initialValue])`, so it accepts a callback function with four arguments including `accumulator`, `currentValue`, `currentIndex` (optional) and `array` (optional).
 
 The second argument of the `reduce` method, which is optional, is called `initialValue` that will be counted as the first element with the index 0 when `reduce` is executing. If `initialValue` is not provided, then `reduce` will run with the index 1 instead. `reduce()` sounds complicated, but truly it is not. In case you want to revise the function, kindly take a look at MDN here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
@@ -2613,21 +2613,17 @@ So the correct answer is D.
 </p>
 </details>
 
-
-
 ###### 66. What's the output?
 
 ```javascript
+const a = { name: "hoccoban.com" };
+const b = { name: "youtube.com/hoccoban" };
 
-const a = {name: "hoccoban.com"};
-const b = {name: "youtube.com/hoccoban"};
+const first = { ...a }.name.length;
+const second = { ...a, ...b }.name.length;
+const third = { ...a, ...b, name: "hello" }.name.length;
 
-const first = {...a}.name.length;
-const second = {...a, ...b}.name.length;
-const third = {...a, ...b, name: "hello"}.name.length;
-
-console.log(first + second + third)
-
+console.log(first + second + third);
 ```
 
 - A: 12
@@ -2655,23 +2651,20 @@ So the correct answer is B.
 </p>
 </details>
 
-
 ###### 67. What's the output?
 
 ```javascript
-
 const hocCoBan = {};
 
 Object.defineProperty(hocCoBan, "domain", {
-    value: "hoccoban.com",    
-})
+  value: "hoccoban.com",
+});
 
-async function App({year, age}){	
-	return year - age + hocCoBan.domain.length;
+async function App({ year, age }) {
+  return year - age + hocCoBan.domain.length;
 }
 
-App({year: 2021, age: 30}).then(r => console.log(r));
-
+App({ year: 2021, age: 30 }).then((r) => console.log(r));
 ```
 
 - A: 2051
@@ -2688,21 +2681,18 @@ The code snippet above seems complicated regarding how we take advantage of `Obj
 
 The second "take away" message when reading the code above is the unpacking object technique, or a more frequent term is the destructing object. Say you have an object with two keys called `year` and `age`, then you can get them by using the destructing object technique as follows: `{year, age} = theOBject;`. In the code above, when declaring the function `App`, we also use destructing object technique to get the key from the object and use them as the parameters.
 
-If you are familiar with asynchronous code in JavaScript when using the keyword `async,` it is not a big deal to understand why we need to use `then` to get the function `App` being called. It fact, `async` always returns a promise, so we need to use `then` method to get the data we want. 
+If you are familiar with asynchronous code in JavaScript when using the keyword `async,` it is not a big deal to understand why we need to use `then` to get the function `App` being called. It fact, `async` always returns a promise, so we need to use `then` method to get the data we want.
 
-The flow of the code is: 2021 - 30 + `"hoccoban.com".length` (which is 12). 
+The flow of the code is: 2021 - 30 + `"hoccoban.com".length` (which is 12).
 
 The final result is 2003. So the correct answer is D.
 
 </p>
 </details>
 
-
-
 ###### 68. What's the output?
 
 ```javascript
-
 class hoccoban {
   #thisyear = 2021;
   constructor(covidTheFirstYear) {
@@ -2713,17 +2703,17 @@ class hoccoban {
     return this.#thisyear;
   }
 
-	getCovidFirstYear() {
+  getCovidFirstYear() {
     return this.covidTheFirstYear;
   }
 }
 
 const message = new hoccoban(2019);
 
-const result = hoccoban.hello ?? message.getThisYear() - message.getCovidFirstYear();
+const result =
+  hoccoban.hello ?? message.getThisYear() - message.getCovidFirstYear();
 
-console.log(result)
-
+console.log(result);
 ```
 
 - A: NaN
@@ -2749,5 +2739,44 @@ So the correct answer is D.
 </p>
 </details>
 
+###### 69. What's the output?
+
+```javascript
+const keyWords = "hello world";
+
+const entries = keyWords.split(" ");
+
+const collections = [];
+
+entries.forEach((entry, index) => {
+  collections.push([entry, index]);
+});
+
+const objectResult = Object.fromEntries(collections);
+
+const { world } = objectResult;
+
+console.log(world);
+```
+
+- A: 0
+- B: true
+- C: 1
+- D: "hello"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+The code snippet above is not challenging for those who have had decent experience working with ES6 I suppose. First we turn `keywords` into an array using `split()` function. Then we create a variable named `collection`, which initially is an empty array. 
+
+Take a closer look at the `forEach` function, which allows us to run a for loop through the whole array `entries`, you might realize that `push([entry, index]);` add an array to `collections` rather than an element. 
+
+The next step is by taking advantage of `Object.fromEntries()` that converts an array with at least two elements (the form of key-value) to an object. This built-in method is the reversing version of `Object.entries()`, which extracts key and value from an object to an array.
+
+`const { world } = objectResult;` is nothing special as we unpack the object using destructing object technique supported since ES6. As the object `objectResult` has `hello` and `world` with two respective values 0 and 1, we get 1 when printing out `world`, so the correct answer is C.
 
 
+</p>
+</details>
