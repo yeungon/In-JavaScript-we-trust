@@ -2769,14 +2769,65 @@ console.log(world);
 
 #### Answer: C
 
-The code snippet above is not challenging for those who have had decent experience working with ES6 I suppose. First we turn `keywords` into an array using `split()` function. Then we create a variable named `collection`, which initially is an empty array. 
+The code snippet above is not challenging for those who have had decent experience working with ES6 I suppose. First we turn `keywords` into an array using `split()` function. Then we create a variable named `collection`, which initially is an empty array.
 
-Take a closer look at the `forEach` function, which allows us to run a for loop through the whole array `entries`, you might realize that `push([entry, index]);` add an array to `collections` rather than an element. 
+Take a closer look at the `forEach` function, which allows us to run a for loop through the whole array `entries`, you might realize that `push([entry, index]);` add an array to `collections` rather than an element.
 
 The next step is by taking advantage of `Object.fromEntries()` that converts an array with at least two elements (the form of key-value) to an object. This built-in method is the reversing version of `Object.entries()`, which extracts key and value from an object to an array.
 
 `const { world } = objectResult;` is nothing special as we unpack the object using destructing object technique supported since ES6. As the object `objectResult` has `hello` and `world` with two respective values 0 and 1, we get 1 when printing out `world`, so the correct answer is C.
 
+</p>
+</details>
+
+###### 70. What's the output?
+
+```javascript
+
+const target = {
+  domainname: "hoccoban.com",
+  author: "vuong",
+};
+
+const handler = {
+  get: function (thetarget, prop, receiver) {
+    if (prop === "domainname") {
+      return thetarget.author.length;
+    } else {
+      return thetarget.domainname.length;
+    }
+  },
+};
+
+const proxyObject = new Proxy(target, handler);
+
+console.log(proxyObject.domainname > proxyObject.author);
+
+```
+
+- A: true
+- B: false
+- C: 12
+- D: 5
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+We have implemented a basic use case of `Proxy` in the code snippet above. Each `proxyObject` object has two parameters (`target` and `handler`). `handler` is also an object. 
+
+Apart from `get()` as you might see, `handler` also has a handful of other methods such as `set`, `defineProperty()`, `has()` and so forth. Sometimes, people may say a `method is a trap` of a proxy object.
+
+Back to the code above, the `get` method allows us to modify how the proxy object will display the value of the original object. `thetarget` is the original object, and `prop` is the property of that object as you might guess. You might choose another name in the `get` function if you want when creating your handler.
+
+The `handler` above calculates the length of the string value of the two properties. Based on the flow of `if - else` code, it swaps the returned value. 
+
+So `proxyObject.domainname` now should be understood as `target.author.length` which means 5 and `proxyObject.author` means `target.domainname.length` which gives us 12. So the output is `false`. The correct answer is B.
+
+If you do the same thing with the original, it should be something like `console.log(target.domainname.length > target.author.length)` which returns `true`.
+
+I believe that `Proxy` is worth to have a closer look. If that is the case, no place is better than MDN. So have a go at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
 
 </p>
 </details>
