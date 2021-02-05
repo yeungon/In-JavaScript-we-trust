@@ -2868,12 +2868,13 @@ We have already had a couple of questions regarding asynchronous code in general
 
 We have two promises; each takes 5 or 4 seconds to complete the code and returns "hello" (in `promise1`) and "world" (in `promise2`)  in the `resolve` methods, respectively.
 
-Then we take advantage of the `async` function to chain the two promises to get the result we want. As `async` function returns a `promise` so to get the returned value from `async` function, we have to use `then()` method. We do not do that here, so that is why we got `Promise { <pending> }`.
+Then we take advantage of the `async` function to chain the two promises to get the result we want. As `async` function returns a `promise` so to get the returned value from `async` function, we have to use `then()` method. As we do not do that here, then we get `Promise { <pending> }`.
 
-So does `p2` have to wait and only run after `p1` complete? It does not. Both `p1` and `p1` run simultaneously in the queue thanks to web API or nodejs API. So it will not take 9 seconds to finish the code but solely around 5.
+The question is, does `p2` have to wait and only run after `p1` complete? It turns out that it does not. Both `p1` and `p2` run simultaneously in the task queue thanks to web API or nodejs API (the environments by which JavaScript engine runs). So it will not take 9 seconds to finish the code but solely around 5. It means `promise1` takes 5 seconds to complete and at the same time, `promise2` reaches the bottom within only 4 seconds.
 
 That is why A is the correct answer. 
 
+Updated: What happens if `promise2` takes 6 seconds instead of 4 ? Well, as `promise2` runs almost at the same time with `promise1`, it will only take 1 second after the `promise1` completes. So in total, it takes approximately 6 seconds. 
 
 </p>
 </details>
