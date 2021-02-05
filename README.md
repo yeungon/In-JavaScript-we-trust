@@ -2878,3 +2878,58 @@ Updated: What happens if `promise2` takes 6 seconds instead of 4 ? Well, as `pro
 
 </p>
 </details>
+
+
+###### 72. What's the output?
+
+```javascript
+const promise1 = () => {
+  return new Promise((resolve, reject) => {
+  setTimeout(() => resolve("hello"), 5000);
+});
+}
+
+const promise2 = () => {
+  return new Promise((resolve, reject) => {
+  setTimeout(() => resolve("world"), 4000);
+});
+}
+
+(async () => {
+  console.time("timeleap");
+
+  const p1 = await promise1();
+
+  const p2 = await promise2();
+
+  console.log(`${p1} ${p2}`);
+
+  console.timeEnd("timeleap");
+})();
+```
+
+- A: Promise { <pending> } - "hello world" - timeleap: ~ 5000 ms
+- B: Promise { <pending> } - "hello world" - timeleap: ~ 9000 ms
+- C: Promise { <pending> } - "hello world" - timeleap: ~ 4000 ms
+- D: Promise { <pending> } - "hello world" - timeleap: ~ 1000 ms
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+The 72nd challenge is almost identical to the 71st. Please take a closer look.
+
+The difference lies in the way we declare a promise. In question 71st, we use two constants, and both return promise, but in question 72, we declare functions and each returns a promise.
+
+If you run the code, you might be surprised with the result as it takes around 9 seconds to complete the code in place of 5 seconds as in the previous question.
+
+It means that  `const p1 = await promise1;` and `const p1 = await promise1();` are different as the latter (a function) might block the callstack and `const p2 = await promise2();` can only be called after the `p1` completes. The two do not run in parallel as the two promises in the previous question.
+
+As it takes 9 seconds to finish, B is the correct answer. 
+
+</p>
+</details>
+
+
+
