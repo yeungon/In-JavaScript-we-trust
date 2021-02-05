@@ -2783,7 +2783,6 @@ The next step is by taking advantage of `Object.fromEntries()` that converts an 
 ###### 70. What's the output?
 
 ```javascript
-
 const target = {
   domainname: "hoccoban.com",
   author: "vuong",
@@ -2802,7 +2801,6 @@ const handler = {
 const proxyObject = new Proxy(target, handler);
 
 console.log(proxyObject.domainname > proxyObject.author);
-
 ```
 
 - A: true
@@ -2815,19 +2813,67 @@ console.log(proxyObject.domainname > proxyObject.author);
 
 #### Answer: B
 
-We have implemented a basic use case of `Proxy` in the code snippet above. Each `proxyObject` object has two parameters (`target` and `handler`). `handler` is also an object. 
+We have implemented a basic use case of `Proxy` in the code snippet above. Each `proxyObject` object has two parameters (`target` and `handler`). `handler` is also an object.
 
 Apart from `get()` as you might see, `handler` also has a handful of other methods such as `set`, `defineProperty()`, `has()` and so forth. Sometimes, people may say a `method is a trap` of a proxy object.
 
 Back to the code above, the `get` method allows us to modify how the proxy object will display the value of the original object. `thetarget` is the original object, and `prop` is the property of that object as you might guess. You might choose another name in the `get` function if you want when creating your handler.
 
-The `handler` above calculates the length of the string value of the two properties. Based on the flow of `if - else` code, it swaps the returned value. 
+The `handler` above calculates the length of the string value of the two properties. Based on the flow of `if - else` code, it swaps the returned value.
 
 So `proxyObject.domainname` now should be understood as `target.author.length` which means 5 and `proxyObject.author` means `target.domainname.length` which gives us 12. So the output is `false`. The correct answer is B.
 
 If you do the same thing with the original, it should be something like `console.log(target.domainname.length > target.author.length)` which returns `true`.
 
 I believe that `Proxy` is worth to have a closer look. If that is the case, no place is better than MDN. So have a go at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
+
+</p>
+</details>
+
+###### 71. What's the output?
+
+```javascript
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("hello"), 5000);
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("world"), 4000);
+});
+
+(async () => {
+  console.time("timeleap");
+
+  const p1 = await promise1;
+
+  const p2 = await promise2;
+
+  console.log(`${p1} ${p2}`);
+
+  console.timeEnd("timeleap");
+})();
+```
+
+- A: Promise { <pending> } - "hello world" - timeleap: ~ 5000 ms
+- B: Promise { <pending> } - "hello world" - timeleap: ~ 9000 ms
+- C: Promise { <pending> } - "hello world" - timeleap: ~ 4000 ms
+- D: Promise { <pending> } - "hello world" - timeleap: ~ 1000 ms
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+We have already had a couple of questions regarding asynchronous code in general and handling the data flow with promise in particular. If you understand how JS works, I am sure that the code challenge above is not difficult.
+
+We have two promises; each takes 5 or 4 seconds to complete the code and returns "hello" (in `promise1`) and "world" (in `promise2`)  in the `resolve` methods, respectively.
+
+Then we take advantage of the `async` function to chain the two promises to get the result we want. As `async` function returns a `promise` so to get the returned value from `async` function, we have to use `then()` method. We do not do that here, so that is why we got `Promise { <pending> }`.
+
+So does `p2` have to wait and only run after `p1` complete? It does not. Both `p1` and `p1` run simultaneously in the queue thanks to web API or nodejs API. So it will not take 9 seconds to finish the code but solely around 5.
+
+That is why A is the correct answer. 
+
 
 </p>
 </details>
