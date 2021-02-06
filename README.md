@@ -2866,34 +2866,33 @@ const promise2 = new Promise((resolve, reject) => {
 
 We have already had a couple of questions regarding asynchronous code in general and handling the data flow with promise in particular. If you understand how JS works, I am sure that the code challenge above is not difficult.
 
-We have two promises; each takes 5 or 4 seconds to complete the code and returns "hello" (in `promise1`) and "world" (in `promise2`)  in the `resolve` methods, respectively.
+We have two promises; each takes 5 or 4 seconds to complete the code and returns "hello" (in `promise1`) and "world" (in `promise2`) in the `resolve` methods, respectively.
 
 Then we take advantage of the `async` function to chain the two promises to get the result we want. As `async` function returns a `promise` so to get the returned value from `async` function, we have to use `then()` method. As we do not do that here, then we get `Promise { <pending> }`.
 
 The question is, does `p2` have to wait and only run after `p1` complete? It turns out that it does not. Both `p1` and `p2` run simultaneously in the task queue thanks to web API or nodejs API (the environments by which JavaScript engine runs). So it will not take 9 seconds to finish the code but solely around 5. It means `promise1` takes 5 seconds to complete and at the same time, `promise2` reaches the bottom within only 4 seconds.
 
-That is why A is the correct answer. 
+That is why A is the correct answer.
 
-Updated: What happens if `promise2` takes 6 seconds instead of 4 ? Well, as `promise2` runs almost at the same time with `promise1`, it will only take 1 second after the `promise1` completes. So in total, it takes approximately 6 seconds. 
+Updated: What happens if `promise2` takes 6 seconds instead of 4 ? Well, as `promise2` runs almost at the same time with `promise1`, it will only take 1 second after the `promise1` completes. So in total, it takes approximately 6 seconds.
 
 </p>
 </details>
-
 
 ###### 72. What's the output?
 
 ```javascript
 const promise1 = () => {
   return new Promise((resolve, reject) => {
-  setTimeout(() => resolve("hello"), 5000);
-});
-}
+    setTimeout(() => resolve("hello"), 5000);
+  });
+};
 
 const promise2 = () => {
   return new Promise((resolve, reject) => {
-  setTimeout(() => resolve("world"), 4000);
-});
-}
+    setTimeout(() => resolve("world"), 4000);
+  });
+};
 
 (async () => {
   console.time("timeleap");
@@ -2924,12 +2923,47 @@ The difference lies in the way we declare a promise. In question 71st, we use tw
 
 If you run the code, you might be surprised with the result as it takes around 9 seconds to complete the code in place of 5 seconds as in the previous question.
 
-It means that  `const p1 = await promise1;` and `const p1 = await promise1();` are different as the latter (a function) might block the callstack and `const p2 = await promise2();` can only be called after the `p1` completes. The two do not run in parallel as the two promises in the previous question.
+It means that `const p1 = await promise1;` and `const p1 = await promise1();` are different as the latter (a function) might block the callstack and `const p2 = await promise2();` can only be called after the `p1` completes. The two do not run in parallel as the two promises in the previous question.
 
-As it takes 9 seconds to finish, B is the correct answer. 
+As it takes 9 seconds to finish, B is the correct answer.
 
 </p>
 </details>
 
+###### 73. What's the output?
 
+```javascript
+let history = {
+  year: 2021,
+  getYear: function () {
+    console.log(this.year);
+  },
+};
 
+setTimeout(history.getYear, 0);
+setTimeout(history.getYear.bind(history), 10);
+
+const { year, getYear } = history;
+getYear();
+```
+
+- A: undefined - undefined - 2021
+- B: undefined - 2021      - 2021
+- C: 2021      - undefined - 2021
+- D: 2021      - 2021      - 2011
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: A
+
+We have three outputs on the code above. First, we have a simple object with one property and one method. Noted that the method point to the property `year` using `this` keyword. The problem now happens when we attempt to extract data from the object.
+
+Be aware of the `setTimeout` method, which will create a separated context that is different from the original object's context. Even though in `setTimeout(history.getYear, 0);` we have explicitly called the object `history`, setTimeout will still execute the function `history.getYear` with`this` pointing to the global object. So it returns `undefined.`
+
+`getYear();` is extracted from the object we have defined in the beginning. But as `this` is out of the original context when executing the function, it returns `undefined`. This code is called last, but the output is displayed first on the console window as it is a synchronous code.
+
+`setTimeout(history.getYear.bind(history), 10);` runs last and will give us 2021 as it is bound to the object `history`. Finally, we get `undefined - undefined - 2021,` and A is the correct answer.
+
+</p>
+</details>
