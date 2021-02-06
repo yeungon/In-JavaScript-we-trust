@@ -2950,7 +2950,7 @@ getYear();
 - A: undefined - undefined - 2021
 - B: undefined - 2021      - 2021
 - C: 2021      - undefined - 2021
-- D: 2021      - 2021      - 2011
+- D: 2021      - 2021      - 2021
 
 <details><summary><b>Answer</b></summary>
 <p>
