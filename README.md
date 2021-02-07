@@ -2948,9 +2948,9 @@ getYear();
 ```
 
 - A: undefined - undefined - 2021
-- B: undefined - 2021      - 2021
-- C: 2021      - undefined - 2021
-- D: 2021      - 2021      - 2021
+- B: undefined - 2021 - 2021
+- C: 2021 - undefined - 2021
+- D: 2021 - 2021 - 2021
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -2964,6 +2964,70 @@ Be aware of the `setTimeout` method, which will create a separated context that 
 `getYear();` is extracted from the object we have defined in the beginning. But as `this` is out of the original context when executing the function, it returns `undefined`. This code is called last, but the output is displayed first on the console window as it is a synchronous code.
 
 `setTimeout(history.getYear.bind(history), 10);` runs last and will give us 2021 as it is bound to the object `history`. Finally, we get `undefined - undefined - 2021,` and A is the correct answer.
+
+</p>
+</details>
+
+###### 74. What's the output?
+
+```javascript
+
+class handleCovid {
+  constructor(start) {
+    this.start = start;
+  }
+
+  calculate(someValue) {
+    this.start = this.start + someValue;
+    return this.start;
+  }
+
+  vaccine() {
+    ++this.start;
+    return this;
+  }
+
+  delaying() {
+    ++this.start;
+    return this;
+  }
+
+  static getFinal(result) {
+    return result * 2;
+  }
+}
+
+const now = new handleCovid(2019);
+
+console.log(
+  handleCovid.getFinal(now.vaccine().delaying().calculate(2020))
+);
+```
+
+- A: 2019
+- B: 8082
+- C: 8080
+- D: 8084
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+The code snippet above is ugly and sounds complicated at first. Yet, you might encounter a situation when some good "take away" messages might be given. The flow of the code is not hard to understand, I suppose.
+
+First, a function in JavaScript can accept another function as its parameter. With regard to the `static` keyword, it means we can directly call a static method in the form of `className.staticmethod` without invoking the object created by the normal way `new ClassName`. 
+
+Besides, you might want to have a look at how we chain more than one method together. That is possible if these methods `return this`.
+
+Now let break it down: 
+
+- `calculate(2020)`                                                --> 2019 + 2020 = 4019;
+- `delaying().calculate(2020)`                                     --> 4020;
+- `now.vaccine().delaying().calculate(2020)`                       --> 4021;
+- `handleCovid.getFinal(now.vaccine().delaying().calculate(2020)`  --> 4021*2 = 8082; 
+
+So the correct answer is B.
 
 </p>
 </details>
