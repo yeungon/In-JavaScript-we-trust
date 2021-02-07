@@ -3022,10 +3022,10 @@ Besides, you might want to have a look at how we chain more than one method toge
 
 Now let break it down: 
 
-- `calculate(2020)`                                                --> 2019 + 2020 = 4019;
-- `delaying().calculate(2020)`                                     --> 4020;
-- `now.vaccine().delaying().calculate(2020)`                       --> 4021;
-- `handleCovid.getFinal(now.vaccine().delaying().calculate(2020)`  --> 4021*2 = 8082; 
+- `calculate(2020)`                                                --> 2019 + 2020 = 4039;
+- `delaying().calculate(2020)`                                     --> 4040;
+- `now.vaccine().delaying().calculate(2020)`                       --> 4041;
+- `handleCovid.getFinal(now.vaccine().delaying().calculate(2020)`  --> 4041 * 2 = 8082; 
 
 So the correct answer is B.
 
