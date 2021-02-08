@@ -3031,3 +3031,51 @@ So the correct answer is B.
 
 </p>
 </details>
+
+
+###### 75. What's the output?
+
+```javascript
+function HappyNewYear(){
+  return "hello";
+};
+
+const year2021 = new HappyNewYear();
+year2021.__proto__.greeting = "happy";
+HappyNewYear.prototype.say = "new year";
+
+console.log(year2021.__proto__ === HappyNewYear.prototype);
+console.log(Object.getPrototypeOf(year2021) === HappyNewYear.prototype);
+console.log(Reflect.getPrototypeOf(year2021) === HappyNewYear.prototype);
+
+console.log(year2021.__proto__ === Object.prototype);
+console.log(year2021 instanceof HappyNewYear);
+console.log(year2021 instanceof Object);
+
+const thisyear = new HappyNewYear();
+console.log(`${thisyear.greeting} ${thisyear.say}`);
+
+```
+
+- A: true  - true  - true  - false - true   - false  -  "happy new year"
+- B: true  - true  - true  - false - false  - true   -  "happy new year"
+- C: true  - true  - true  - true  - true   - true   -  "happy new year"
+- D: true  - true  - true  - false - true   - true   -  "happy new year"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: D
+
+The code snippet above helps us revise the concept of `prototype` in JavaScript with two essential keywords:  `__proto__` and `FunctionName.prototype`. I believe that the code `console.log(year2021.__proto__ === HappyNewYear.prototype);` is the key to understand the difference between the two. So, in short, every single object in JavaScript has a built-in property `__proto__` that gives us an overview of the built-in (internal) [[Prototype]]. They are the things (property and method) the object inherits from the "parent" function constructor or class).
+
+For example, if you declare a literal object such as `const a = {}` then `a.__proto__ === Object.prototype` returns `true` because `a` inherits the prototype from the "parent" `Object`. However, if an object is created using function constructor then the "parent" prototype is function constructor itself instead of the `Object`. So while `console.log(year2021.__proto__ === HappyNewYear.prototype);` returns `true`, `console.log(year2021.__proto__ === Object.prototype);` gives us `false`. 
+
+Be aware of `Object.getPrototypeOf (object)` and `Reflect.getPrototypeOf(object)`. The two are recommended to use as `__proto__` is being deprecated. 
+
+You might want to read more about `__proto__` at MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
+
+The correct answer is D, and btw "happy new year"!
+
+</p>
+</details>
