@@ -3079,3 +3079,55 @@ The correct answer is D, and btw "happy new year"!
 
 </p>
 </details>
+
+
+###### 76. What's the output?
+
+```javascript
+const address = {
+  name: 'hoccoban.com',
+  author: 'Vuong Nguyen',  
+}
+
+const key = Reflect.has(address, 'author') ? Reflect.ownKeys(address)[0] : "hello";
+
+Reflect.set(address, 'language', 'JavaScript');
+
+const totalKeys = Reflect.ownKeys(address).length;
+
+const name = Reflect.get(address, key).length;
+
+const language = Reflect.get(address, 'language').length
+
+console.log(totalKeys + name + language);
+
+```
+- A: 22
+- B: 10
+- C: 20
+- D: 25
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The correct answer is D. Why? Now let break it down:
+
+- `Reflect.has(address, 'author')` gives us `true` given that the object `address` has the key `author`. Simple as it is. So the value of the variable `key` is now `Reflect.ownKeys(address)[0]`, which in fact is the key `name`.
+
+- `Reflect.set(address, 'language', 'JavaScript');` set another key-value to the object `address`.
+
+- `Reflect.ownKeys(address).length;` gives us 3 because now it has three keys, so `totalKeys` is now 3.
+
+- `Reflect.get(address, key).length;` gives us the length of the string `hoccoban.com` which is 12.
+
+- `Reflect.get(address, 'language').length` is the length of the string `JavaScript`, which is 10.
+
+- The final answer is 3 + 12 + 10 = 25.
+
+#### Answer: D
+
+
+
+</p>
+</details>
+
