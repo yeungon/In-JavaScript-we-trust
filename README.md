@@ -3126,8 +3126,64 @@ The correct answer is D. Why? Now let break it down:
 
 #### Answer: D
 
-
-
 </p>
 </details>
 
+
+###### 77. What's the output?
+
+```javascript
+const myModule = (function () {
+	
+  const covidYear = 2019;
+	
+	const year = 2021;
+	
+  function getYear() {
+    return year
+  }
+	
+	function getCovidYear() {
+    return covidYear
+  }
+		
+  function exposeYear() {
+    return getYear();
+  }
+	
+	 function exposeCovidYear() {
+    return getCovidYear();
+  }
+	
+  return {
+    nothing: undefined ?? null ?? null ?? undefined,    
+    exposeYear,
+		exposeCovidYear
+  }
+})();
+
+const result = myModule.nothing ?? myModule.exposeYear() + myModule.exposeCovidYear();
+
+console.log(result)
+
+```
+- A: 2021
+- B: 2019
+- C: 4040
+- D: undefined
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The challenge above will help you revise the `revealing pattern` and thanks to it you can declare a private variable in JavaScript. Note that we can now declare a `private` property in a class in modern JavaScript, so the above way of writing a private variable seems old-fashioned. 
+
+First, we have an IIFE function - immediately invoked function expressions. There are two variables and two functions as well. However, in the `return`, there are three key-values. We can not directly access the two variables `covidYear` and `year` except for using some already-built functions inside the IIFE.
+
+If you feel the keyword `??` is odd, then you might want to have a look at the latest syntax supported in modern JavaScript called "Nullish Coalescing Operator". It means, if the left element is either `undefined` or `null`, the value of the right element will be assigned.
+
+In short, we have `myModule.exposeYear()` (2021) and `myModule.exposeCovidYear()` (2019). In total, the final result is 4040. So the correct answer is C.
+
+#### Answer: C
+
+</p>
+</details>
