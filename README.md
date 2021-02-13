@@ -2971,7 +2971,6 @@ Be aware of the `setTimeout` method, which will create a separated context that 
 ###### 74. What's the output?
 
 ```javascript
-
 class handleCovid {
   constructor(start) {
     this.start = start;
@@ -2999,9 +2998,7 @@ class handleCovid {
 
 const now = new handleCovid(2019);
 
-console.log(
-  handleCovid.getFinal(now.vaccine().delaying().calculate(2020))
-);
+console.log(handleCovid.getFinal(now.vaccine().delaying().calculate(2020)));
 ```
 
 - A: 2019
@@ -3016,29 +3013,28 @@ console.log(
 
 The code snippet above is ugly and sounds complicated at first. Yet, you might encounter a situation when some good "take away" messages might be given. The flow of the code is not hard to understand, I suppose.
 
-First, a function in JavaScript can accept another function as its parameter. With regard to the `static` keyword, it means we can directly call a static method in the form of `className.staticmethod` without invoking the object created by the normal way `new ClassName`. 
+First, a function in JavaScript can accept another function as its parameter. With regard to the `static` keyword, it means we can directly call a static method in the form of `className.staticmethod` without invoking the object created by the normal way `new ClassName`.
 
 Besides, you might want to have a look at how we chain more than one method together. That is possible if these methods `return this`.
 
-Now let break it down: 
+Now let break it down:
 
-- `calculate(2020)`                                                --> 2019 + 2020 = 4039;
-- `delaying().calculate(2020)`                                     --> 4040;
-- `now.vaccine().delaying().calculate(2020)`                       --> 4041;
-- `handleCovid.getFinal(now.vaccine().delaying().calculate(2020)`  --> 4041 * 2 = 8082; 
+- `calculate(2020)` --> 2019 + 2020 = 4039;
+- `delaying().calculate(2020)` --> 4040;
+- `now.vaccine().delaying().calculate(2020)` --> 4041;
+- `handleCovid.getFinal(now.vaccine().delaying().calculate(2020)` --> 4041 \* 2 = 8082;
 
 So the correct answer is B.
 
 </p>
 </details>
 
-
 ###### 75. What's the output?
 
 ```javascript
-function HappyNewYear(){
+function HappyNewYear() {
   return "hello";
-};
+}
 
 const year2021 = new HappyNewYear();
 year2021.__proto__.greeting = "happy";
@@ -3054,24 +3050,23 @@ console.log(year2021 instanceof Object);
 
 const thisyear = new HappyNewYear();
 console.log(`${thisyear.greeting} ${thisyear.say}`);
-
 ```
 
-- A: true  - true  - true  - false - true   - false  -  "happy new year"
-- B: true  - true  - true  - false - false  - true   -  "happy new year"
-- C: true  - true  - true  - true  - true   - true   -  "happy new year"
-- D: true  - true  - true  - false - true   - true   -  "happy new year"
+- A: true - true - true - false - true - false - "happy new year"
+- B: true - true - true - false - false - true - "happy new year"
+- C: true - true - true - true - true - true - "happy new year"
+- D: true - true - true - false - true - true - "happy new year"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-The code snippet above helps us revise the concept of `prototype` in JavaScript with two essential keywords:  `__proto__` and `FunctionName.prototype`. I believe that the code `console.log(year2021.__proto__ === HappyNewYear.prototype);` is the key to understand the difference between the two. So, in short, every single object in JavaScript has a built-in property `__proto__` that gives us an overview of the built-in (internal) [[Prototype]]. They are the things (property and method) the object inherits from the "parent" function constructor or class).
+The code snippet above helps us revise the concept of `prototype` in JavaScript with two essential keywords: `__proto__` and `FunctionName.prototype`. I believe that the code `console.log(year2021.__proto__ === HappyNewYear.prototype);` is the key to understand the difference between the two. So, in short, every single object in JavaScript has a built-in property `__proto__` that gives us an overview of the built-in (internal) [[Prototype]]. They are the things (property and method) the object inherits from the "parent" function constructor or class).
 
-For example, if you declare a literal object such as `const a = {}` then `a.__proto__ === Object.prototype` returns `true` because `a` inherits the prototype from the "parent" `Object`. However, if an object is created using function constructor then the "parent" prototype is function constructor itself instead of the `Object`. So while `console.log(year2021.__proto__ === HappyNewYear.prototype);` returns `true`, `console.log(year2021.__proto__ === Object.prototype);` gives us `false`. 
+For example, if you declare a literal object such as `const a = {}` then `a.__proto__ === Object.prototype` returns `true` because `a` inherits the prototype from the "parent" `Object`. However, if an object is created using function constructor then the "parent" prototype is function constructor itself instead of the `Object`. So while `console.log(year2021.__proto__ === HappyNewYear.prototype);` returns `true`, `console.log(year2021.__proto__ === Object.prototype);` gives us `false`.
 
-Be aware of `Object.getPrototypeOf (object)` and `Reflect.getPrototypeOf(object)`. The two are recommended to use as `__proto__` is being deprecated. 
+Be aware of `Object.getPrototypeOf (object)` and `Reflect.getPrototypeOf(object)`. The two are recommended to use as `__proto__` is being deprecated.
 
 You might want to read more about `__proto__` at MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
 
@@ -3080,28 +3075,29 @@ The correct answer is D, and btw "happy new year"!
 </p>
 </details>
 
-
 ###### 76. What's the output?
 
 ```javascript
 const address = {
-  name: 'hoccoban.com',
-  author: 'Vuong Nguyen',  
-}
+  name: "hoccoban.com",
+  author: "Vuong Nguyen",
+};
 
-const key = Reflect.has(address, 'author') ? Reflect.ownKeys(address)[0] : "hello";
+const key = Reflect.has(address, "author")
+  ? Reflect.ownKeys(address)[0]
+  : "hello";
 
-Reflect.set(address, 'language', 'JavaScript');
+Reflect.set(address, "language", "JavaScript");
 
 const totalKeys = Reflect.ownKeys(address).length;
 
 const name = Reflect.get(address, key).length;
 
-const language = Reflect.get(address, 'language').length
+const language = Reflect.get(address, "language").length;
 
 console.log(totalKeys + name + language);
-
 ```
+
 - A: 22
 - B: 10
 - C: 20
@@ -3129,44 +3125,43 @@ The correct answer is D. Why? Now let break it down:
 </p>
 </details>
 
-
 ###### 77. What's the output?
 
 ```javascript
 const myModule = (function () {
-	
   const covidYear = 2019;
-	
-	const year = 2021;
-	
+
+  const year = 2021;
+
   function getYear() {
-    return year
+    return year;
   }
-	
-	function getCovidYear() {
-    return covidYear
+
+  function getCovidYear() {
+    return covidYear;
   }
-		
+
   function exposeYear() {
     return getYear();
   }
-	
-	 function exposeCovidYear() {
+
+  function exposeCovidYear() {
     return getCovidYear();
   }
-	
+
   return {
-    nothing: undefined ?? null ?? null ?? undefined,    
+    nothing: undefined ?? null ?? null ?? undefined,
     exposeYear,
-		exposeCovidYear
-  }
+    exposeCovidYear,
+  };
 })();
 
-const result = myModule.nothing ?? myModule.exposeYear() + myModule.exposeCovidYear();
+const result =
+  myModule.nothing ?? myModule.exposeYear() + myModule.exposeCovidYear();
 
-console.log(result)
-
+console.log(result);
 ```
+
 - A: 2021
 - B: 2019
 - C: 4040
@@ -3175,7 +3170,7 @@ console.log(result)
 <details><summary><b>Answer</b></summary>
 <p>
 
-The challenge above will help you revise the `revealing pattern` and thanks to it you can declare a private variable in JavaScript. Note that we can now declare a `private` property in a class in modern JavaScript, so the above way of writing a private variable seems old-fashioned. 
+The challenge above will help you revise the `revealing pattern` and thanks to it you can declare a private variable in JavaScript. Note that we can now declare a `private` property in a class in modern JavaScript, so the above way of writing a private variable seems old-fashioned.
 
 First, we have an IIFE function - immediately invoked function expressions. There are two variables and two functions as well. However, in the `return`, there are three key-values. We can not directly access the two variables `covidYear` and `year` except for using some already-built functions inside the IIFE.
 
@@ -3184,6 +3179,60 @@ If you feel the keyword `??` is odd, then you might want to have a look at the l
 In short, we have `myModule.exposeYear()` (2021) and `myModule.exposeCovidYear()` (2019). In total, the final result is 4040. So the correct answer is C.
 
 #### Answer: C
+
+</p>
+</details>
+
+###### 78. What's the output?
+
+```javascript
+
+class HocCoban {
+  constructor(address) {
+    this.address = address;
+		this.youtube = "";
+  }
+  get getAddress() {
+    return this.address
+  }
+
+	set setYoutube(channel) {
+    this.youtube = channel;
+  }
+
+	getYoutube() {
+    return this.youtube.length
+  }
+
+}
+
+const web = new HocCoban('hoccoban.com')
+
+web.setYoutube = "youtube.com/hoccoban"
+
+console.log(web.getAddress)
+
+console.log(web.youtube)
+
+console.log(web.getYoutube())
+
+```
+
+- A: "hoccoban.com" - "youtube.com/hoccoban" - 20
+- B: "hoccoban.com" - function() - 20
+- C: function() - "youtube.com/hoccoban" - 20
+- D: function() - function() - 20
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+`set` and `get` are commonly called setter and getter. When declaring a method in a class and putting the keyword `set` or `get` before it, you can then call them without using `parenthesis - ()`. Put another way, when using `get` and `set`, you can directly get or set the value of/for the properties. Somehow it might be convenient in some cases.
+
+Be aware of the methods declared with a `getter` as we just need to call the method as we call a property (without using parenthesis).
+
+If you know how a traditional method works in JavaScript, then the code challenge above is not difficult, I suppose. The answer is A.
+
+#### Answer: A
 
 </p>
 </details>
