@@ -3186,36 +3186,33 @@ In short, we have `myModule.exposeYear()` (2021) and `myModule.exposeCovidYear()
 ###### 78. What's the output?
 
 ```javascript
-
 class HocCoban {
   constructor(address) {
     this.address = address;
-		this.youtube = "";
+    this.youtube = "";
   }
   get getAddress() {
-    return this.address
+    return this.address;
   }
 
-	set setYoutube(channel) {
+  set setYoutube(channel) {
     this.youtube = channel;
   }
 
-	getYoutube() {
-    return this.youtube.length
+  getYoutube() {
+    return this.youtube.length;
   }
-
 }
 
-const web = new HocCoban('hoccoban.com')
+const web = new HocCoban("hoccoban.com");
 
-web.setYoutube = "youtube.com/hoccoban"
+web.setYoutube = "youtube.com/hoccoban";
 
-console.log(web.getAddress)
+console.log(web.getAddress);
 
-console.log(web.youtube)
+console.log(web.youtube);
 
-console.log(web.getYoutube())
-
+console.log(web.getYoutube());
 ```
 
 - A: "hoccoban.com" - "youtube.com/hoccoban" - 20
@@ -3231,6 +3228,46 @@ console.log(web.getYoutube())
 Be aware of the methods declared with a `getter` as we just need to call the method as we call a property (without using parenthesis).
 
 If you know how a traditional method works in JavaScript, then the code challenge above is not difficult, I suppose. The answer is A.
+
+#### Answer: A
+
+</p>
+</details>
+
+###### 79. What's the output?
+
+```javascript
+const result = ["ronaldo", "messi", "neymar", "Ronaldo", "LuKaKUUUU"].sort();
+
+console.log(result);
+
+```
+
+- A: ["LuKaKUUUU", "Ronaldo", "messi", "neymar", "ronaldo"]
+- B: ["LuKaKUUUU", "messi", "neymar", "Ronaldo","ronaldo"]
+- C: ["LuKaKUUUU", "messi", "neymar", "ronaldo", "Ronaldo"]
+- D: ["messi", "neymar", "ronaldo", "Ronaldo", "LuKaKUUUU"]
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+In JavaScript, the built-in `sort()` method sorts the elements of an array. It returns a sorted array in ascending order. Note that each element will be converted to strings and then compared according to the sequences of UTF-16 code unit values. What does it mean? 
+
+It means, "banana" < "cherry" or 80 < 9 (because "80" < "9" in the Unicode order).
+
+If you run the following code `const result = [9, 11, 89].sort();`, the constant `result` will be sorted as `[11, 8, 9]` rather than `[9, 11, 89]` because the engine will convert the number value to string.
+
+The following codes might give you a hint about the relationship between character and number. Ultimately, as the computer can only understand 0 and 1, all characters and even decimal numbers are then converted to 1 and 0. `charCodeAt()` gives us the decimal value of any string evaluated.
+
+`console.log("LuKaKUUUU".charCodeAt(0))`  or `console.log("LuKaKUUUU".charCodeAt())` ==>  76
+`console.log("Ronaldo".charCodeAt(0))`    or `console.log("Ronaldo".charCodeAt())`   ==>  82
+`console.log("messi".charCodeAt(0))`      or `console.log("messi".charCodeAt())`     ==>  109
+`console.log("neymar".charCodeAt(0))`     or `console.log("neymar".charCodeAt())`    ==>  110
+`console.log("ronaldo".charCodeAt(0))`    or `console.log("ronaldo".charCodeAt())`   ==>  114
+`console.log("9".charCodeAt())`           or `console.log("99".charCodeAt())`        ==>  57
+`console.log("80".charCodeAt())`          or `console.log("8".charCodeAt())`         ==>  56
+
+Noted that if index is not a number, it defaults to 0. The answer is A.
 
 #### Answer: A
 
