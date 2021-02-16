@@ -3273,3 +3273,46 @@ Noted that if index is not a number, it defaults to 0. The answer is A.
 
 </p>
 </details>
+
+###### 80. What's the output?
+
+```javascript
+
+const anArray = typeof []; 
+const aTypeOfNull = typeof null; 
+
+const weirdFirst = null instanceof Object;
+const weirdSecond = [] instanceof Object;
+const weirdThird = [] instanceof Array;
+
+console.log(anArray)
+console.log(aTypeOfNull)
+
+console.log(weirdFirst)
+console.log(weirdSecond)
+console.log(weirdThird)
+
+```
+- A: "array"  - "null"    - false - true  - true
+- B: "array"  - "object"  - false - true  - true
+- C: "object" - "object"  - false - false - true
+- D: "object" - "object"  - false - true  - true
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+In the 80th challenge question, we will review some fundamental "issue" or "weird" features in JavaScript relating to the `typeof` and `instance` operators. Given that the original version of the JavaScript language was designed in just 10 days, there are a bundle of inconsistent behaviors that cannot be fixed. They are pamernal features existing in the modern language. If we fix it, a lot of websites might crash.
+
+The above code shows us some of the weird features in JavaScript. For example, `[]` is an array but the `typeof []` gives us `object`. Note that you might take advantage of `Array.isArray([])` rather than `typeof` to examine whether a variable is an array or not.
+
+`typeof null;` is another weird operator as it returns `object`. However `null instanceof Object;` returns `false`. What~The~Hell!!!
+
+Man, `[] instanceof Object;` and `[] instanceof Array;` both return `true`. How inconsistent it is.
+
+The answer is D.
+
+#### Answer: D
+
+</p>
+</details>
+
