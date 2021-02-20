@@ -3313,3 +3313,54 @@ The answer is D.
 
 </p>
 </details>
+
+
+###### 81. What's the output?
+
+```javascript
+class Dog{	
+	speak(){
+		return this.say();
+	}
+	
+	say(){
+		console.log("hello world")
+	}	
+}
+
+class Cat{
+	speak(){
+		return this.say();
+	}
+	
+	say(){
+		console.log("kia ora")
+	}
+}
+
+const animal = new Dog();
+animal.speak();
+Object.setPrototypeOf(animal, Cat.prototype);
+animal.speak();
+```
+
+- C: "hello world" -  undefined
+- C: "kia ora"     -  "kia ora"
+- C: "hello world" -  "kia ora" 
+- D: "hello world" -  "hello world"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The central issue/concept mentioned in the code above is the method `Object.setPrototypeOf(object, prototype)`. It is one of the features in ES6, or ECMAScript 2015. Another way to set the prototype of an object is `Object.prototype.__proto__` but the latter is controversial.
+
+At first, `animal.speak();` gives us "hello world" which is no surprise. Yet, in the second call, we get "kia ora" instead of "hello world". When checking the prototype with `Object.getPrototypeOf(animal)`, you might see that `Cat` is the prototype of the object `animal` rather than `Dog`.
+
+The answer is C.
+
+By the way, `kia ora` means `hello` in the Māori language.
+
+#### Answer: C
+
+</p>
+</details>
