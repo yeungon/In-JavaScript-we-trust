@@ -3314,28 +3314,27 @@ The answer is D.
 </p>
 </details>
 
-
 ###### 81. What's the output?
 
 ```javascript
-class Dog{	
-	speak(){
-		return this.say();
-	}
-	
-	say(){
-		console.log("hello world")
-	}	
+class Dog {
+  speak() {
+    return this.say();
+  }
+
+  say() {
+    console.log("hello world");
+  }
 }
 
-class Cat{
-	speak(){
-		return this.say();
-	}
-	
-	say(){
-		console.log("kia ora")
-	}
+class Cat {
+  speak() {
+    return this.say();
+  }
+
+  say() {
+    console.log("kia ora");
+  }
 }
 
 const animal = new Dog();
@@ -3344,10 +3343,10 @@ Object.setPrototypeOf(animal, Cat.prototype);
 animal.speak();
 ```
 
-- C: "hello world" -  undefined
-- C: "kia ora"     -  "kia ora"
-- C: "hello world" -  "kia ora" 
-- D: "hello world" -  "hello world"
+- A: "hello world" - undefined
+- B: "kia ora" - "kia ora"
+- C: "hello world" - "kia ora"
+- D: "hello world" - "hello world"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -3361,6 +3360,42 @@ The answer is C.
 By the way, `kia ora` means `hello` in the Māori language.
 
 #### Answer: C
+
+</p>
+</details>
+
+
+###### 82. What's the output?
+
+```javascript
+const js = [9, 10];
+
+function mutate(a, b){
+    a.push(b);
+}
+
+mutate(js, 1);
+console.log(js);
+
+```
+
+- A: [9, 10]
+- B: [9, 10, 1]
+- C: [1, 9, 10]
+- D: ReferenceError 
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The code snippet might be pretty trivial if you have already obtained a solid understanding of the two different concepts: `reference` and `value.` In JavaScript, non-primitive type such as array and object does not store the value but the reference. 
+
+Also, as the arguments in function are passed by the reference, the function `mutate` will push another element into the array `js`. Finally, the initial variable 'js' is updated with the new value `[9, 10, 1]`. 
+
+If the variable `js` is assigned a primitive value such as string or number, no matter how the function `mutate`, it will not mutate the initial variable 'js'. However, if the variable is an object, then it will also be mutated, as in the case of an array in the code above.
+
+B is the correct answer.
+
+#### Answer: B
 
 </p>
 </details>
