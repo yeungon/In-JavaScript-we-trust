@@ -3399,3 +3399,40 @@ B is the correct answer.
 
 </p>
 </details>
+
+
+###### 83. What's the output when running the code on a browser?
+
+```javascript
+
+console.log(this === window);				
+console.log(this === frames);
+console.log(this === globalThis);
+console.log(this === self);
+console.log(this === global);
+
+```
+
+- A: true - true - true - true - "ReferenceError"
+- A: true - false - true - true - "ReferenceError"
+- A: true - true - true - true - true
+- A: true - true - "ReferenceError" - true - "ReferenceError"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The code snippet above might output different results if running on other environments than the browser. For example, there is no `self`, `window`, or `frames` on Nodejs.
+
+`global` plays the role of the global object in Nodejs, but that is not the case in the browser environment. In contrast, `globalThis` is available in both browser and Nodejs environments. 
+
+The first takeaway message is that Nodejs does have `this`, `global`, and `globalThis`. Browser environment has 5 ones including `this`, `globalThis`, `window`, `frames`, and `self`. 
+
+The second takeaway message is that Web Worker only has `self` as the global object. 
+
+Ultimately, A is the correct answer.
+
+
+#### Answer: A
+
+</p>
+</details>
