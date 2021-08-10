@@ -32,9 +32,9 @@ x();
 
 #### Answer: B
 
-This question reminds us about Closure in JS. Closure allows us to create a `stateful function` and such function can access to variable outside of its scope. In a nutshell, a closure can have access to `global` variable (scope), `father function` scope and `its` own scope.
+This question revisits closure - one of the most confusing concepts in JavaScript. Closure allows us to create a `stateful function` and such function can access to the variable outside of its scope. In a nutshell, a closure can have access to the `global` variable (scope), `father function` scope and `its` own scope.
 
-We have here 3, 3, 3 and 3, 4, 5 because first we simply call the function `a()`. It works like a normal function and we do not see something `stateful` here. In later case, we declare a variable `x` and it stores the value of function `a(1)`, that is why we get 3. 4. 5 rather than 3, 3, 3.
+We have here, the only one correct answer, 3, 3, 3 and 3, 4, 5 because first we simply call the function `a()`. It works like a normal function and we have not seen anything so-called `stateful` yet. In the following code, we declare a variable `x` and it stores the value of function `a(1)`, that is why we get 3. 4. 5 rather than 3, 3, 3.
 
 This kind of gotcha gives me the feeling of `static` variable in PHP world.
 
@@ -492,7 +492,7 @@ First we have an empty object `x`, then we add another property `hi` for x with 
 
 Then we overwrite the property `hi` with a new value 11. Last we have 11 + 1 = 12. `x` has one property and `x.hi` returns 11.
 
-Updated (July 27th 2021). If you write `Object.prototype.hi = 11;` instead of `Object.prototype.hi = ++x.hi;` as written in the code above, then `Object.keys(x)` will return an empty array as `Object.keys(object)` only returns the property of the object itself, not the inherited ones. It means the final result will be 11 rather than 12. For some reason, the code ``Object.prototype.hi = ++x.hi;` will create a property for the object `x` itself and then `Object.keys(x)` gives us the array `["hi"]`. 
+Updated (July 27th 2021). If you write `Object.prototype.hi = 11;` instead of `Object.prototype.hi = ++x.hi;` as written in the code above, then `Object.keys(x)` will return an empty array as `Object.keys(object)` only returns the property of the object itself, not the inherited ones. It means the final result will be 11 rather than 12. For some reason, the code ``Object.prototype.hi = ++x.hi;` will create a property for the object `x` itself and then `Object.keys(x)` gives us the array `["hi"]`.
 
 Yet, if you run `console.log(x.hasOwnProperty("hi"))` it still returns `false`. By the way, when you deliberately add a property for x such as `x.test = "testing"`, then `console.log(x.hasOwnProperty("test"))` returns `true`.
 
@@ -3370,32 +3370,30 @@ By the way, `kia ora` means `hello` in the Māori language.
 </p>
 </details>
 
-
 ###### 82. What's the output?
 
 ```javascript
 const js = [9, 10];
 
-function mutate(a, b){
-    a.push(b);
+function mutate(a, b) {
+  a.push(b);
 }
 
 mutate(js, 1);
 console.log(js);
-
 ```
 
 - A: [9, 10]
 - B: [9, 10, 1]
 - C: [1, 9, 10]
-- D: ReferenceError 
+- D: ReferenceError
 
 <details><summary><b>Answer</b></summary>
 <p>
 
-The code snippet might be pretty trivial if you have already obtained a solid understanding of the two different concepts: `reference` and `value.` In JavaScript, non-primitive type such as array and object does not store the value but the reference. 
+The code snippet might be pretty trivial if you have already obtained a solid understanding of the two different concepts: `reference` and `value.` In JavaScript, non-primitive type such as array and object does not store the value but the reference.
 
-Also, as the arguments in function are passed by the reference, the function `mutate` will push another element into the array `js`. Finally, the initial variable 'js' is updated with the new value `[9, 10, 1]`. 
+Also, as the arguments in function are passed by the reference, the function `mutate` will push another element into the array `js`. Finally, the initial variable 'js' is updated with the new value `[9, 10, 1]`.
 
 If the variable `js` is assigned a primitive value such as string or number, no matter how the function `mutate`, it will not mutate the initial variable 'js'. However, if the variable is an object, then it will also be mutated, as in the case of an array in the code above.
 
@@ -3406,39 +3404,105 @@ B is the correct answer.
 </p>
 </details>
 
-
 ###### 83. What's the output when running the code on a browser?
 
 ```javascript
-
-console.log(this === window);				
+console.log(this === window);
 console.log(this === frames);
 console.log(this === globalThis);
 console.log(this === self);
 console.log(this === global);
-
 ```
 
 - A: true - true - true - true - "ReferenceError"
-- A: true - false - true - true - "ReferenceError"
-- A: true - true - true - true - true
-- A: true - true - "ReferenceError" - true - "ReferenceError"
+- B: true - false - true - true - "ReferenceError"
+- C: true - true - true - true - true
+- D: true - true - "ReferenceError" - true - "ReferenceError"
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 The code snippet above might output different results if running on other environments than the browser. For example, there is no `self`, `window`, or `frames` on Nodejs.
 
-`global` plays the role of the global object in Nodejs, but that is not the case in the browser environment. In contrast, `globalThis` is available in both browser and Nodejs environments. 
+`global` plays the role of the global object in Nodejs, but that is not the case in the browser environment. In contrast, `globalThis` is available in both browser and Nodejs environments.
 
-The first takeaway message is that Nodejs does have `this`, `global`, and `globalThis`. Browser environment has 5 ones including `this`, `globalThis`, `window`, `frames`, and `self`. 
+The first takeaway message is that Nodejs does have `this`, `global`, and `globalThis`. Browser environment has 5 ones including `this`, `globalThis`, `window`, `frames`, and `self`.
 
-The second takeaway message is that Web Worker only has `self` as the global object. 
+The second takeaway message is that Web Worker only has `self` as the global object.
 
 Ultimately, A is the correct answer.
 
-
 #### Answer: A
+
+</p>
+</details>
+
+###### 84. What's the output ?
+
+```javascript
+class StackHocCoBan {
+  constructor() {
+    this.stack = [];
+  }
+
+  push(thing) {
+    return this.stack.push(thing);
+  }
+
+  pop() {
+    return this.stack.pop();
+  }
+
+  peek() {
+    return this.stack[this.length - 1];
+  }
+
+  get length() {
+    return this.stack.length;
+  }
+
+  isEmpty() {
+    return this.length === 0;
+  }
+}
+
+const firstThing = new StackHocCoBan();
+
+firstThing.push(firstThing.length);
+firstThing.push(firstThing.length);
+!firstThing.isEmpty() ? firstThing.push(firstThing.length) : firstThing.length;
+firstThing.pop()
+
+console.log(firstThing.peek() + firstThing.length + firstThing.pop())
+```
+
+- A: 3
+- B: 4
+- C: 5
+- D: 6
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The code challenge above is a bit lengthy, frankly. But it might practically help you to revise the concept of `stack` implemented in JavaScript. Such a concept is quite crucial when it comes to the algorithm, so to say. It appears that `stack` and `queue` are blood brothers, and as a developer, you are always advised to master these concepts along with array, linked list, tree, graphs, and so on.
+
+In my opinion, both `stack` and `queue` are simply arrays, but they are exclusively built to serve some particular jobs with strict requirements. You might see `pop()` or `push()` in the code above are standard native methods we often use when working with the array.
+
+So now `firstThing` is an object initiated by the class `StackHocCoBan`. As the class's construct initially triggers an empty array ` this.stack = [];`, first the code `firstThing.push(firstThing.length);` will actually push the number 0 into the array given that `firstThing.length` returns 0 as the stack, at the beginning` is empty.
+
+Then `firstThing.push(firstThing.length);` (the second one) pushes number 1 to the stack as we have already had one item (the number 0).
+
+`firstThing.isEmpty()` returns `false` because we have two things in the stack. Yet, be causious with "!" before it. As we write `!firstThing.isEmpty()`, the code with call `firstThing.push(firstThing.length)` rather than `firstThing.length;`. It is a simply short-hand of `if-else`.
+
+So, the stack is pushed the number 2 because `firstThing.length` returns 2. So now the stack is as [0, 1, 2], beautiful, right?
+
+`firstThing.pop()` will eliminate the number 2 and the stack is now [0, 1].
+
+The last line of the code above is `firstThing.peek()` (1) + `firstThing.length` (2) + `firstThing.pop()` (1). 
+
+So B is the correct answer.
+
+#### Answer: B
 
 </p>
 </details>
