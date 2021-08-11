@@ -32,7 +32,7 @@ x();
 
 #### Answer: B
 
-This question revisits closure - one of the most confusing concepts in JavaScript. Closure allows us to create a `stateful function` and such function can access to the variable outside of its scope. In a nutshell, a closure can have access to the `global` variable (scope), `father function` scope and `its` own scope.
+This question revisits closure - one of the most confusing concepts in JavaScript. Closure allows us to create a `stateful function` and such a function can access to the variable outside of its scope. In a nutshell, a closure can have access to the `global` variable (scope), `father function` scope and `its` own scope.
 
 We have here, the only one correct answer, 3, 3, 3 and 3, 4, 5 because first we simply call the function `a()`. It works like a normal function and we have not seen anything so-called `stateful` yet. In the following code, we declare a variable `x` and it stores the value of function `a(1)`, that is why we get 3. 4. 5 rather than 3, 3, 3.
 
@@ -3471,9 +3471,9 @@ const firstThing = new StackHocCoBan();
 firstThing.push(firstThing.length);
 firstThing.push(firstThing.length);
 !firstThing.isEmpty() ? firstThing.push(firstThing.length) : firstThing.length;
-firstThing.pop()
+firstThing.pop();
 
-console.log(firstThing.peek() + firstThing.length + firstThing.pop())
+console.log(firstThing.peek() + firstThing.length + firstThing.pop());
 ```
 
 - A: 3
@@ -3498,11 +3498,74 @@ So, the stack is pushed the number 2 because `firstThing.length` returns 2. So n
 
 `firstThing.pop()` will eliminate the number 2 and the stack is now [0, 1].
 
-The last line of the code above is `firstThing.peek()` (1) + `firstThing.length` (2) + `firstThing.pop()` (1). 
+The last line of the code above is `firstThing.peek()` (1) + `firstThing.length` (2) + `firstThing.pop()` (1).
 
 So B is the correct answer.
 
 #### Answer: B
+
+</p>
+</details>
+
+###### 85. What's the output ?
+
+```javascript
+class QueueHocCoBan {
+  constructor() {
+    this.queue = [];
+  }
+
+  enqueue(item) {
+    return this.queue.unshift(item);
+  }
+
+  dequeue() {
+    return this.queue.pop();
+  }
+
+  peek() {
+    return this.queue[this.length - 1];
+  }
+
+  get length() {
+    return this.queue.length;
+  }
+
+  isEmpty() {
+    return this.queue.length === 0;
+  }
+}
+
+const items = new QueueHocCoBan();
+
+items.enqueue("constructor");
+items.enqueue("QueueHocCoBan");
+items.enqueue("hoccoban.com");
+
+const item = items.peek().length - items.length;
+
+console.log(item);
+```
+
+- A: 6
+- B: 7
+- C: 8
+- D: 9
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+Following up the question 85th, we now pay the attention to another important concepts - `queue` - which is a bit different from `stack`. While `stack` leverages two native array methods `push()` (for adding new item) and `pop()`(for extracting new item), `queue` utilises `unshift()` (for adding new item) and `pop()` (for extracting new item). In essense, both `stack` and `queue` are array and thus the difference between them, IMO, lays in the way `push()` and `unshift()` are implemented for adding new item. While `push()` adds a new item/element at the end/tail of the array, `unshift()` adds the new one to the top/head of the array itself.
+
+First, the object `items` will add three new elements into the array (initiated by the constructor) at the top one by one, thanks to the method `enqueue`. The array will look like this ["hoccoban.com", "QueueHocCoBan", "constructor"];
+
+Now `items.peek()` gives us "constructor" and thus `items.peek().length` returns 11. `items.length` simply returns 3 and so the final result will be 8.
+
+So C is the correct answer.
+
+By way of summarisation, using `queue`, we can only take out the first element (also the tail of the array) with the method `dequeue().` You might need to find another way to extract other elements of the queue.
+
+#### Answer: C
 
 </p>
 </details>
