@@ -3569,3 +3569,48 @@ By way of summarisation, using `queue`, we can only take out the first element (
 
 </p>
 </details>
+
+###### 86. What's the output ?
+
+```javascript
+const domains = new Map();
+
+domains.set("site", "hoccoban.com");
+domains.set("youtube", "youtube.com/hoccoban");
+
+const keys = domains.keys();
+const values = domains.values();
+
+let result = domains.has("hoccoban.com")
+  ? values.next().value
+  : keys.next().value;
+
+console.log(result);
+```
+
+- A: "site"
+- B: "hoccoban.com"
+- C: "youtube"
+- D: "youtube.com/hoccoban"
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+There are two ways hash tables are implemented in JavaScript: object and Map(). Hash tables are a data structure created to store information in the form of key-value.
+
+While the native object defined as {} is trivial for a JavaScript developer, a new way to design a hash table has been recently added into the language. When writing `const domains = new Map();`, we have declared an object with a couple of different features as opposed to the veteran in the form of `{}` or `new Object`.
+
+You are advised to take advantage of the built-in methods such as `set()`, `get()`, `has()` or `delete()` among others to manipulate the map object.
+
+Note that a map object can be iterated using `for of`. You might need to use `next().value` to extract the raw information written. At this point, you might want to revisit `function generator` to see why we need to do that.
+
+Both `keys()` and `values()` are native methods of the class `Map`. You might see that they works on a map object as in a normal object. Back to the code snippet above, `let result = domains.has("hoccoban.com") ? values.next().value: keys.next().value` returns `keys.next().value` given that `domains.has("hoccoban.com")` returns `false`.
+
+So `console.log(result)` gives us "site", so A is the correct answer.
+
+Note that if you want to extract "youtube", you must run `keys.next().value` twice.
+
+#### Answer: A
+
+</p>
+</details>
