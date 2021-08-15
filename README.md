@@ -3614,3 +3614,45 @@ Note that if you want to extract "youtube", you must run `keys.next().value` twi
 
 </p>
 </details>
+
+
+###### 87. What's the output ?
+
+```javascript
+function inner(flag){
+	hello = 10;
+	if(flag){
+		return ++hello;
+	}	
+	return --hello;	
+}
+
+var hello = 12;
+inner(hello>11? false: true)
+console.log(hello);
+```
+
+- A: 9
+- B: 10
+- C: 11
+- D: 12
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+As a variable in JavaScript can be declared without any functional keyword such as var, let, or const standing before the variable name, as seen on the code above, this challenge sounds a bit odd as now developers tend to use `const` or `let` everywhere. What happened when we do that? The variable will have a global scope no matter where it has been written initially. So first, the variable `hello` will be accessed anywhere outside of the function scope whenever (after to be exact) the function inner has been executed.
+
+Then we redeclare the `hello` variable with a different value.
+
+The code `inner(hello>11? false: true)` is translated to `inner(false)`, so the variable `hello` declared inside this function is mutated to 9.
+
+As `hello` is now 9 instead of 12, A is the correct answer.
+
+#### Answer: A
+
+</p>
+</details>
+
+
+
+
