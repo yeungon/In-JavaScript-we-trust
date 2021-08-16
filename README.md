@@ -3691,3 +3691,45 @@ Finally, in the console we have 1 + 1 + 4 + 1 + 11 = 18. So D is the correct ans
 
 </p>
 </details>
+
+###### 89. What's the output ?
+
+```javascript
+const matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+function matrixHandle(m) {
+  let total = arguments[0][0][0];
+  let length = m.length;
+  for (let i = 0; i < length; i++) {
+    for (let j = 0; j < m[i].length; j++) {
+      total += m[i][j];
+    }
+  }
+  return total;
+}
+
+console.log(matrixHandle(matrix));
+```
+
+- A: 44
+- B: 45
+- C: 46
+- D: 47
+
+<details><summary><b>Answer</b></summary>
+<p>
+You can easily create a two-dimensional array by nesting an array inside the parent one as the variable `matrix` above. To render all of the elements in the matrix, we implement a simple code with two for-loop functions which are nested.
+
+`arguments[0][0][0];` gives us 1 because `arguments` has wrapped the variable `matrix` in an array. Note that `arguments` is a Array-like.
+
+So the variable `total` at first is 1, and then the final value cumulated by looping through the matrix is 46.
+
+In short, we have 1 + 1 + 2 + 3 + 4 + 5 + 6 + 7+ 8 + 9 = 46. So C is the correct answer.
+#### Answer: C
+
+</p>
+</details>
