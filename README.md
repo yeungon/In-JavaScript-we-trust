@@ -3596,9 +3596,9 @@ console.log(result);
 <details><summary><b>Answer</b></summary>
 <p>
 
-There are two ways hash tables are implemented in JavaScript: object and Map(). Hash tables are a data structure created to store information in the form of key-value.
+There are two ways hash tables are implemented in JavaScript: object and Map(). Hash tables are data structures created to store information in the form of key-value.
 
-While the native object defined as {} is trivial for a JavaScript developer, a new way to design a hash table has been recently added into the language. When writing `const domains = new Map();`, we have declared an object with a couple of different features as opposed to the veteran in the form of `{}` or `new Object`.
+While the native object defined as {} is trivial for a JavaScript developer, a new way to design a hash table has been recently added into the language. When writing `const domains = new Map();`, we have declared an object with a couple of different features as opposed to the veteran one declared in the form of `{}` or `new Object` we all know.
 
 You are advised to take advantage of the built-in methods such as `set()`, `get()`, `has()` or `delete()` among others to manipulate the map object.
 
@@ -3615,20 +3615,19 @@ Note that if you want to extract "youtube", you must run `keys.next().value` twi
 </p>
 </details>
 
-
 ###### 87. What's the output ?
 
 ```javascript
-function inner(flag){
-	hello = 10;
-	if(flag){
-		return ++hello;
-	}	
-	return --hello;	
+function inner(flag) {
+  hello = 10;
+  if (flag) {
+    return ++hello;
+  }
+  return --hello;
 }
 
 var hello = 12;
-inner(hello>11? false: true)
+inner(hello > 11 ? false : true);
 console.log(hello);
 ```
 
@@ -3653,6 +3652,42 @@ As `hello` is now 9 instead of 12, A is the correct answer.
 </p>
 </details>
 
+###### 88. What's the output ?
 
+```javascript
+const collections = ["a", [123], true, "c", { abc: "hello world" }];
+const iterator = collections.values();
 
+const a = iterator.next().value.length;
+const b = iterator.next().value.length;
+const c = iterator.next().value.toString().length;
+const d = iterator.next().value.length;
+const e = Object.values(iterator.next().value)[Number(a > b)].length;
 
+console.log(a + b + c + d + e);
+```
+
+- A: 12
+- B: 14
+- C: 16
+- D: 18
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The code snippet above is frankly tedious as it does not solve any big problem but is still written in a very cryptic manner, honestly. I want you to pay a bit more attention to the native function to manipulate array `values()`. For your information, I also use `Object.values()` so that you can somehow make a comparison between the two by yourself.
+
+In the beginning, we have a very simple array packed with different types of data such as boolean, string, array and object. The code `collections.values();` returns an iterator, so you can not simply access to each element as an usual array. You might run a `for of` loop here to render all of the elements in this iterator. By doing that, the way iterator works is likely a typical array.
+
+So how do we access a single element in this iterator? We need to use `next().value`. Each time we call it, the iterator will render the value, one by one, starting with the first element.
+
+It means `const a = iterator.next().value.length;` returns 1. So a is 1. So does b. C is a bit different and we have 4 here as `true`, a boolean, is converted to a string. d is 1. So
+
+The code in e is not fascinating, I suppose. `Object.values` gives us an array of value defined in the object `{ abc: "hello world" }`. `[Number(a > b)]` give us [0]. So e is simply the length of the string "hello world", which is 11.
+
+Finally, in the console we have 1 + 1 + 4 + 1 + 11 = 18. So D is the correct answer.
+
+#### Answer: D
+
+</p>
+</details>
