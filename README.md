@@ -1281,7 +1281,7 @@ club.Me();
 
 #### Answer: D
 
-The code snippet above is not a big challenge for you I guess. It simply gives you an example of `this` in different contexts when we declare an anonymous function inside a method of an object. The three first methods are common ways to handle `this` using `this` as second parameter in `map()`, by using `bind(this)` in `forEach` (or map()) or by `that = this`technique (we did use `seft` rathern `that`).
+The code snippet above is not a big challenge for you I guess. It simply gives you an example of `this` in different contexts when we declare an anonymous function inside a method of an object. The three first methods are common ways to handle `this` using `this` as second parameter in `map()`, by using `bind(this)` in `forEach` (or map()) or by `that = this`technique (you might see people use `self = this` rather than `that= this`).
 
 The last method `Me()` will cause unexpected result because `this.name` does not bind to the object `club`. Note that you might get another result when testing the code on jsbin.com. On Chrome and Firefox, we get 0.
 
@@ -3794,7 +3794,7 @@ The code above might help you revise how the arrow function works in different c
 
 We have 4 objects in the snippet above. Each has a simple property and a trivial method. `a` returns `docker` because `this.stack` exactly points to the object declared `container1`. However, `b` returns `undefined` because `this` in the arrow function points to the global one rather than `container2`. Why? As we mentioned above, the arrow function does not create a context for itself, so `container2.getStack()` is still bound to the global object. `this.stack` becomes `undefined` as a result.
 
-Next `c` gives us `K8s - undefined` because `this is called in the callback function when we use `map`. A new context is now created by the function `map`, so `this` will not point to the object `container3`. The callback function implemented with `map` or `filter` always creates a new context so that `this` changes.
+Next `c` gives us `K8s - undefined` because `this` is called in the callback function when we use `map`. A new context is now created by the function `map`, so `this` will not point to the object `container3`. The callback function implemented with `map` or `filter` always creates a new context so that `this` changes.
 
 We get `K8s - microservice"` in `d` because the arrow function helps us fix the problem caused by switching context as in the object `container3`. Here are some lessons learned when dealing with context, nested functions (or implementing callback function):
 
