@@ -3733,3 +3733,78 @@ In short, we have 1 + 1 + 2 + 3 + 4 + 5 + 6 + 7+ 8 + 9 = 46. So C is the correct
 
 </p>
 </details>
+
+
+
+###### 90. What's the output ?
+
+```javascript
+const container1 = {
+  stack: "Docker",
+  getStack: function(){
+  return this.stack
+  }
+}
+const a = container1.getStack();
+
+const container2 = {
+  stack: "Kubernetes",
+  getStack: () => this.stack    
+  
+}
+const b = container2.getStack();
+
+const container3 = {
+  architect: "microservice",
+  getStack: function(){
+    const stack = ["K8s"];
+    return stack.map(function(element){
+      return `${element} - ${this.architect}`;
+    })
+  }
+      
+}
+const c = container3.getStack();
+
+const container4 = {  
+  architect: "microservice",
+  getStack: function(){
+    const stack = ["K8s"];
+    return stack.map(element => `${element} - ${this.architect}`)
+  }
+      
+}
+const d = container4.getStack();
+
+console.log(`${a} -> ${b} -> ${c} -> ${d}`)
+```
+
+- A: "Docker -> Kubernetes  -> K8s - undefined    -> K8s - microservice"
+- B: "Docker -> Kubernetes  -> K8s - microservice -> K8s - microservice"
+- C: "Docker -> undefined   -> K8s - microservice -> K8s - undefined"
+- D: "Docker -> undefined   -> K8s - undefined    -> K8s - microservice"
+
+<details><summary><b>Answer</b></summary>
+<p>
+The code above might help you revise how the arrow function works in different contexts, especially when dealing with the keyword `this` in JavaScript. There are two crucial takeaway messages you might need to keep in mind when using a function, as follows:
+
+- First: The arrow function does not create a new `this` binding when you use them. It inherits from the parent one(environment) when it is defined.
+
+- Second: The keyword `this` could be problematic when it is called in a callback function. For example when implementing `setTimeout`, `setInterval` or `map`, `filter`, `reduce` or `some`, `every` among others, you will need to pass a callback function. Given that the callback function changes the context, `this` might therefore change to `global` object and no longer point to the parent object.
+
+We have 4 objects in the snippet above. Each has a simple property and a trivial method. `a` returns `docker` because `this.stack` exactly points to the object declared `container1`. However, `b` returns `undefined` because `this` in the arrow function points to the global one rather than `container2`. Why? As we mentioned above, the arrow function does not create a context for itself, so `container2.getStack()` is still bound to the global object. `this.stack` becomes `undefined` as a result.
+
+Next `c` gives us `K8s - undefined` because `this is called in the callback function when we use `map`. A new context is now created by the function `map`, so `this` will not point to the object `container3`. The callback function implemented with `map` or `filter` always creates a new context so that `this` changes.
+
+We get `K8s - microservice"` in `d` because the arrow function helps us fix the problem caused by switching context as in the object `container3`. Here are some lessons learned when dealing with context, nested functions (or implementing callback function):
+
+- Use normal function rather than arrow function when you write a method inside an object in which the method does not have a nested function(method) or callback one. Arrow function is not recommended when creating object prototypes, classes along with object literals as well.
+
+- Use the arrow function when you want to access to `this`, especially in the case of nested method (function) or when using callback function. Otherwise, `this` will no longer point to the object in these cases (nested method or using callback function with map, filter). There are two other techniques (old-fashion ones) to fix that.
+
+- There are 3 ways to fix `this` issue relating to the nested method or callback function: using arrow function as mentioned above, use `self = this` technique or explicitly binding with `call`, `bind` or `apply` method.
+
+#### Answer: D
+
+</p>
+</details>
