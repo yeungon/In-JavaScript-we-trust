@@ -3729,60 +3729,56 @@ You can easily create a two-dimensional array by nesting an array inside the par
 So the variable `total` at first is 1, and then the final value cumulated by looping through the matrix is 46.
 
 In short, we have 1 + 1 + 2 + 3 + 4 + 5 + 6 + 7+ 8 + 9 = 46. So C is the correct answer.
+
 #### Answer: C
 
 </p>
 </details>
-
-
 
 ###### 90. What's the output ?
 
 ```javascript
 const container1 = {
   stack: "Docker",
-  getStack: function(){
-  return this.stack
-  }
-}
+  getStack: function () {
+    return this.stack;
+  },
+};
 const a = container1.getStack();
 
 const container2 = {
   stack: "Kubernetes",
-  getStack: () => this.stack    
-  
-}
+  getStack: () => this.stack,
+};
 const b = container2.getStack();
 
 const container3 = {
   architect: "microservice",
-  getStack: function(){
+  getStack: function () {
     const stack = ["K8s"];
-    return stack.map(function(element){
+    return stack.map(function (element) {
       return `${element} - ${this.architect}`;
-    })
-  }
-      
-}
+    });
+  },
+};
 const c = container3.getStack();
 
-const container4 = {  
+const container4 = {
   architect: "microservice",
-  getStack: function(){
+  getStack: function () {
     const stack = ["K8s"];
-    return stack.map(element => `${element} - ${this.architect}`)
-  }
-      
-}
+    return stack.map((element) => `${element} - ${this.architect}`);
+  },
+};
 const d = container4.getStack();
 
-console.log(`${a} -> ${b} -> ${c} -> ${d}`)
+console.log(`${a} -> ${b} -> ${c} -> ${d}`);
 ```
 
-- A: "Docker -> Kubernetes  -> K8s - undefined    -> K8s - microservice"
-- B: "Docker -> Kubernetes  -> K8s - microservice -> K8s - microservice"
-- C: "Docker -> undefined   -> K8s - microservice -> K8s - undefined"
-- D: "Docker -> undefined   -> K8s - undefined    -> K8s - microservice"
+- A: "Docker -> Kubernetes -> K8s - undefined -> K8s - microservice"
+- B: "Docker -> Kubernetes -> K8s - microservice -> K8s - microservice"
+- C: "Docker -> undefined -> K8s - microservice -> K8s - undefined"
+- D: "Docker -> undefined -> K8s - undefined -> K8s - microservice"
 
 <details><summary><b>Answer</b></summary>
 <p>
@@ -3803,6 +3799,47 @@ We get `K8s - microservice"` in `d` because the arrow function helps us fix the 
 - Use the arrow function when you want to access to `this`, especially in the case of nested method (function) or when using callback function. Otherwise, `this` will no longer point to the object in these cases (nested method or using callback function with map, filter). There are two other techniques (old-fashion ones) to fix that.
 
 - There are 3 ways to fix `this` issue relating to the nested method or callback function: using arrow function as mentioned above, use `self = this` technique or explicitly binding with `call`, `bind` or `apply` method.
+
+#### Answer: D
+
+</p>
+</details>
+
+###### 91. What's the output ?
+
+```javascript
+class Angular {
+  vendor = "Google";
+  lang = "TypeScript";
+  overview() {
+    let report = [];
+    report.push(this.lang);
+    report = report.map(function (e) {
+      return e.length + this.vendor.length;
+    });
+
+    return report;
+  }
+}
+
+const me = new Angular();
+
+console.log(me.overview());
+```
+
+- A: 16
+- B: 106
+- C: NaN
+- D: TypeError
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The code snippet above might help you revise the concept of context in conjunction with the way `this` is treated in JavaScript. In short, if you implement a callback function for the `map` method (or in another case: nested function), then you might need to pay attention to `this` binding.
+
+While `report.push(this.lang);` works pretty well as `this` points to the property declared within the class `Angular`, the line `return e.length + this.vendor.length;` does not work as `this` no longer points to `vendor` we have already declared as a property in the class. The `map` function creates a new context here. As `vendor` is undefined inside the callback of the `map` function, we get `TypeError` in the console. So D is the correct answer.
+
+How to fix that? We can quickly fix this one with one of three techniques: (1) use arrow function for the callback passing to `map`, (2) temporarily create an alternative `this` such as `let self = this` before we call map and use `self` instead of `this`. (3) explicitly bind the callback for `map` using bind, call or apply. We can also pass `this` as the second parameter for the map function. It also works.
 
 #### Answer: D
 
