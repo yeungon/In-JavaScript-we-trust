@@ -3845,3 +3845,51 @@ How to fix that? We can quickly fix this one with one of three techniques: (1) u
 
 </p>
 </details>
+
+
+###### 92. What's the output ?
+
+```javascript
+class FrameWork{
+	constructor(options){
+		this.options = options ?? ["Angular", "React", "Vue"]
+	}
+		
+	total(){
+		return this.options.length;
+	}
+	
+	filter(){		
+		const selected =  this.options.filter(function(element){
+			return element[0] === "A";
+		})
+		return selected[0].length + this.total();
+	}
+}
+
+const app = new FrameWork(); 
+
+console.log(app.filter())
+```
+
+- A: 8
+- B: 2
+- C: 10
+- D: 1
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The code challenge above implements a simple class with two methods. There is only one point in the syntax that you might need to pay a bit more attention to is `??` (nullish coalescing operator ) which is quite similar to `||` (OR). 
+
+`??` returns the right-hand side value if the left-hand side is either `null` or `undefined` while `||` does the same thing for `falsy` value (false, null, undefined, 0, -0, 0n, NaN, "").length
+
+So as we do not pass anything into the constructor when we initiate the object `app`, `this.options` takes the default value `["Angular", "React", "Vue"]`, then the method `total()` evaluates the length of the array, which is 3. 
+
+`filter()` gives us the length of "Angular", which is 8. So the final value is 10. The correct answer is C.
+
+
+#### Answer: C
+
+</p>
+</details>
