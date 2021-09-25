@@ -3891,3 +3891,30 @@ So as we do not pass anything into the constructor when we initiate the object `
 
 </p>
 </details>
+
+###### 93. What's the output ?
+
+```javascript
+const origin = [[[123], 321], 213];
+const manipulated = origin.flat(origin.length);
+console.log(manipulated.length + origin.length);
+```
+
+- A: 2
+- B: 3
+- C: 4
+- D: 5
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The challenge might hopefully help you have a grip on the native array method `flat()`, which is quite handy to flatten a nested array. `flat()` accepts a parameter that defines the level of the nested array you are going to manipulate. By default, this parameter is 1.
+
+The method returns a manipulated array. So on the code about `origin.length` returns 2 given that the array `origin1` has two elements. When flattening the original array named `origin` with `flat(2)`, we then have a new array `[123, 321, 213]`.
+
+Finally, we have 5 in the console, and D is the correct answer.
+
+#### Answer: 5
+
+</p>
+</details>
