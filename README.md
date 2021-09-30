@@ -3910,11 +3910,52 @@ console.log(manipulated.length + origin.length);
 
 The challenge might hopefully help you have a grip on the native array method `flat()`, which is quite handy to flatten a nested array. `flat()` accepts a parameter that defines the level of the nested array you are going to manipulate. By default, this parameter is 1.
 
-The method returns a manipulated array. So on the code about `origin.length` returns 2 given that the array `origin1` has two elements. When flattening the original array named `origin` with `flat(2)`, we then have a new array `[123, 321, 213]`.
+The method returns a manipulated array. So on the code about `origin.length` returns 2 given that the array `origin` has two elements. When flattening the original array named `origin` with `flat(2)`, we then have a new array `[123, 321, 213]`.
 
 Finally, we have 5 in the console, and D is the correct answer.
 
-#### Answer: 5
+#### Answer: D
+
+</p>
+</details>
+
+###### 94. What's the output ?
+
+```javascript
+const pipe =
+  (...funs) =>
+  (v) => {
+    funs.reduce((res, func) => {
+      return func(res);
+    }, v);
+  };
+
+const plusFour = (v) => v + 4;
+const multiplyBySix = (v) => v * 6;
+const divideByTwo = (v) => v / 2;
+
+pipe(plusFour, multiplyBySix, divideByTwo, multiplyBySix, console.log)(1);
+```
+
+- A: 80
+- B: 90
+- C: 100
+- D: 110
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The `pipe` function can receive an unlimited number of arguments/parameters thanks to rest parameter `...funcs`. These arguments/parameters turn out are function as we call the parent function `pipe`. In JavaScript, it is quite common to pass a function as a parameter of another function.
+
+Please call these functions, which are passed to `pipe`, are child functions. They are then looped and executed one by one with `reduce` method, no matter how many functions you attempt to pass to `pipe`. `v` in the code is simply the argument defined in each child function.
+
+So first we have 1, then by executing `plusFour` it becomes 5. When `multiplyBySix` is called, the output turns to 30. It becomes 15 when we call `divideByTwo`. Finally, it becomes 90 as we multiply 15 * 6 when the function `multiplyBySix` is called again.
+
+So B is the correct answer.
+
+<!-- Credit: https://www.freecodecamp.org/news/pipe-and-compose-in-javascript-5b04004ac937/ -->
+
+#### Answer: B
 
 </p>
 </details>
