@@ -682,7 +682,7 @@ Of the three, only `bind()` can be executed after binding. We can create a varia
 
 Note that `window.window.window.score` or `window.score` or simply `score` do the same thing. It points to the `score()` function in the global scope.
 
-The correct anwser is D. The `score()` and `getAge()` functions are nothing special.
+The correct anwser is D. The `score()` and `getAge()` functions are nothing special. The only tricky part is that this.age is incremented each time.
 
 </p>
 </details>
