@@ -682,7 +682,7 @@ Of the three, only `bind()` can be executed after binding. We can create a varia
 
 Note that `window.window.window.score` or `window.score` or simply `score` do the same thing. It points to the `score()` function in the global scope.
 
-The correct anwser is D. The `score()` and `getAge()` functions are nothing special. The only tricky part is that this.age is incremented each time.
+The correct anwser is D. The `score()` and `getAge()` functions are nothing special. The only tricky part is that `this.age` is incremented each time you call the funtion `getAge()`;
 
 </p>
 </details>
@@ -3949,7 +3949,60 @@ The `pipe` function can receive an unlimited number of arguments/parameters than
 
 Please call these functions, which are passed to `pipe`, are child functions. They are then looped and executed one by one with `reduce` method, no matter how many functions you attempt to pass to `pipe`. `v` in the code is simply the argument defined in each child function.
 
-So first we have 1, then by executing `plusFour` it becomes 5. When `multiplyBySix` is called, the output turns to 30. It becomes 15 when we call `divideByTwo`. Finally, it becomes 90 as we multiply 15 * 6 when the function `multiplyBySix` is called again.
+So first we have 1, then by executing `plusFour` it becomes 5. When `multiplyBySix` is called, the output turns to 30. It becomes 15 when we call `divideByTwo`. Finally, it becomes 90 as we multiply 15 \* 6 when the function `multiplyBySix` is called again.
+
+So B is the correct answer.
+
+<!-- Credit: https://www.freecodecamp.org/news/pipe-and-compose-in-javascript-5b04004ac937/ -->
+
+#### Answer: B
+
+</p>
+</details>
+
+###### 95. What's the output ?
+
+```javascript
+const quickSortRecursive = function (arrayInput) {
+  if (!Array.isArray(arrayInput)) {
+    console.log("The input data is not an array");
+    return arrayInput;
+  }
+  const pivotIndex = arrayInput.length - 1;
+  const pivot = arrayInput[pivotIndex];
+  const left = [];
+  const right = [];
+  let currentItem;
+  for (let i = 0; i < pivotIndex; i++) {
+    currentItem = arrayInput[i];
+    if (currentItem < pivot) {
+      left.push(currentItem);
+    } else {
+      right.push(currentItem);
+    }
+  }
+
+  return [...quickSortRecursive(left), pivot, ...quickSortRecursive(right)];
+};
+
+console.log(quickSortRecursive([1, 100, 8, 19, 8, 6]));
+```
+
+- A: [1, 100, 8, 19, 8, 6]
+- B: [1, 6, 8, 8, 19, 100]
+- C: [100, 19, 8, 8, 6, 1]
+- D: 6
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+You might see a commonly used algorithm here in the code challenge called "quicksort" in which we apply the strategy "divide and conquer". We also use the "recursive" method when we want to recall the function until it meets our expectations. You might also need to know about the "rest parameter" in JavaScript, as shown by the three dots (...) above.
+
+The code above helps us to arrange an array in such a way that the value will increase from left to right. Using the quicksort method, we need to create a pivot (likely the first item from right to left or the first item from left to right). First, we divide the original array into two parts: left and right, depending on the value compared to the pivot.
+
+Next, by calling the function recursively, we keep creating new pivots for the right and left arrays created above for the purpose of sorting value.
+
+Finally, the original array is sorted from left to right depending on the value.
 
 So B is the correct answer.
 
