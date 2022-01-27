@@ -4012,3 +4012,35 @@ So B is the correct answer.
 
 </p>
 </details>
+
+###### 96. What's the output ?
+
+```javascript
+const hasOwn = (a) => {
+  return function (o = { a: 10 }) {
+    o.property = a[1];
+    return (b) => {
+      return o.a + o.property + b;
+    };
+  };
+};
+
+console.log(hasOwn([10, 20])()(10));
+```
+
+- A: 10
+- B: 20
+- C: 30
+- D: 40
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+We have quite trivial nested functions. If you are familiar with the concept of `closure` in JavaScript, then it is not a big deal to read the code above. The final function, named hasOwn, has three parameters, and when we execute it, we only pass two arguments because we have already defined the default value for the second nested function.
+
+The final result is as `o.a + o.property + b`, meaning 10 + 20 + 10. So D is the correct answer.
+
+#### Answer: D
+
+</p>
+</details>
