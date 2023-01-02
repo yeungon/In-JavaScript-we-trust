@@ -4044,3 +4044,52 @@ The final result is as `o.a + o.property + b`, meaning 10 + 20 + 10. So D is the
 
 </p>
 </details>
+
+
+
+###### 97. What's the output ?
+
+```javascript
+function craft(text){
+  const p = document.createElement("p");
+  p.innerHTML = text;
+  document.body.append(p)
+}
+craft("1 - sync A")
+const fetchItem = new Promise((resolve) => {   
+  craft("2 - eager sync B")  
+  setTimeout(function(){      
+      craft("3 - eager async C")
+      resolve("4 - async - D");
+  }, 2000)  
+});
+craft("5 - sync E") 
+
+fetchItem.then(data => craft(data))
+```
+
+- A: 1 - 2 - 3 - 4 - 5 
+- B: 1 - 2 - 5 - 3 - 4
+- C: 1 - 2 - 5 - 4 - 3
+- D: 1 - 2 - 3 - 5 - 4
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+The order will be: sync --> async. Given that Promise is eager, then we have 1 - 2 - 5 - 3 - 4. Note that if we do not call then(), the data handled by promise will not be casted out. 
+
+#### Answer: B
+
+</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
